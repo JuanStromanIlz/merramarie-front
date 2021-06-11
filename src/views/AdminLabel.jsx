@@ -11,15 +11,14 @@ function AdminLabel() {
   let {label} = useParams();
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_APIHOST + 'panel/items/' + label, {
+    axios.get(process.env.REACT_APP_APIHOST + 'panel/label/' + label, {
       cancelToken: newCancelToken(),
       withCredentials: true,
       headers: {
         'authorization': `Bearer ${token}`
       }
     }).then((res) => {
-      console.log(res);
-      // setLabelInfo(res.data);
+      setLabelInfo(res.data);
     }).catch((error) => {
       if (isCancel(error)) return;
     });

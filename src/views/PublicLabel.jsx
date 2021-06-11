@@ -1,15 +1,14 @@
 import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
 import {useCancelToken} from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 
 function PublicLabel() {
   const [labelInfo, setLabelInfo] = useState([]);
   const { newCancelToken, isCancel } = useCancelToken();
-  let {label} = useParams();
+  const label = window.location.pathname;
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_APIHOST + 'public/' + label, {
+    axios.get(process.env.REACT_APP_APIHOST + 'public/label' + label, {
       cancelToken: newCancelToken()
     }).then((res) => {
       setLabelInfo(res.data);
@@ -19,7 +18,7 @@ function PublicLabel() {
   }, []);
 
   return (
-    <h1>Public {label}</h1>
+    <h1>Public label {label}</h1>
   );
 };
 

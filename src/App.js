@@ -17,22 +17,27 @@ import AdminLogOut from './views/AdminLogOut';
 import AdminControl from './views/AdminControl';
 import AdminFolder from './views/AdminFolder';
 import AdminLabel from './views/AdminLabel';
+import AdminNewEntry from './views/AdminNewEntry';
 
 function App() {
+  const labels = ['editorial', 'artwork', 'commercial', 'films', 'exhibitions', 'publications'];
   return (
     <ThemeProvider theme={theme}>
       <StyledApp />
       <Router>
         <Switch>
           <Route exact path='/' render={() => <PublicHome />}/>
-          <Route exact path='/home/:label' render={() => <PublicLabel />}/>
-          <Route exact path='/home/:label/:name' render={() => <PublicFolder />}/>
+          {labels.map(label => {
+            return <Route exact path={`/${label}`} render={() => <PublicLabel />}/>
+          })}
+          <Route exact path='/:name' render={() => <PublicFolder />}/>
           <AdminContext>
-            <Route exact path='/panel' render={() => <AdminLog />}/>
-            <PrivateRoute exact path='/close' component={AdminLogOut}/>
-            <PrivateRoute exact path='/control' component={AdminControl}/>
-            <PrivateRoute exact path='/control/:label' component={AdminLabel}/>
-            <PrivateRoute exact path='/control/:label/:name' component={AdminFolder}/>
+            <Route exact path='/panel/log' render={() => <AdminLog />}/>
+            <PrivateRoute exact path='/panel/close' component={AdminLogOut}/>
+            <PrivateRoute exact path='/panel/new' component={AdminNewEntry}/>
+            <PrivateRoute exact path='/panel/control' component={AdminControl}/>
+            <PrivateRoute exact path='/panel/label/:label' component={AdminLabel}/>
+            <PrivateRoute exact path='/panel/folder/:name' component={AdminFolder}/>
           </AdminContext>
         </Switch>
       </Router>

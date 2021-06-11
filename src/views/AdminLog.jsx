@@ -1,4 +1,4 @@
-import react, { useContext } from 'react';
+import { useContext } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {useCancelToken} from '../hooks/CancelTokenAxios';
@@ -21,14 +21,14 @@ function LogInView() {
     try {
       let res = await axios({
         method: 'post',
-        url: `${process.env.REACT_APP_APIHOST}panel/log_in`,
+        url: `${process.env.REACT_APP_APIHOST}panel/`,
         data: values,
         cancelToken: newCancelToken()
       });
       if (res) {
         setToken(res.data);
         localStorage.setItem(process.env.REACT_APP_LOCAL_STORAGE_NAME, res.data);
-        history.push('/control');
+        history.push('/panel/control');
       }
     } catch(err) {
       if (isCancel(err)) return;
@@ -51,7 +51,7 @@ function LogInView() {
         {({errors, touched}) => (
           <Form>
             <Field name='username' />
-            <Field name='password' />
+            <Field type='password' name='password' />
             <button type='submit'>Ingresar</button>
           </Form>
         )}

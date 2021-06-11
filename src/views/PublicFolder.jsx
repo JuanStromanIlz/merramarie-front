@@ -6,10 +6,10 @@ import axios from 'axios';
 function PublicFolder() {
   const [folder, setFolder] = useState({});
   const { newCancelToken, isCancel } = useCancelToken();
-  let {label, name} = useParams();
+  let {name} = useParams();
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_APIHOST + 'public/' + label + '/' + name, {
+    axios.get(process.env.REACT_APP_APIHOST + 'public/folder/' + name, {
       cancelToken: newCancelToken()
     }).then((res) => {
       setFolder(res.data);
@@ -19,7 +19,7 @@ function PublicFolder() {
   }, []);
 
   return (
-    <h1>Public {label + name}</h1>
+    <h1>Public folder {name}</h1>
   );
 };
 

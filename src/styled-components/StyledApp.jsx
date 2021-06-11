@@ -69,9 +69,9 @@ h1,
 h2 {
   font-weight: 400;
 } */
-button, input {
+${'' /* button, input {
   font: inherit;
-}
+} */}
 `;
 
 const theme = {};
