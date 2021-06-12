@@ -1,4 +1,5 @@
 import {Formik, Field} from 'formik';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 const FILE_SIZE = 1024 * 1024 * 5;
@@ -42,11 +43,16 @@ const ItemSchema = Yup.object().shape({
   category: Yup.string(),
   description: Yup.string(),
   videoLink: Yup.string(),
-  images: Yup.mixed()
-    .test('images', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => value || customValidate(value))
+  newImages: Yup.mixed()
+    .test('newImages', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => !value || customValidate(value))
 });
 
 function EditFolder({folder, sendEdit}) {
+  const [imagesArray, setImagesArray] = useState([]);
+
+  useEffect(() => {
+    setImagesArray(folder.images);
+  }, [folder.images]);
 
   return (
     <div>
@@ -57,10 +63,17 @@ function EditFolder({folder, sendEdit}) {
           title: folder.title,
           description: folder.description,
           videoLink: folder.videoLink,
-          images: folder.images
+          images: folder.images,
+          deleteImgs: [],
+          newImages: []
         }}
         validationSchema={ItemSchema}
         onSubmit={values => {
+          for (let propName in values) {
+            if (values[propName] === null || values[propName] === undefined || values[propName].length === 0) {
+              delete values[propName];
+            }
+          }
           sendEdit(values);
         }}
       >
@@ -84,11 +97,19 @@ function EditFolder({folder, sendEdit}) {
             <Field name='description' autoComplete='off'/>
             <label for='videoLink'>Video Link</label>
             <Field name='videoLink' autoComplete='off'/>
-            <label for='images'>Images</label>
+            <label for='newImages'>Agregar imagenes</label>
             <Field
-              name='images' 
+              name='newImages' 
               component={FileUploader}
             />
+            {folder.images && 
+              imagesArray.map(img => 
+              //This needs to be a styled-component
+              <label key={img.path}>
+                <Field type='checkbox' name='deleteImgs' value={img.path}/>
+                <img src={img.url} alt='some-img'/>
+              </label>
+            )}
             <button type='submit'>Guardar</button>
           </form>
         )}

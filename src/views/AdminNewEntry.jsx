@@ -63,7 +63,16 @@ function AdminNewEntry() {
     if ('images' in values) {
       try {
         let newItemForm = new FormData();
-        Object.keys(values).forEach(key => newItemForm.append(key, values[key]));
+        for (const key in values) {
+          const element = values[key];
+          if (key === 'images') {
+            for (let i = 0; i < element.length; i++) {
+              newItemForm.append('images', element[i]);
+            }
+          } else {
+            newItemForm.append(key, element);
+          }
+        }
         let res = await axios({
           method: 'post',
           url: `${process.env.REACT_APP_APIHOST}panel/new_with_imgs`,
@@ -75,7 +84,7 @@ function AdminNewEntry() {
           cancelToken: newCancelToken()
         });
         if (res) {
-          console.log(res.data)
+          console.log(res)
         }
       } catch(err) {
         if (isCancel(err)) return;
