@@ -1,9 +1,11 @@
 import {useContext} from 'react';
-import {Formik, Field} from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useCancelToken} from '../hooks/CancelTokenAxios';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import {AdminCont} from '../context/AdminContext';
+import {Form, Input} from '../styled-components/EntryForm';
 
 const FILE_SIZE = 1024 * 1024 * 5;
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -44,15 +46,32 @@ function customValidate(value){
 const ItemSchema = Yup.object().shape({
   title: Yup.string().required('Ingrese un titulo'),
   category: Yup.string(),
-  description: Yup.string(),
-  videoLink: Yup.string(),
+  description: Yup.string()
+  .test((value, {parent, createError}) => {
+    return !value && !parent.videoLink && parent.images.length === 0 ? 
+      createError({
+        path: 'global',
+        message: 'uno de estos campos es obligatorio'
+      })
+    : true;
+  }),
+  videoLink: Yup.string()
+  .test((value, {parent, createError}) => {
+    return !value && !parent.description && parent.images.length === 0 ? 
+      createError({
+        path: 'global',
+        message: 'uno de estos campos es obligatorio'
+      })
+    : true;
+  }),
   images: Yup.mixed()
-    .test('images', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => value || customValidate(value))
+    .test('images', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => customValidate(value)),
 });
 
 function AdminNewEntry() {
   const {token} = useContext(AdminCont);
   const { newCancelToken, isCancel } = useCancelToken();
+  let history = useHistory();
 
   async function sendValues(values) {
     for (let propName in values) {
@@ -83,8 +102,11 @@ function AdminNewEntry() {
           data: newItemForm,
           cancelToken: newCancelToken()
         });
-        if (res) {
-          console.log(res)
+        if (res.status === 201) {
+          let title = values.title.trim();
+          title = title.toLowerCase();
+          title = title.replace(/ /g, '_');
+          history.push(`/panel/folder/${title}`);
         }
       } catch(err) {
         if (isCancel(err)) return;
@@ -101,8 +123,11 @@ function AdminNewEntry() {
           data: values,
           cancelToken: newCancelToken()
         });
-        if (res) {
-          console.log(res.data)
+        if (res.status === 201) {
+          let title = values.title.trim();
+          title = title.toLowerCase();
+          title = title.replace(/ /g, '_');
+          history.push(`/panel/folder/${title}`);
         }
       } catch(err) {
         if (isCancel(err)) return;
@@ -114,7 +139,7 @@ function AdminNewEntry() {
     <div>
       <Formik
         initialValues={{
-         label: '',
+         label: 'editorial',
          category: '',
          title: '',
          description: '',
@@ -122,36 +147,50 @@ function AdminNewEntry() {
          images: []
        }}
        validationSchema={ItemSchema}
-       onSubmit={values => {
+       onSubmit={(values, { resetForm })=> {
          sendValues(values)
+         resetForm();
        }}
       >
         {({errors, touched, handleSubmit}) => (
-          <form onSubmit={handleSubmit}>
-            <label for='label'>Label</label>
-            <Field as="select" name="label">
-              <option value='editorial'>editorial</option>
-              <option value='artwork'>artwork</option>
-              <option value='commercial'>commercial</option>
-              <option value='films'>films</option>
-              <option value='exhibitions'>exhibitions</option>
-              <option value='publications'>publications</option>
-            </Field>
-            <label for='title'>Title</label>
-            <Field name='title' />
-            <label for='category'>Category</label>
-            <Field name='category' />
-            <label for='description'>Description</label>
-            <Field name='description' />
-            <label for='videoLink'>Video Link</label>
-            <Field name='videoLink' />
-            <label for='images'>Images</label>
-            <Field
-              name='images' 
-              component={FileUploader}
-            />
+          <Form onSubmit={handleSubmit}>
+          {console.log(errors)}
+            <div className='form__inputContainer'>
+              <label for='label'>Label</label>
+              <Input as="select" name="label">
+                <option value='editorial'>editorial</option>
+                <option value='artwork'>artwork</option>
+                <option value='commercial'>commercial</option>
+                <option value='films'>films</option>
+                <option value='exhibitions'>exhibitions</option>
+                <option value='publications'>publications</option>
+              </Input>
+            </div>
+            <div className='form__inputContainer'>
+              <label for='title'>Title</label>
+              <Input name='title' />
+            </div>
+            <div className='form__inputContainer'>
+              <label for='category'>Category</label>
+              <Input name='category' />  
+            </div>
+            <div className='form__inputContainer'>
+              <label for='description'>Description</label>
+              <Input name='description' />
+            </div>
+            <div className='form__inputContainer'>
+              <label for='videoLink'>Video Link</label>
+              <Input name='videoLink' />
+            </div>
+            <div className='form__inputContainer'>
+              <label for='images'>Images</label>
+              <Input
+                name='images' 
+                component={FileUploader}
+              />
+            </div>
             <button type='submit'>Ingresar</button>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

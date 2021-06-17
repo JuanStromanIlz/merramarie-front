@@ -47,10 +47,12 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: Montreal,Helvetica,Arial,sans-serif;
-  font-weight: 400;
-  font-size: 4rem;
+  ${'' /* font-weight: 400; */}
+  font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: black;
+  color: white;
 }
 *,
 :after,
@@ -60,20 +62,42 @@ body {
 h1, h2, h3, h4, h5, h6, p, a {
   margin: 0;
   padding: 0;
+  font-weight: inherit;
+  font-style: inherit;
 }
-/* h1 {
+span {
+  display: block;
+}
+hr {
+  border: 0px;
+  margin: 0px;
+  padding-top: 1rem;
+  :before {
+    content: "";
+    display: block;
+    border-top: 2px solid ${props => props.theme.colors.pink};
+  }
+}
+a {
+  color: ${props => props.theme.colors.green};
   text-decoration: none;
-  font-size: 3rem;
+  word-break: break-all;
+  :hover {
+    text-decoration: underline;
+    font-style: italic;
+  }
 }
-h1,
-h2 {
-  font-weight: 400;
-} */
-${'' /* button, input {
+button, input {
   font: inherit;
-} */}
+}
 `;
 
-const theme = {};
+const theme = {
+  colors: {
+    pink: '#f2d5d5',
+    red: '#bd2929',
+    green: '#aee19f'
+  }
+};
 
 export {StyledApp, theme};

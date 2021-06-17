@@ -37,12 +37,27 @@ function customValidate(value){
     return true;
   }
 }
-
 const ItemSchema = Yup.object().shape({
-  title: Yup.string().required('Titulo obligatorio'),
+  title: Yup.string().required('Ingrese un titulo'),
   category: Yup.string(),
-  description: Yup.string(),
-  videoLink: Yup.string(),
+  description: Yup.string()
+  .test((value, {parent, createError}) => {
+    return !value && !parent.videoLink && !parent.images && parent.newImages.length === 0 ? 
+      createError({
+        path: 'global',
+        message: 'uno de estos campos es obligatorio'
+      })
+    : true;
+  }),
+  videoLink: Yup.string()
+  .test((value, {parent, createError}) => {
+    return !value && !parent.description && !parent.images && parent.newImages.length === 0 ? 
+      createError({
+        path: 'global',
+        message: 'uno de estos campos es obligatorio'
+      })
+    : true;
+  }),
   newImages: Yup.mixed()
     .test('newImages', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => !value || customValidate(value))
 });

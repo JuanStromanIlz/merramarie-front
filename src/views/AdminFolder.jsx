@@ -3,14 +3,19 @@ import {AdminCont} from '../context/AdminContext';
 import {useParams} from 'react-router-dom';
 import {useCancelToken} from '../hooks/CancelTokenAxios';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import EditFolder from '../components/EditFolder';
+import {Loading} from '../styled-components/Loading';
+import {Folder} from '../styled-components/Folder';
 
 function AdminFolder() {
+  const [loading, setLoading] = useState(true);
   const [folder, setFolder] = useState({});
   const [edit, setEdit] = useState(false);
   const { newCancelToken, isCancel } = useCancelToken();
   const {token} = useContext(AdminCont);
   let {name} = useParams();
+  let history = useHistory();
 
   async function deleteItem() {
     try {
@@ -83,8 +88,11 @@ function AdminFolder() {
           data: sendForm,
           cancelToken: newCancelToken()
         });
-        if (res) {
-          console.log(res.data)
+        if (res.status === 201) {
+          let title = values.title.trim();
+          title = title.toLowerCase();
+          title = title.replace(/ /g, '_');
+          history.push(`/panel/folder/${title}`);
         }
       } catch (err) {
 
@@ -101,8 +109,11 @@ function AdminFolder() {
           data: formToSave,
           cancelToken: newCancelToken()
         });
-        if (res) {
-          console.log(res.data)
+        if (res.status === 201) {
+          let title = values.title.trim();
+          title = title.toLowerCase();
+          title = title.replace(/ /g, '_');
+          history.push(`/panel/folder/${title}`);
         }
       } catch (err) {
 
@@ -119,6 +130,7 @@ function AdminFolder() {
       }
     }).then((res) => {
       setFolder(res.data);
+      setLoading(false);
     }).catch((error) => {
       if (isCancel(error)) return;
     });
@@ -126,11 +138,12 @@ function AdminFolder() {
 
   return (
     <>
-    <button onClick={() => setEdit(!edit)}>Editar</button>
-    <button onClick={() => deleteItem()}>Eliminar</button>
-    {edit ?
-    <EditFolder folder={folder} sendEdit={saveEdit}/> :
-    <h1>{folder.title}</h1>}
+      {loading ?
+        <Loading />
+      : edit ? 
+        <EditFolder folder={folder} sendEdit={saveEdit}/> :
+        <Folder folder={folder}/>
+      }
     </>
   );
 };
