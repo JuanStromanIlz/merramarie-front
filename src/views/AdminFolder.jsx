@@ -30,6 +30,7 @@ function AdminFolder() {
       });
       if (res) {
         console.log(res.data)
+        history.push(`/panel/label/${folder.label}`);
       }
     } catch(err) {
 
@@ -92,7 +93,7 @@ function AdminFolder() {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.push(`/panel/folder/${title}`);
+          history.go(0);
         }
       } catch (err) {
 
@@ -113,7 +114,7 @@ function AdminFolder() {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.push(`/panel/folder/${title}`);
+          history.go(0);
         }
       } catch (err) {
 
@@ -140,9 +141,16 @@ function AdminFolder() {
     <>
       {loading ?
         <Loading />
-      : edit ? 
-        <EditFolder folder={folder} sendEdit={saveEdit}/> :
-        <Folder folder={folder}/>
+      : 
+        <>
+          <div>
+            <button onClick={() => setEdit(!edit)}>Editar</button>
+            <button onClick={() => deleteItem()}>Eliminar</button>
+          </div>
+          {edit ? 
+            <EditFolder folder={folder} sendEdit={saveEdit}/> :
+          <Folder folder={folder}/>}
+        </>
       }
     </>
   );

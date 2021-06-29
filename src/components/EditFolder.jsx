@@ -1,6 +1,7 @@
 import {Formik, Field} from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
+import {Form, Input} from '../styled-components/EntryForm';
 
 const FILE_SIZE = 1024 * 1024 * 5;
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -93,40 +94,54 @@ function EditFolder({folder, sendEdit}) {
         }}
       >
         {({values, errors, touched, handleSubmit}) => (
-          <form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             {console.log(errors)}
-            <label for='label'>Label</label>
-            <Field as="select" name="label">
-              <option value='editorial'>editorial</option>
-              <option value='artwork'>artwork</option>
-              <option value='commercial'>commercial</option>
-              <option value='films'>films</option>
-              <option value='exhibitions'>exhibitions</option>
-              <option value='publications'>publications</option>
-            </Field>
-            <label for='title'>Title</label>
-            <Field name='title' autoComplete='off'/>
-            <label for='category'>Category</label>
-            <Field name='category' autoComplete='off'/>
-            <label for='description'>Description</label>
-            <Field name='description' autoComplete='off'/>
-            <label for='videoLink'>Video Link</label>
-            <Field name='videoLink' autoComplete='off'/>
-            <label for='newImages'>Agregar imagenes</label>
-            <Field
-              name='newImages' 
-              component={FileUploader}
-            />
-            {folder.images && 
+            <div className='form__inputContainer'>
+              <label for='label'>Label</label>
+              <Input as="select" name="label">
+                <option value='editorial'>editorial</option>
+                <option value='artwork'>artwork</option>
+                <option value='commercial'>commercial</option>
+                <option value='films'>films</option>
+                <option value='exhibitions'>exhibitions</option>
+                <option value='publications'>publications</option>
+              </Input>
+            </div>
+            <div className='form__inputContainer'>
+              <label for='title'>Title</label>
+              <Input name='title' autoComplete='off'/>
+            </div>
+            <div className='form__inputContainer'>
+              <label for='category'>Category</label>
+              <Input name='category' autoComplete='off'/>
+            </div>
+            <div className='form__inputContainer'>
+              <label for='description'>Description</label>
+              <Input name='description' autoComplete='off'/>
+            </div>
+            <div className='form__inputContainer'>
+              <label for='videoLink'>Video Link</label>
+              <Input name='videoLink' autoComplete='off'/>
+            </div>
+            <div className='form__inputContainer'>
+              <label for='newImages'>Agregar imagenes</label>
+              <Input
+                name='newImages' 
+                component={FileUploader}
+              />
+            </div>
+            <div className='imagesEdit'>
+            {folder.images ?
               imagesArray.map(img => 
               //This needs to be a styled-component
               <label key={img.path}>
                 <Field type='checkbox' name='deleteImgs' value={img.path}/>
                 <img src={img.url} alt='some-img'/>
               </label>
-            )}
+            ) : null}
+            </div>
             <button type='submit'>Guardar</button>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

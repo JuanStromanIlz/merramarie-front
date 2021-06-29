@@ -25,29 +25,14 @@ const Folder = styled.div`
     padding-right: 2.6rem;
     header {
       margin-bottom: 150px;
-      .label {
-        letter-spacing: .5rem;
-        text-transform: uppercase;
-        color: ${props => props.theme.colors.pink};
-      }
+      position: sticky;
+      top: 70px;
+      z-index: 1;
       .header__title {
-        margin-top: 3.1rem;
-        margin-bottom: 3.6rem;
-        h1 {
-          font-size: 5.6rem;
-          line-height: 5.6rem;
-          margin-bottom: .6rem;
-          color: ${props => props.theme.colors.red};
-        }
-        .category {
-          font-size: 1.8rem;
-          margin-right: auto;
-        }
-      }
-      .header__social {
-        display: flex;
-        flex-direction: row;
-        margin-left: -1.7rem;
+        font-size: 5.6rem;
+        line-height: 5.6rem;
+        -webkit-text-stroke: 2px ${props => props.theme.colors.red};
+        color: transparent;
       }
     }
     .content {
@@ -60,7 +45,6 @@ const Folder = styled.div`
         .imgContainer {
           display: inline-block;
           width: 100%;
-          ${'' /* height: 700px; */}
           > div {
             height: 100%;
             width: 100%;
@@ -101,26 +85,26 @@ const Folder = styled.div`
           height:100%;
         }
       }
+      .content__social {
+        display: flex;
+        flex-direction: row;
+      }
     }
     footer {
       border-top: 2px solid ${props => props.theme.colors.pink};
       padding-top: 2rem;
+      .footer__nav {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
   @media (min-width: 920px) {
     article {
       header {
-        .label {
-          font-size: 3.5rem;
-        }
         .header__title {
-          h1 {
           font-size: 7.6rem;
           line-height: 7.6rem;
-          }
-          .category {
-            font-size: 2.6rem;
-          }
         }
       }
       .content {
@@ -146,56 +130,10 @@ const FolderView = ({folder, backToLabel}) => {
     <Folder>
       <div className='folder__wrapper'>
         <article>
-          <header>
-            <h3 className='label' onClick={() => backToLabel()}>{folder.label}</h3>
-            <div className='header__title'>
-              <h1>{folder.title}</h1>
-              {folder.category ? <h4 className='category'>{folder.category}</h4> : null}
-            </div>
-            <div className='header__social'>
-              <div>
-              <FacebookShareButton
-                url={process.env.REACT_APP_FRONTEND + folder.route_title}
-                quote={`Merra Marie: ` + folder.title}
-              >
-                <FacebookIcon size={50} bgStyle={{fill: 'black'}}/>
-              </FacebookShareButton>
-              </div>
-              <div>
-              <TwitterShareButton
-                url={process.env.REACT_APP_FRONTEND + folder.route_title}
-                title={`Merra Marie: ` + folder.title}
-              >
-                <TwitterIcon size={50} bgStyle={{fill: 'black'}}/>
-              </TwitterShareButton>
-              </div>
-              <div>
-              <TumblrShareButton
-                url={process.env.REACT_APP_FRONTEND + folder.route_title}
-                title={`Merra Marie: ` + folder.title}
-              >
-                <TumblrIcon size={50} bgStyle={{fill: 'black'}}/>
-              </TumblrShareButton>
-              </div>
-              <div>
-              <WhatsappShareButton
-                // url={process.env.REACT_APP_FRONTEND + folder.route_title}
-                url='https://fonts.google.com/icons'
-                title={`Merra Marie: ` + folder.title}
-              >
-                <WhatsappIcon size={50} bgStyle={{fill: 'black'}}/>
-              </WhatsappShareButton>
-              </div>
-            </div>
+          <header className='header__floatTitle'>
+            <h1 className='header__title'>{folder.title}</h1>
           </header>
           <div className='content'>
-            {folder.description ? 
-              <div className='content__text'>
-              <Linkify>
-                <p>{folder.description}</p>
-              </Linkify>
-              </div>
-            : null}
             {folder.images ? 
             <div className='content__images'>
               {folder.images.map((img, i) => 
@@ -207,19 +145,62 @@ const FolderView = ({folder, backToLabel}) => {
               )}
             </div> : null}
             {folder.videoLink ? 
-              <div className='content__video'>
-                <iframe 
-                  title={folder.title} 
-                  src={folder.videoLink} 
-                  frameborder="0" 
-                  allow="fullscreen; picture-in-picture" 
-                  allowfullscreen 
-                ></iframe>
+            <div className='content__video'>
+              <iframe 
+                title={folder.title} 
+                src={folder.videoLink} 
+                frameborder="0" 
+                allow="fullscreen; picture-in-picture" 
+                allowfullscreen 
+              ></iframe>
+            </div> : null}
+            {folder.description ? 
+            <div className='content__text'>
+            <Linkify>
+              <p>{folder.description}</p>
+            </Linkify>
+            </div> : null}
+            <div className='content__social'>
+              <div>
+              <FacebookShareButton
+                url={process.env.REACT_APP_FRONTEND + folder.route_title}
+                quote={`Merra Marie: ` + folder.title}
+              >
+                <FacebookIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
+              </FacebookShareButton>
               </div>
-             : null}
+              <div>
+              <TwitterShareButton
+                url={process.env.REACT_APP_FRONTEND + folder.route_title}
+                title={`Merra Marie: ` + folder.title}
+              >
+                <TwitterIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
+              </TwitterShareButton>
+              </div>
+              <div>
+              <TumblrShareButton
+                url={process.env.REACT_APP_FRONTEND + folder.route_title}
+                title={`Merra Marie: ` + folder.title}
+              >
+                <TumblrIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
+              </TumblrShareButton>
+              </div>
+              <div>
+              <WhatsappShareButton
+                // url={process.env.REACT_APP_FRONTEND + folder.route_title}
+                url='https://fonts.google.com/icons'
+                title={`Merra Marie: ` + folder.title}
+              >
+                <WhatsappIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
+              </WhatsappShareButton>
+              </div>
+            </div>
           </div>
           <footer>
-            <h3>ver mas {folder.label}</h3>
+            <div className='footer__nav'>
+              <h3>&lt; back</h3>
+              <h3>next &gt;</h3>
+            </div>
           </footer>
         </article>
       </div>

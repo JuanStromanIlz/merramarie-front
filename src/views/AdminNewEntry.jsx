@@ -154,7 +154,7 @@ function AdminNewEntry() {
       >
         {({errors, touched, handleSubmit}) => (
           <Form onSubmit={handleSubmit}>
-          {console.log(errors)}
+            {console.log(errors)}
             <div className='form__inputContainer'>
               <label for='label'>Label</label>
               <Input as="select" name="label">

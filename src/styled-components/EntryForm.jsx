@@ -19,7 +19,16 @@ const Form = styled.form`
       font-size: 1.8rem;
     }
   }
-  
+  .imagesEdit {
+    display: flex;
+    flex-direction: row;
+    img {
+      max-width: 200px;
+    }
+  }
+  button {
+    max-width: 100px;
+  }
 `;
 
 const Input = styled(Field)`

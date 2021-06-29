@@ -82,13 +82,81 @@ a {
   color: ${props => props.theme.colors.green};
   text-decoration: none;
   word-break: break-all;
-  :hover {
-    text-decoration: underline;
-    font-style: italic;
-  }
 }
 button, input {
   font: inherit;
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.titleSlice__open {
+  animation: sliceOpen 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  @keyframes sliceOpen {
+    0% {
+      transform: translateX(0px);
+    }
+    100% {
+      transform: translateX(-500px);
+    }
+  }
+}
+
+.titleSlice__close {
+  animation: sliceClose 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  @keyframes sliceClose {
+    0% {
+      transform: translateX(-500px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+}
+
+.menuSlice__open {
+  animation: menuOpen 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  @keyframes menuOpen {
+    0% { 
+      opacity: 0; 
+    }
+    100% { 
+      opacity: 1; 
+    }
+  }
+}
+
+.menuSlice__close {
+  animation: menuClose 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  @keyframes menuClose {
+    0% { 
+      opacity: 1; 
+    }
+    100% { 
+      opacity: 0; 
+    }
+  }
 }
 `;
 
