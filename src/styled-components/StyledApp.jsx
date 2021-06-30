@@ -40,7 +40,7 @@ html {
   background-color: #fff;
 }
 ::selection {
-  background-color: #0f0;
+  background-color: ${props => props.theme.colors.red};
 }
 body {
   margin: 0;
@@ -110,54 +110,9 @@ button, input {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-
-.titleSlice__open {
-  animation: sliceOpen 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  @keyframes sliceOpen {
-    0% {
-      transform: translateX(0px);
-    }
-    100% {
-      transform: translateX(-500px);
-    }
+.noClick {
+    z-index: -1;
   }
-}
-
-.titleSlice__close {
-  animation: sliceClose 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  @keyframes sliceClose {
-    0% {
-      transform: translateX(-500px);
-    }
-    100% {
-      transform: translateX(0px);
-    }
-  }
-}
-
-.menuSlice__open {
-  animation: menuOpen 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  @keyframes menuOpen {
-    0% { 
-      opacity: 0; 
-    }
-    100% { 
-      opacity: 1; 
-    }
-  }
-}
-
-.menuSlice__close {
-  animation: menuClose 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  @keyframes menuClose {
-    0% { 
-      opacity: 1; 
-    }
-    100% { 
-      opacity: 0; 
-    }
-  }
-}
 `;
 
 const theme = {

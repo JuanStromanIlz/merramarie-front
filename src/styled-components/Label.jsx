@@ -1,4 +1,37 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { StickyTitle } from './StickyTitle';
+
+const Card = styled.div`
+  cursor: pointer;
+  display: inline-block;
+  padding: 1rem;
+  transition: .1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  .mediaContainer {
+    aspect-ratio: 7 / 4;
+    margin-bottom: 1.5rem;
+  }
+  .mediaContainer__image {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  .mediaContainer__video {
+    position: relative;
+    iframe {
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+    }
+  }
+  .cardInfo {
+  }
+`;
 
 const Label = styled.div`
   .label__wrapper {
@@ -9,78 +42,50 @@ const Label = styled.div`
     padding-bottom: 4rem;
     padding-left: 2.6rem;
     padding-right: 2.6rem;
-    .label__title {
-      h1 {
-        font-size: 5.6rem;
-        line-height: 5.6rem;
-        margin-bottom: 3rem;
-        -webkit-text-stroke: 2px ${props => props.theme.colors.red};
-        color: transparent;
-        text-transform: uppercase;
-      }
-    }
     .label__content {
-      display: flex;
-      gap: 2rem;
-      align-content: flex-start;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1f));
+      grid-gap: 2rem;
+    }
+  }
+  .cardItem__blur {
+    opacity: .3;
+    transform: scale(.8);
+  }
+  .cardItem__select {
+    transform: scale(1.1);
+  }
+  @media (min-width: 480px) {
+    .label__content {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
     }
   }
   @media (min-width: 920px) {
     .label__content {
-      flex-direction: row !important;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
     }
   }
 `;
 
-const Card = styled.div`
-  width: 450px;
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  header {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    margin-bottom: 1.5rem;
-    .imageContainer {
-      position: absolute;
-      inset: 0 0 0 0;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-    }
-  }
-  .card__content {
-  }
-`;
-
-const LabelCard = ({item, sendTo}) => {
+const LabelCard = ({item, sendTo, selectItem, isShow}) => {
   return (
-    <Card onClick={() => sendTo(item.route_title)}>
+    <Card className={`card__item ${isShow !== null && isShow !== item.route_title ? 'cardItem__blur' : isShow !== null && isShow === item.route_title ? 'cardItem__select' : '' }`} onClick={() => sendTo(item.route_title)} onMouseOver={() => selectItem(item.route_title)} onMouseLeave={() => selectItem(null)}>
       {item.images ? 
-        <header>
-          <div className='imageContainer'>
-            <img src={item.images[0].url} alt={item.title}></img>
-          </div>
-        </header>
-        : 
-        item.videoLink ?
-          <header>
-            <div className='videoContainer'>
-              <iframe 
-                title={item.title} 
-                src={item.videoLink} 
-                frameborder="0" 
-                allow="fullscreen; picture-in-picture" 
-                allowfullscreen 
-              ></iframe>
-            </div> 
-          </header>
+        <div className='mediaContainer mediaContainer__image'>
+          <img src={item.images[0].url} alt={item.title}></img>
+        </div>
+      : item.videoLink ?
+        <div className='mediaContainer mediaContainer__video'>
+          <iframe 
+            title={item.title} 
+            src={item.videoLink} 
+            frameborder="0" 
+            allow="fullscreen; picture-in-picture" 
+            allowfullscreen 
+          ></iframe>
+        </div>
       : null }
-      <div className='card_info'>
+      <div className='cardInfo'>
         <h1>{item.title}</h1>
         {item.category ? <h4>{item.category}</h4> : null}
       </div>
@@ -89,15 +94,19 @@ const LabelCard = ({item, sendTo}) => {
 };
 
 const LabelView = ({name, label, sendTo}) => {
+  const [isShow, setIsShow] = useState(null);
+
+  function selectItem(name) {
+    setIsShow(name)
+  }
+
   return (
     <Label>
       <div className='label__wrapper'>
-        <div className='label__title'>
-          <h1>{name}</h1>
-        </div>
+        <StickyTitle>{name}</StickyTitle>
         <div className='label__content'>
           {label.map(item => 
-            <LabelCard item={item} sendTo={sendTo}/>
+            <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow}/>
           )}
         </div>
       </div>

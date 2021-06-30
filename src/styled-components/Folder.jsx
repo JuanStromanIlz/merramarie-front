@@ -11,6 +11,7 @@ import {
   WhatsappShareButton, 
   WhatsappIcon
 } from 'react-share';
+import { StickyTitle } from './StickyTitle';
 
 const Folder = styled.div`
   .folder__wrapper {
@@ -23,18 +24,6 @@ const Folder = styled.div`
     padding-bottom: 4rem;
     padding-left: 2.6rem;
     padding-right: 2.6rem;
-    header {
-      margin-bottom: 150px;
-      position: sticky;
-      top: 70px;
-      z-index: 1;
-      .header__title {
-        font-size: 5.6rem;
-        line-height: 5.6rem;
-        -webkit-text-stroke: 2px ${props => props.theme.colors.red};
-        color: transparent;
-      }
-    }
     .content {
       > div {
         margin-bottom: 2rem;
@@ -42,32 +31,24 @@ const Folder = styled.div`
       .content__text {
       }
       .content__images {
-        .imgContainer {
-          display: inline-block;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(600px, 1f));
+        grid-gap: 2rem;
+        .imgContainer:last-child img {
+          margin: 0 auto;
+        }
+        img {
+          height: 100%;
           width: 100%;
-          > div {
-            height: 100%;
-            width: 100%;
-          }
-          img {
-            height: 100%;
-            width: 100%;
-            object-fit: contain;
-            display: flex;
-            padding-bottom: 2rem;
-          }
+          object-fit: cover;
         }
-        .imgContainer:last-child {
-          padding-bottom: 0;
-          img {
-            margin-left: auto;
-            margin-right: auto;
-          }
-        }
-        .bigImage {
-          max-width: 100% !important;
+        .bigImg {
+          grid-column-start: 1;
+          grid-column-end: 2;
           img {
             max-width: 900px;
+            display: block;
+            margin: 0 auto;
           }
         }
       }
@@ -100,44 +81,26 @@ const Folder = styled.div`
     }
   }
   @media (min-width: 920px) {
-    article {
-      header {
-        .header__title {
-          font-size: 7.6rem;
-          line-height: 7.6rem;
-        }
-      }
-      .content {
-        .content__images {
-          .imgContainer {
-            max-width: 50%;
-          }
-          .imgContainer:nth-child(odd) img {
-            padding-right: 2rem;
-          }
-          .imgContainer:last-child img {
-            padding-bottom: 0;
-            padding-right: 0;
-          }
-        }
+    .content__images {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;
+      .bigImg {
+        grid-column-end: 3 !important;
       }
     }
   }
 `;
 
-const FolderView = ({folder, backToLabel}) => {
+const FolderView = ({folder}) => {
   return (
-    <Folder>
+    <Folder className='folder__item'>
       <div className='folder__wrapper'>
         <article>
-          <header className='header__floatTitle'>
-            <h1 className='header__title'>{folder.title}</h1>
-          </header>
+          <StickyTitle>{folder.title}</StickyTitle>
           <div className='content'>
             {folder.images ? 
             <div className='content__images'>
               {folder.images.map((img, i) => 
-                <div key={i} className={`imgContainer ${img.width > img.height ? 'bigImage' : ''}`}>
+                <div key={i} className={`imgContainer ${img.width > img.height ? 'bigImg' : ''}`}>
                   <LazyLoad once>
                     <img src={img.url} alt={folder.title}/>
                   </LazyLoad>
@@ -198,7 +161,7 @@ const FolderView = ({folder, backToLabel}) => {
           </div>
           <footer>
             <div className='footer__nav'>
-              <h3>&lt; back</h3>
+              <a href={`${process.env.REACT_APP_FRONTEND + folder.label}`}><h3>&lt; back</h3></a>
               <h3>next &gt;</h3>
             </div>
           </footer>

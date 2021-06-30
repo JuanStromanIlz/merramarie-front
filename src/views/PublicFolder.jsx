@@ -1,9 +1,9 @@
-import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import {useCancelToken} from '../hooks/CancelTokenAxios';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
-import {Loading} from '../styled-components/Loading';
-import {Folder} from '../styled-components/Folder';
+import { Loading } from '../styled-components/Loading';
+import { Folder } from '../styled-components/Folder';
 import { Nav } from '../styled-components/Navbar';
 
 function PublicFolder() {
