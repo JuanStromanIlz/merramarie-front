@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Loading } from '../styled-components/Loading';
 import { Label } from '../styled-components/Label';
 import { Nav } from '../styled-components/Navbar';
-
+import { Wrapper } from '../styled-components/PageWrapper';
 
 function PublicLabel() {
   const [labelInfo, setLabelInfo] = useState([]);
@@ -36,7 +36,9 @@ function PublicLabel() {
       : 
       <>
         <Nav />
-        <Label name={label} label={labelInfo} sendTo={sendTo}/>
+        <Wrapper>
+          <Label name={label} label={labelInfo} sendTo={sendTo}/>
+        </Wrapper>
       </>}
     </>
   );

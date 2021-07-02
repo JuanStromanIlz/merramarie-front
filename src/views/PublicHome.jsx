@@ -19,7 +19,7 @@ function PublicHome() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, []);
+  }, [isCancel, newCancelToken]);
 
   return (
     <>
@@ -27,7 +27,7 @@ function PublicHome() {
         <Loading />
       : 
       <>
-        <Nav />
+        {/* <Nav /> */}
         <StickyTitle>Home</StickyTitle>
       </>}
     </>

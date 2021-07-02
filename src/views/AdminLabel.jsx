@@ -5,6 +5,9 @@ import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import { Label } from '../styled-components/Label';
+import { Nav } from '../styled-components/Navbar';
+import { AdminNav } from '../styled-components/AdminNav';
+import { Wrapper } from '../styled-components/PageWrapper';
 
 function AdminLabel() {
   const [labelInfo, setLabelInfo] = useState([]);
@@ -29,10 +32,16 @@ function AdminLabel() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, []);
+  }, [isCancel, newCancelToken, label, token]);
 
   return (
-    <Label name={label} label={labelInfo} sendTo={sendTo}/>
+    <>
+      <Nav />
+      <AdminNav />
+      <Wrapper>
+        <Label name={label} label={labelInfo} sendTo={sendTo}/>
+      </Wrapper>
+    </>
   );
 };
 

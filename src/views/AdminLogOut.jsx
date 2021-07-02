@@ -5,16 +5,15 @@ import { AdminCont } from "../context/AdminContext";
 function AdminLogOut() {
   const {setToken} = useContext(AdminCont);
   let history = useHistory();
-  
-  function closeAdmin() {
-    localStorage.removeItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
-    setToken(false);
-  }
 
   useEffect(() => {
+    function closeAdmin() {
+      localStorage.removeItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
+      setToken(false);
+    }
     closeAdmin();
     history.push('/panel');
-  }, []);
+  }, [setToken, history]);
 
   return (
     <h1>AdminLogOut</h1>

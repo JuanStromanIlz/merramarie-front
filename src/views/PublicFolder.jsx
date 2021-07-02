@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Loading } from '../styled-components/Loading';
 import { Folder } from '../styled-components/Folder';
 import { Nav } from '../styled-components/Navbar';
+import { Wrapper } from '../styled-components/PageWrapper';
 
 function PublicFolder() {
   const [folder, setFolder] = useState({});
@@ -30,7 +31,9 @@ function PublicFolder() {
       : 
       <>
         <Nav />
-        <Folder folder={folder}/>
+        <Wrapper>
+          <Folder folder={folder}/>
+        </Wrapper>
       </>}
     </>
   );

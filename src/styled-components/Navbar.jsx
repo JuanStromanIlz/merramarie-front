@@ -244,7 +244,8 @@ const Nav = () => {
     if (window.innerWidth > 920 && menu) {
       openMenu();
     } 
-  }, [window.innerWidth]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.innerWidth, menu]);
 
   return (
     <Navbar>

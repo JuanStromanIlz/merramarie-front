@@ -29,24 +29,13 @@ const Card = styled.div`
       height:100%;
     }
   }
-  .cardInfo {
-  }
 `;
 
 const Label = styled.div`
-  .label__wrapper {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    padding-left: 2.6rem;
-    padding-right: 2.6rem;
-    .label__content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1f));
-      grid-gap: 2rem;
-    }
+  .label__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1f));
+    grid-gap: 2rem;
   }
   .cardItem__blur {
     opacity: .3;
@@ -87,7 +76,7 @@ const LabelCard = ({item, sendTo, selectItem, isShow}) => {
       : null }
       <div className='cardInfo'>
         <h1>{item.title}</h1>
-        {item.category ? <h4>{item.category}</h4> : null}
+        <span>{item.category}</span>
       </div>
     </Card>
   );
@@ -102,13 +91,11 @@ const LabelView = ({name, label, sendTo}) => {
 
   return (
     <Label>
-      <div className='label__wrapper'>
-        <StickyTitle>{name}</StickyTitle>
-        <div className='label__content'>
-          {label.map(item => 
-            <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow}/>
-          )}
-        </div>
+      <StickyTitle>{name}</StickyTitle>
+      <div className='label__content'>
+        {label.map(item => 
+          <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow}/>
+        )}
       </div>
     </Label>
   );

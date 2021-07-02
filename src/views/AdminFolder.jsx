@@ -1,20 +1,23 @@
-import {useState, useEffect, useContext} from 'react';
-import {AdminCont} from '../context/AdminContext';
-import {useParams} from 'react-router-dom';
-import {useCancelToken} from '../hooks/CancelTokenAxios';
+import { useState, useEffect, useContext } from 'react';
+import { AdminCont } from '../context/AdminContext';
+import { useParams } from 'react-router-dom';
+import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import EditFolder from '../components/EditFolder';
-import {Loading} from '../styled-components/Loading';
-import {Folder} from '../styled-components/Folder';
+import { Loading } from '../styled-components/Loading';
+import { Folder } from '../styled-components/Folder';
+import { AdminNav } from '../styled-components/AdminNav';
+import { Nav } from '../styled-components/Navbar';
+import { Wrapper } from '../styled-components/PageWrapper';
 
 function AdminFolder() {
   const [loading, setLoading] = useState(true);
   const [folder, setFolder] = useState({});
   const [edit, setEdit] = useState(false);
   const { newCancelToken, isCancel } = useCancelToken();
-  const {token} = useContext(AdminCont);
-  let {name} = useParams();
+  const { token } = useContext(AdminCont);
+  let { name } = useParams();
   let history = useHistory();
 
   async function deleteItem() {
@@ -93,7 +96,8 @@ function AdminFolder() {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.go(0);
+          history.push(title);
+          setEdit(false);
         }
       } catch (err) {
 
@@ -114,7 +118,8 @@ function AdminFolder() {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.go(0);
+          history.push(title);
+          setEdit(false);
         }
       } catch (err) {
 
@@ -135,7 +140,7 @@ function AdminFolder() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, []);
+  }, [isCancel, newCancelToken, name, token]);
 
   return (
     <>
@@ -143,13 +148,13 @@ function AdminFolder() {
         <Loading />
       : 
         <>
-          <div>
-            <button onClick={() => setEdit(!edit)}>Editar</button>
-            <button onClick={() => deleteItem()}>Eliminar</button>
-          </div>
-          {edit ? 
-            <EditFolder folder={folder} sendEdit={saveEdit}/> :
-          <Folder folder={folder}/>}
+          <Nav />
+          <AdminNav setEdit={setEdit} edit={edit} deleteItem={deleteItem} />
+          <Wrapper>
+            {edit ? 
+              <EditFolder folder={folder} sendEdit={saveEdit}/> :
+            <Folder folder={folder}/>}
+          </Wrapper>
         </>
       }
     </>

@@ -1,7 +1,7 @@
-import {Formik, Field} from 'formik';
+import { Formik, Field } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import {Form, Input} from '../styled-components/EntryForm';
+import { Form, Input } from '../styled-components/EntryForm';
 
 const FILE_SIZE = 1024 * 1024 * 5;
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -24,14 +24,16 @@ const FileUploader = ({ form, field }) => {
 function customValidate(value){
   let arrayOfImgs = Array.from(value)
   let error = false;
-  arrayOfImgs.map(img => {
+  // Se cambio el metodo map por un forIn
+  for (const key in arrayOfImgs) {
+    const img = arrayOfImgs[key];
     if (img.size > FILE_SIZE) {
-      error = true;
+      return error = true;
     }
     if (!SUPPORTED_FORMATS.includes(img.type)) {
-      error = true;
+      return error = true;
     }
-  });
+  }
   if (error) {
     return false;
   } else {
