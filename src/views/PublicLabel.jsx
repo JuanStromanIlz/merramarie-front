@@ -27,7 +27,7 @@ function PublicLabel() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [isCancel, label, newCancelToken]);
+  }, [label]);
 
   return (
     <>

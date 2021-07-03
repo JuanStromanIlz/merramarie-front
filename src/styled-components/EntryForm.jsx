@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Field} from 'formik';
+import { Field } from 'formik';
 
 const Form = styled.form`
   .form__wrapper {
@@ -22,7 +22,7 @@ const Form = styled.form`
       option {
         background: #000;
       }
-      :focus {
+      :focus, :hover, :active {
         outline: none;
         background: rgba(255, 255, 255, .2);
         box-shadow: 0 1px 0 0 ${props => props.theme.colors.pink};
@@ -61,10 +61,23 @@ const Form = styled.form`
   .formInput__images {
     padding-bottom: 3rem;
     input {
+      visibility: hidden;
       border: none;
       box-shadow: 0 0 0 0 !important;
     }
+    input:before {
+      visibility: visible;
+      content: 'Subir imagenes';
+      display: inline-block;
+      padding: 1rem;
+      color: ${props => props.theme.colors.pink};
+      border: 1px solid rgba(255, 255, 255, .2);
+    }
+    input:hover:before {
+      border-color: ${props => props.theme.colors.pink};
+    }
   }
+  /* Styles for validation */
   .errorStyle {
     input, select {
       box-shadow: 0 1px 0 0 ${props => props.theme.colors.red};
@@ -74,21 +87,44 @@ const Form = styled.form`
     input, select {
       box-shadow: 0 1px 0 0 #64b450;
     }
+    input:before {
+      border-color: #64b450;
+    }
   }
   .imagesEdit {
-    display: flex;
-    flex-direction: row;
-    img {
-      max-width: 200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 2rem;
+    .imageSelect {
+      position: relative;
+      input {
+        position: absolute;
+        inset: 0;
+        margin-top: 1rem;
+        margin-left: 1rem; 
+        transform: scale(1.5);
+      }
+      label {
+        position: absolute;
+        inset: 0;
+      }
+      label:hover {
+        box-shadow: 0 0 0 1px ${props => props.theme.colors.pink};
+      }
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
     }
   }
   button {
-    max-width: 100px;
+    width: fit-content;
     text-transform: uppercase;
     font-weight: 700;
     border: 2px solid ${props => props.theme.colors.pink};
     box-shadow: 3px 3px 0 0 ${props => props.theme.colors.red};
-    padding: 1rem 0;
+    padding: 1rem;
     color: ${props => props.theme.colors.pink};
     background-color: transparent;
   }
@@ -114,4 +150,4 @@ const FormContainer = ({children, onSubmit}) => {
   );
 }
 
-export {FormContainer as Form, Input};
+export { FormContainer as Form, Input };

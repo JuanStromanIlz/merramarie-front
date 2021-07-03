@@ -32,7 +32,7 @@ function AdminLabel() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [isCancel, newCancelToken, label, token]);
+  }, [label]);
 
   return (
     <>

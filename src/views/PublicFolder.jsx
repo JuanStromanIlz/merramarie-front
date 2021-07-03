@@ -22,7 +22,7 @@ function PublicFolder() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [isCancel, name, newCancelToken]);
+  }, [name]);
 
   return (
     <>

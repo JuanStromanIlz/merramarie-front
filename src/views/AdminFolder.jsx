@@ -140,7 +140,7 @@ function AdminFolder() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [isCancel, newCancelToken, name, token]);
+  }, [name]);
 
   return (
     <>

@@ -58,7 +58,7 @@ const AdminNav = ({edit, setEdit, deleteItem}) => {
       <div className='navWrapper'>
         <div className='list'>
           <ul>
-            <li><button className='navOption' onClick={() => setEdit(!edit)}>Editar</button></li>
+            <li><button className='navOption' onClick={() => setEdit(!edit)}>{edit ? 'Volver' : 'Editar'}</button></li>
             <li><button className='navOption' onClick={() => deleteItem()}>Eliminar</button></li>
           </ul>
         </div>
