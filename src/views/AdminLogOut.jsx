@@ -12,11 +12,11 @@ function AdminLogOut() {
       setToken(false);
     }
     closeAdmin();
-    history.push('/panel');
+    history.push('/');
   }, [setToken, history]);
 
   return (
-    <h1>AdminLogOut</h1>
+    <span>close</span>
   );
 }
 

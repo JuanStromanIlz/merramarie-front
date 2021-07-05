@@ -93,7 +93,7 @@ const Form = styled.form`
   }
   .imagesEdit {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, auto);
     grid-gap: 2rem;
     .imageSelect {
       position: relative;
@@ -114,7 +114,7 @@ const Form = styled.form`
       img {
         height: 100%;
         width: 100%;
-        object-fit: cover;
+        object-fit: scale-down;
       }
     }
   }
@@ -132,6 +132,11 @@ const Form = styled.form`
     color: #64b450;
     box-shadow: 3px 3px 0 0 #64b450;
     transform: translateY(-5px);
+  }
+  @media (min-width: 920px) {
+    .imagesEdit {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    }
   }
 `;
 

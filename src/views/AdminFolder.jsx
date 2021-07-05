@@ -9,6 +9,7 @@ import { Loading } from '../styled-components/Loading';
 import { Folder } from '../styled-components/Folder';
 import { AdminNav } from '../styled-components/AdminNav';
 import { Nav } from '../styled-components/Navbar';
+import { Footer } from '../styled-components/Footer';
 import { Wrapper } from '../styled-components/PageWrapper';
 
 function AdminFolder() {
@@ -36,11 +37,12 @@ function AdminFolder() {
         history.push(`/panel/label/${folder.label}`);
       }
     } catch(err) {
-
+      history.push('/error');
     }
   }
 
   async function saveEdit(values) {
+    setLoading(true);
     let formWithImages = false;
     let newForm = values;
     delete newForm.images;
@@ -66,7 +68,7 @@ function AdminFolder() {
       }
       //Add deleteImgs to the formToSave array
       if (propName === 'deleteImgs') {
-        formToSave[propName] = newForm[propName];
+        formToSave[propName] = newForm[propName].toString();
       }
     }
     if (formWithImages) {
@@ -78,7 +80,8 @@ function AdminFolder() {
             for (let i = 0; i < element.length; i++) {
               sendForm.append('images', element[i]);
             }
-          } else {
+          } 
+          else {
             sendForm.append(key, element);
           }
         }
@@ -96,11 +99,22 @@ function AdminFolder() {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.push(title);
-          setEdit(false);
+          axios.get(process.env.REACT_APP_APIHOST + 'panel/folder/' + title, {
+            cancelToken: newCancelToken(),
+            withCredentials: true,
+            headers: {
+              'authorization': `Bearer ${token}`
+            }
+          }).then((res) => {
+            setFolder(res.data);
+            setEdit(false);
+            setLoading(false);
+          }).catch((error) => {
+            if (isCancel(error)) return;
+          });
         }
       } catch (err) {
-
+        history.push('/error');
       }
     } else {
       try {
@@ -118,11 +132,22 @@ function AdminFolder() {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.push(title);
-          setEdit(false);
+          axios.get(process.env.REACT_APP_APIHOST + 'panel/folder/' + title, {
+            cancelToken: newCancelToken(),
+            withCredentials: true,
+            headers: {
+              'authorization': `Bearer ${token}`
+            }
+          }).then((res) => {
+            setFolder(res.data);
+            setEdit(false);
+            setLoading(false);
+          }).catch((error) => {
+            if (isCancel(error)) return;
+          });
         }
       } catch (err) {
-
+        history.push('/error');
       }
     }
   }
@@ -143,21 +168,20 @@ function AdminFolder() {
   }, [name]);
 
   return (
-    <>
-      {loading ?
-        <Loading />
-      : 
-        <>
-          <Nav />
-          <AdminNav setEdit={setEdit} edit={edit} deleteItem={deleteItem} />
-          <Wrapper>
-            {edit ? 
-              <EditFolder folder={folder} sendEdit={saveEdit}/> :
-            <Folder folder={folder}/>}
-          </Wrapper>
-        </>
-      }
-    </>
+    loading ?
+      <Loading />
+    : 
+      <>
+        <Nav />
+        <AdminNav setEdit={setEdit} edit={edit} deleteItem={deleteItem} />
+        <Wrapper>
+          {edit ? 
+            <EditFolder folder={folder} sendEdit={saveEdit}/> :
+            <Folder folder={folder} />
+          }
+        </Wrapper>
+        <Footer label={folder.label} />
+      </>
   );
 };
 

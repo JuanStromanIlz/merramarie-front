@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Loading } from '../styled-components/Loading';
 import { Folder } from '../styled-components/Folder';
 import { Nav } from '../styled-components/Navbar';
+import { Footer } from '../styled-components/Footer';
 import { Wrapper } from '../styled-components/PageWrapper';
 
 function PublicFolder() {
@@ -25,16 +26,15 @@ function PublicFolder() {
   }, [name]);
 
   return (
+    loading ?
+      <Loading />
+    : 
     <>
-      {loading ?
-        <Loading />
-      : 
-      <>
-        <Nav />
-        <Wrapper>
-          <Folder folder={folder}/>
-        </Wrapper>
-      </>}
+      <Nav />
+      <Wrapper>
+        <Folder folder={folder}/>
+      </Wrapper>
+      <Footer label={folder.label} />
     </>
   );
 };

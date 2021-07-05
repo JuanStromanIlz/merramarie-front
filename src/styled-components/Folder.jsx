@@ -1,17 +1,9 @@
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Linkify from 'react-linkify';
 import LazyLoad from 'react-lazyload';
-import {
-  FacebookShareButton, 
-  FacebookIcon, 
-  TwitterShareButton, 
-  TwitterIcon,
-  TumblrShareButton, 
-  TumblrIcon,
-  WhatsappShareButton, 
-  WhatsappIcon
-} from 'react-share';
 import { StickyTitle } from './StickyTitle';
+import { useEffect } from 'react';
 
 const Folder = styled.div`
   article {
@@ -52,29 +44,12 @@ const Folder = styled.div`
           height:100%;
         }
       }
-      .content__social {
-        display: flex;
-        flex-direction: row;
-      }
-    }
-    footer {
-      border-top: 2px solid ${props => props.theme.colors.pink};
-      padding-top: 2rem;
-      .footer__nav {
-        display: flex;
-        justify-content: space-between;
-      }
     }
   }
   @media (min-width: 920px) {
     .content__images {
+      ${'' /* grid-template-columns: repeat(auto-fit, minmax(auto, 400px)) !important; */}
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;
-      ${'' /* .imgContainer:last-child {
-        margin: 0 auto;
-        grid-column-start: 1;
-        grid-column-end: 3;
-        max-width: 400px;
-      } */}
       .bigImg {
         grid-column-end: 3 !important;
       }
@@ -83,79 +58,60 @@ const Folder = styled.div`
 `;
 
 const FolderView = ({folder}) => {
+  const [pageBottom, setPageBottom] = useState(false);
+    
+  useEffect(() => { 
+    const onScroll = (e) => {
+      let page = document.getElementById('root');
+      setPageBottom(page.scrollHeight < window.scrollY + window.innerHeight + 500);
+    }; 
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <Folder className='folder__item'>
       <article>
-        <StickyTitle>{folder.title}</StickyTitle>
+        <StickyTitle 
+          isFolder={true} 
+          share={pageBottom} 
+          folder={{title: folder.title, route: folder.route_title}}
+        >
+          {folder.title}
+        </StickyTitle>
         <div className='content'>
-          {folder.images ? 
-          <div className='content__images'>
-            {folder.images.map((img, i) => 
-              <div key={i} className={`imgContainer ${img.width > img.height ? 'bigImg' : ''}`}>
-                <LazyLoad once>
-                  <img src={img.url} alt={folder.title}/>
-                </LazyLoad>
-              </div>
-            )}
-          </div> : null}
-          {folder.videoLink ? 
-          <div className='content__video'>
-            <iframe 
-              title={folder.title} 
-              src={folder.videoLink} 
-              frameborder="0" 
-              allow="fullscreen; picture-in-picture" 
-              allowfullscreen 
-            ></iframe>
-          </div> : null}
           {folder.description ? 
-          <div className='content__text'>
-          <Linkify>
-            <p>{folder.description}</p>
-          </Linkify>
-          </div> : null}
+            <div className='content__text'>
+              <Linkify>
+                <p>{folder.description}</p>
+              </Linkify>
+            </div>
+          : null}
+          {folder.images ? 
+            <div className='content__images'>
+              {folder.images.map((img, i) => 
+                <div key={i} className={`imgContainer ${img.width > img.height ? 'bigImg' : null}`}>
+                  <LazyLoad once>
+                    <img src={img.url} alt={folder.title}/>
+                  </LazyLoad>
+                </div>
+              )}
+            </div> 
+          : null}
+          {folder.videoLink ? 
+            <div className='content__video'>
+              <iframe 
+                title={folder.title} 
+                src={folder.videoLink} 
+                frameBorder="0" 
+                allow="fullscreen; picture-in-picture" 
+              ></iframe>
+            </div> 
+          : null}
           <div className='content__social'>
-            <div>
-            <FacebookShareButton
-              url={process.env.REACT_APP_FRONTEND + folder.route_title}
-              quote={`Merra Marie: ` + folder.title}
-            >
-              <FacebookIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
-            </FacebookShareButton>
-            </div>
-            <div>
-            <TwitterShareButton
-              url={process.env.REACT_APP_FRONTEND + folder.route_title}
-              title={`Merra Marie: ` + folder.title}
-            >
-              <TwitterIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
-            </TwitterShareButton>
-            </div>
-            <div>
-            <TumblrShareButton
-              url={process.env.REACT_APP_FRONTEND + folder.route_title}
-              title={`Merra Marie: ` + folder.title}
-            >
-              <TumblrIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
-            </TumblrShareButton>
-            </div>
-            <div>
-            <WhatsappShareButton
-              // url={process.env.REACT_APP_FRONTEND + folder.route_title}
-              url='https://fonts.google.com/icons'
-              title={`Merra Marie: ` + folder.title}
-            >
-              <WhatsappIcon size={32} iconFillColor='#f2d5d5' bgStyle={{fill: 'black'}}/>
-            </WhatsappShareButton>
-            </div>
+            
           </div>
         </div>
-        <footer>
-          <div className='footer__nav'>
-            <a href={`${process.env.REACT_APP_FRONTEND + folder.label}`}><h3>&lt; back</h3></a>
-            <h3>next &gt;</h3>
-          </div>
-        </footer>
       </article>
     </Folder>
   );

@@ -6,7 +6,7 @@ const Card = styled.div`
   cursor: pointer;
   display: inline-block;
   padding: 1rem;
-  transition: .1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .mediaContainer {
     aspect-ratio: 7 / 4;
     margin-bottom: 1.5rem;
@@ -27,6 +27,20 @@ const Card = styled.div`
       left:0;
       width:100%;
       height:100%;
+    }
+  }
+  .cardInfo {
+    span {
+      color: ${props => props.theme.colors.red};
+      text-transform: lowercase;
+      font-size: 20px; 
+    }
+  }
+  @media (min-width: 920px) {
+    .cardInfo {
+      span {
+        font-size: 15px;
+      }
     }
   }
 `;
@@ -73,10 +87,12 @@ const LabelCard = ({item, sendTo, selectItem, isShow}) => {
             allowfullscreen 
           ></iframe>
         </div>
-      : null }
+      : null}
       <div className='cardInfo'>
         <h1>{item.title}</h1>
-        <span>{item.category}</span>
+        {item.category ?
+          <span># {item.category}</span>
+        : null}
       </div>
     </Card>
   );
@@ -94,7 +110,7 @@ const LabelView = ({name, label, sendTo}) => {
       <StickyTitle>{name}</StickyTitle>
       <div className='label__content'>
         {label.map(item => 
-          <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow}/>
+          <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow} />
         )}
       </div>
     </Label>

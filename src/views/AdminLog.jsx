@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 import { AdminCont } from '../context/AdminContext';
+import { Loading } from '../styled-components/Loading';
 import { useHistory } from 'react-router-dom';
 import { Wrapper } from '../styled-components/PageWrapper';
 import { StickyTitle } from '../styled-components/StickyTitle';
@@ -16,10 +16,11 @@ const logInSchema = Yup.object().shape({
 
 function LogInView() {
   const {setToken} = useContext(AdminCont);
-  const { newCancelToken, isCancel } = useCancelToken();
+  const [loading, setLoading] = useState(false);
   let history = useHistory();
 
   async function sendLogForm(values) {
+    setLoading(true);
     try {
       let res = await axios({
         method: 'post',
@@ -29,10 +30,11 @@ function LogInView() {
       if (res) {
         setToken(res.data);
         localStorage.setItem(process.env.REACT_APP_LOCAL_STORAGE_NAME, res.data);
-        history.push('/panel/control');
+        history.push('/');
       }
     } catch(err) {
       if (err) {
+        setLoading(false);
         let inputContainer = document.getElementsByClassName('formInput');
         let input = document.getElementsByTagName('input');
         for (let i = 0; i < inputContainer.length; i++) {
@@ -44,34 +46,36 @@ function LogInView() {
   }
 
   return (
-    <Wrapper>
-      <StickyTitle>Ingresar</StickyTitle>
-      <Formik
-        initialValues={{
-         username: '',
-         password: ''
-       }}
-       validationSchema={logInSchema}
-       onSubmit={(values, { resetForm }) => {
-          resetForm();
-          sendLogForm(values);
-       }}
-      >
-        {({errors, touched, handleSubmit}) => (
-          <Form onSubmit={handleSubmit}>
-            <div className={`formInput ${touched.username ? errors.username ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='username'>Usuario</label>
-              <Input name='username' autoComplete='off' />
-            </div>
-            <div className={`formInput ${touched.password ? errors.password ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='password'>Contraseña</label>
-              <Input name='password' autoComplete='off' />
-            </div>
-            <button type='submit'>Ingresar</button>
-          </Form>
-        )}
-      </Formik>
-    </Wrapper>
+    loading ?
+      <Loading /> :
+      <Wrapper>
+        <StickyTitle>Ingresar</StickyTitle>
+        <Formik
+          initialValues={{
+          username: '',
+          password: ''
+        }}
+        validationSchema={logInSchema}
+        onSubmit={(values, { resetForm }) => {
+            resetForm();
+            sendLogForm(values);
+        }}
+        >
+          {({errors, touched, handleSubmit}) => (
+            <Form onSubmit={handleSubmit}>
+              <div className={`formInput ${touched.username ? errors.username ? 'errorStyle' : 'okStyle' : null}`}>
+                <label for='username'>Usuario</label>
+                <Input name='username' autoComplete='off' />
+              </div>
+              <div className={`formInput ${touched.password ? errors.password ? 'errorStyle' : 'okStyle' : null}`}>
+                <label for='password'>Contraseña</label>
+                <Input name='password' type='password' autoComplete='off' />
+              </div>
+              <button type='submit'>Ingresar</button>
+            </Form>
+          )}
+        </Formik>
+      </Wrapper>
   );
 }
 

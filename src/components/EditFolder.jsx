@@ -90,7 +90,7 @@ function EditFolder({folder, sendEdit}) {
         validationSchema={ItemSchema}
         onSubmit={values => {
           for (let propName in values) {
-            if (values[propName] === null || values[propName] === undefined || values[propName].length === 0) {
+            if (values[propName] === null || values[propName] === undefined) {
               delete values[propName];
             }
           }
@@ -101,14 +101,14 @@ function EditFolder({folder, sendEdit}) {
           <Form onSubmit={handleSubmit}>
             <div className='formInput formInput__label'>
               <label for='label'>Label</label>
-              <Input as="select" name="label">
+              <Field as="select" name="label">
                 <option value='editorial'>editorial</option>
                 <option value='artwork'>artwork</option>
                 <option value='commercial'>commercial</option>
                 <option value='films'>films</option>
                 <option value='exhibitions'>exhibitions</option>
                 <option value='publications'>publications</option>
-              </Input>
+              </Field>
             </div>
             <div className={`formInput ${touched.title ? errors.title ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='title'>Titulo</label>

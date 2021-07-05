@@ -7,7 +7,8 @@ import { Label } from '../styled-components/Label';
 import { Nav } from '../styled-components/Navbar';
 import { Wrapper } from '../styled-components/PageWrapper';
 
-function PublicLabel() {
+function PublicLabel({labelName}) {
+  const [adminRoutes, setAdminRoutes] = useState(false);
   const [labelInfo, setLabelInfo] = useState([]);
   const [loading, setLoading] = useState(true);
   const { newCancelToken, isCancel } = useCancelToken();
@@ -15,10 +16,18 @@ function PublicLabel() {
   let history = useHistory();
 
   function sendTo(route) {
-    history.push(`/${route}`);
+    if (adminRoutes) {
+      history.push(`/panel/folder/${route}`);
+    } else {
+      history.push(`/${route}`);
+    }
   }
 
   useEffect(() => {
+    let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
+    if (admin) {
+      setAdminRoutes(true);
+    }
     axios.get(process.env.REACT_APP_APIHOST + 'public/label' + label, {
       cancelToken: newCancelToken()
     }).then((res) => {
@@ -30,16 +39,14 @@ function PublicLabel() {
   }, [label]);
 
   return (
+    loading ?
+      <Loading />
+    : 
     <>
-      {loading ?
-        <Loading />
-      : 
-      <>
-        <Nav />
-        <Wrapper>
-          <Label name={label} label={labelInfo} sendTo={sendTo}/>
-        </Wrapper>
-      </>}
+      <Nav />
+      <Wrapper>
+        <Label name={labelName} label={labelInfo} sendTo={sendTo}/>
+      </Wrapper>
     </>
   );
 };

@@ -1,9 +1,11 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
   position: sticky;
   top: 0;
+  transition: 1s background-color cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-color: transparent;
   .navWrapper {
     margin-left: auto;
     margin-right: auto;
@@ -12,7 +14,6 @@ const Navbar = styled.nav`
     padding: 2.6rem;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     h1 {
       text-transform: uppercase;
       -webkit-text-stroke: 2px ${props => props.theme.colors.pink};
@@ -21,15 +22,17 @@ const Navbar = styled.nav`
     .list {
       display: flex;
       margin-right: auto;
+      flex-basis: 100%;
       ul {
         display: flex;
+        flex-basis: 100%;
         flex-direction: row;
         list-style-type:none;
         padding-left: 0;
         margin: 0;
         li {
           display: none;
-          margin: auto 3rem auto auto;
+          margin: 0 3rem 0 0;
           a {
             color: ${props => props.theme.colors.pink};
             text-decoration: none;
@@ -42,6 +45,7 @@ const Navbar = styled.nav`
           }
         } 
         li:last-child {
+          margin-left: auto;
           margin-right: 0;
         }
         li:first-child {
@@ -80,6 +84,7 @@ const Navbar = styled.nav`
         width: 100vw;
         overflow: auto;
         display: none;
+        padding-top: 2.6rem;
         padding-right: 2.6rem;
         ul {
           list-style-type:none;
@@ -103,6 +108,7 @@ const Navbar = styled.nav`
             }
           }
           li:last-child a {
+            margin-top: 2rem;
             margin-bottom: 0;
           }
         }
@@ -114,19 +120,15 @@ const Navbar = styled.nav`
     .homeTag {
       color: ${props => props.theme.colors.red} !important;
     }
+    .logTag {
+      color: ${props => props.theme.colors.red} !important;
+    }
   }
   /* HAMBURGER ANIMATIONS */
-  .nav__mask {
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    display: none;
-    background-color: rgba(0, 0, 0, .7);
-  }
   .menuIsOpen {
     display: block !important;
+    background-color: rgba(0, 0, 0, .7);
+    border-top: 1px solid ${props => props.theme.colors.pink};
   }
   .iconRotate__open {
     transform: rotate(45deg);
@@ -154,9 +156,16 @@ const Navbar = styled.nav`
     }
   }
   @media (min-width: 920px) {
+    border-bottom: 1px solid ${props => props.theme.colors.pink};
     position: relative;
+    .navWrapper {
+      background-color: transparent !important;
+    }
     .list ul li {
       display: block !important;
+    }
+    .hamburger {
+      display: none !important;
     }
     .hamburgerMenu {
       display: none !important;
@@ -174,6 +183,7 @@ const Navbar = styled.nav`
 
 const Nav = () => {
   const [menu, setMenu] = useState(false);
+  const [adminRoutes, setAdminRoutes] = useState(false);
   function openMenu() {
     if (!menu) {
       // Remove the title in the page
@@ -194,14 +204,12 @@ const Nav = () => {
         }
       }
       // Animations for open the menu
+      document.getElementsByClassName('navWrapper')[0].style.backgroundColor='rgba(0, 0, 0, .7)';
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuSlice__open');
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuIsOpen');
-      document.getElementsByClassName('nav__mask')[0].classList.add('menuSlice__open');
-      document.getElementsByClassName('nav__mask')[0].classList.add('menuIsOpen');
       document.getElementById('menuIcon').classList.add('iconRotate__open');
       setTimeout(() => {
         document.getElementsByClassName('hamburger__slice')[0].classList.remove('menuSlice__open');
-        document.getElementsByClassName('nav__mask')[0].classList.remove('menuSlice__open');
       }, 1000);
       setMenu(true);
     } else {
@@ -225,43 +233,41 @@ const Nav = () => {
         }
       }
         // Animations for close the menu
+        document.getElementsByClassName('navWrapper')[0].style.backgroundColor='transparent';
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuSlice__close');
-      document.getElementsByClassName('nav__mask')[0].classList.add('menuSlice__close');
       document.getElementById('menuIcon').classList.remove('iconRotate__open');
       setTimeout(() => {
         document.getElementsByClassName('header__floatTitle')[0].classList.remove('titleSlice__open');
         document.getElementsByClassName('header__floatTitle')[0].classList.remove('titleSlice__close');
         document.getElementsByClassName('hamburger__slice')[0].classList.remove('menuSlice__close');
         document.getElementsByClassName('hamburger__slice')[0].classList.remove('menuIsOpen');
-        document.getElementsByClassName('nav__mask')[0].classList.remove('menuSlice__close');
-        document.getElementsByClassName('nav__mask')[0].classList.remove('menuIsOpen');
       }, 1000);
       setMenu(false);
     }
   }
 
   useEffect(() => {
-    if (window.innerWidth > 920 && menu) {
-      openMenu();
-    } 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.innerWidth, menu]);
+    let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
+    if (admin) {
+      setAdminRoutes(true);
+    }
+  }, []);
 
   return (
     <Navbar>
       <div className='navWrapper'>
-        <div className='nav__mask'></div>
         <div className='list'>
           <ul>
-            <li><a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>home</a></li>
+            <li><a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>MM</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}commercial`}>commercial</a></li>
+            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}exhibitions`}>exhibitions</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publications</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>about me</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contact</a></li>
+            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}exhibitions`}>exhibiciones</a></li>
+            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
+            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
+            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
+            <li><a className='navOption logTag' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
           </ul>
         </div>
         <div className='hamburgerMenu'>
@@ -276,12 +282,13 @@ const Nav = () => {
                 <li><a className='homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>home</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}commercial`}>commercial</a></li>
+                <li><a href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}exhibitions`}>exhibitions</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publications</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>about me</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contact</a></li>
+                <li><a href={`${process.env.REACT_APP_FRONTEND}exhibitions`}>exhibiciones</a></li>
+                <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
+                <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
+                <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
+                <li><a className='logTag' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
               </ul>
             </div>
           </div>

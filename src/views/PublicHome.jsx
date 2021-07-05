@@ -3,6 +3,7 @@ import {useCancelToken} from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 import { Loading } from '../styled-components/Loading';
 import { Nav } from '../styled-components/Navbar';
+import { Banner } from '../styled-components/Banner';
 import { StickyTitle } from '../styled-components/StickyTitle';
 
 function PublicHome() {
@@ -27,8 +28,11 @@ function PublicHome() {
         <Loading />
       : 
       <>
+      <Banner 
+        source='https://res.cloudinary.com/juanstromanilz/image/upload/v1625335630/portfolio/rzsuwowkaoeipvaik5kd.jpg'
+      />
         {/* <Nav /> */}
-        <StickyTitle>Home</StickyTitle>
+        {/* <StickyTitle>Home</StickyTitle> */}
       </>}
     </>
   );
