@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
@@ -154,18 +154,19 @@ function NewDoc() {
          resetForm();
        }}
       >
-        {({errors, touched, handleSubmit}) => (
+        {({values, errors, touched, handleSubmit}) => (
           <Form onSubmit={handleSubmit}>
+          {console.log(values)}
             <div className={`formInput formInput__label ${touched.label ? errors.label ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='label'>Label</label>
-              <Input as='select' name='label'>
+              <Field as='select' name='label'>
                 <option value='editorial'>editorial</option>
                 <option value='artwork'>artwork</option>
                 <option value='commercial'>commercial</option>
                 <option value='films'>films</option>
                 <option value='exhibitions'>exhibitions</option>
                 <option value='publications'>publications</option>
-              </Input>
+              </Field>
             </div>
             <div className={`formInput ${touched.title ? errors.title ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='title'>Titulo</label>
@@ -176,7 +177,7 @@ function NewDoc() {
               <Input name='category' autoComplete='off' />
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='description'>Descripción</label>
+              <label for='description'>{values.label === 'publications' ? 'Link Externo' : 'Descripción'}</label>
               <Input name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>

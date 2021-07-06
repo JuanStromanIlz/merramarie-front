@@ -12,7 +12,7 @@ const Navbar = styled.nav`
     margin-right: auto;
     max-width: 1200px;
     position: relative;
-    padding: 1.6rem 2.6rem 1.6rem 2.6rem;
+    padding: 1rem 2.6rem;
     display: flex;
     flex-direction: row;
     h1 {
@@ -22,6 +22,7 @@ const Navbar = styled.nav`
     }
     .list {
       display: flex;
+      align-items: center;
       margin-right: auto;
       flex-basis: 100%;
       ul {
@@ -48,9 +49,6 @@ const Navbar = styled.nav`
         li:last-child {
           margin-left: auto;
           margin-right: 0;
-        }
-        li:first-child {
-          display: block;
         }
       }
     }
@@ -101,7 +99,7 @@ const Navbar = styled.nav`
               text-transform: uppercase;
               display: block;
               font-size: 20px;
-              margin-bottom: 5px;
+              margin-bottom: 1.6rem;
             }
             a:hover {
               color: ${props => props.theme.colors.red};
@@ -109,7 +107,7 @@ const Navbar = styled.nav`
             }
           }
           li:last-child a {
-            margin-top: 2rem;
+            margin-top: 3.2rem;
             margin-bottom: 0;
           }
         }
@@ -119,7 +117,13 @@ const Navbar = styled.nav`
       font-size: 20px;
     }
     .homeTag {
-      color: ${props => props.theme.colors.red} !important;
+      margin-right: 1.6rem;
+      a {
+        display: flex;
+      }
+    }
+    .newTag {
+      color: ${props => props.theme.colors.green} !important;
     }
     .logTag {
       color: ${props => props.theme.colors.red} !important;
@@ -253,9 +257,13 @@ const Nav = () => {
   return (
     <Navbar>
       <div className='navWrapper'>
+        <div className='homeTag'>
+          <a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>
+            <img src={process.env.PUBLIC_URL + '/icon.svg'} alt='home'></img>
+          </a>
+        </div>
         <div className='list'>
           <ul>
-            <li><a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>MM</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
@@ -264,6 +272,7 @@ const Nav = () => {
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
+            {adminRoutes && <li><a className='navOption newTag' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
             <li><a className='navOption logTag' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
           </ul>
         </div>
@@ -276,7 +285,6 @@ const Nav = () => {
           <div className='hamburger__slice'>
             <div>
               <ul>
-                <li><a className='homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>home</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
@@ -285,6 +293,7 @@ const Nav = () => {
                 <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
+                {adminRoutes && <li><a className='navOption newTag' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
                 <li><a className='logTag' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
               </ul>
             </div>

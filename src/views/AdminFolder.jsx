@@ -34,7 +34,7 @@ function AdminFolder() {
       });
       if (res) {
         console.log(res.data)
-        history.push(`/panel/label/${folder.label}`);
+        history.push(`/${folder.label}`);
       }
     } catch(err) {
       history.push('/error');

@@ -22,6 +22,7 @@ const Title = styled.div`
     line-height: 5.6rem;
     -webkit-text-stroke: 2px ${props => props.theme.colors.red};
     color: transparent;
+    overflow-wrap: break-word;
   }
   #mediaShare {
     display: flex;

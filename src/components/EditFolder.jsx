@@ -119,7 +119,7 @@ function EditFolder({folder, sendEdit}) {
               <Input name='category' autoComplete='off' />
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='description'>Descripción</label>
+              <label for='description'>{values.label === 'publications' ? 'Link Externo' : 'Descripción'}</label>
               <Input name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>

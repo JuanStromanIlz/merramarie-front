@@ -6,6 +6,9 @@ const Footer = styled.footer`
     margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
+    h3 {
+      font-size: 20px;
+    }
     ul {
       flex-basis: 100%;
       padding: 0 2.6rem 5.6rem 2.6rem;
@@ -41,6 +44,16 @@ const Footer = styled.footer`
       span {
         color: rgba(127, 127, 127, .6);
       }
+    }
+  }
+  @media (min-width: 920px) {
+    h3 {
+      font-size: 12px !important;
+    }
+  }
+  @media (min-width: 1200px) {
+    h3 {
+      font-size: 15px !important;
     }
   }
 `;

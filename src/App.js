@@ -10,6 +10,7 @@ import Contact from './views/Contact';
 import PublicLabel from './views/PublicLabel';
 import PublicFolder from './views/PublicFolder';
 import PublicHome from './views/PublicHome';
+import PublicList from './views/PublicList';
 import {StyledApp, theme} from './styled-components/StyledApp';
 //Admin Views
 import AdminContext from './context/AdminContext';
@@ -18,6 +19,7 @@ import AdminLog from './views/AdminLog';
 import AdminLogOut from './views/AdminLogOut';
 import AdminFolder from './views/AdminFolder';
 import AdminNewEntry from './views/AdminNewEntry';
+import ErrorView from './views/ErrorView';
 
 function App() {
   return (
@@ -31,9 +33,10 @@ function App() {
           <Route exact path='/commercial' render={(props) => <PublicLabel {...props} labelName='Comercial' />} />
           <Route exact path='/films' render={(props) => <PublicLabel {...props} labelName='Films' />} />
           <Route exact path='/exhibitions' render={(props) => <PublicLabel {...props} labelName='Exhibiciones' />} />
-          <Route exact path='/publications' render={(props) => <PublicLabel {...props} labelName='Publicaciones' />} />
+          <Route exact path='/publications' component={PublicList} />
           <Route exact path='/about_me' component={AboutMe} />
           <Route exact path='/contact' component={Contact} />
+          <Route exact path='/error' component={ErrorView} />
           <Route exact path='/:name' render={() => <PublicFolder />}/>
           <AdminContext>
             <Route exact path='/panel/log_in'component={AdminLog} />

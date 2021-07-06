@@ -47,7 +47,6 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: Montreal,Helvetica,Arial,sans-serif;
-  ${'' /* font-weight: 400; */}
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
