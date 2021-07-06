@@ -63,7 +63,11 @@ const FolderView = ({folder}) => {
     
   useEffect(() => { 
     const onScroll = (e) => {
-      setPageBottom(window.scrollY > (folderRef.current.clientHeight / 3) * 2);
+      if (folderRef.current.clientHeight < 250) {
+        setPageBottom(true);
+      } else {
+        setPageBottom(window.scrollY > (folderRef.current.clientHeight / 3) * 2);
+      }
     }; 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
