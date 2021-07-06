@@ -34,7 +34,7 @@ function PublicFolder() {
       <Wrapper>
         <Folder folder={folder}/>
       </Wrapper>
-      <Footer label={folder.label} />
+      <Footer label={folder.label} nextFolder={folder.nextFolder} />
     </>
   );
 };

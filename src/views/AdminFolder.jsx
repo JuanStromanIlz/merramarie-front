@@ -180,7 +180,7 @@ function AdminFolder() {
             <Folder folder={folder} />
           }
         </Wrapper>
-        <Footer label={folder.label} />
+        {!edit && <Footer label={folder.label} nextFolder={folder.nextFolder} />}
       </>
   );
 };

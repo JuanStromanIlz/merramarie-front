@@ -5,7 +5,7 @@ const Nav = styled.nav`
     margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
-    padding: 2.6rem;
+    padding: 1.6rem 2.6rem 1.6rem 2.6rem;
     display: flex;
     flex-direction: row;
     justify-content: center;

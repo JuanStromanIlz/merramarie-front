@@ -28,10 +28,7 @@ function PublicHome() {
         <Loading />
       : 
       <>
-      <Banner 
-        source='https://res.cloudinary.com/juanstromanilz/image/upload/v1625335630/portfolio/rzsuwowkaoeipvaik5kd.jpg'
-      />
-        {/* <Nav /> */}
+        <Nav />
         {/* <StickyTitle>Home</StickyTitle> */}
       </>}
     </>

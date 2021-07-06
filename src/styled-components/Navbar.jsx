@@ -4,14 +4,15 @@ import styled from 'styled-components';
 const Navbar = styled.nav`
   position: sticky;
   top: 0;
-  transition: 1s background-color cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  background-color: transparent;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, .7);
+  box-shadow: 0 2px 5px 5px rgb(0, 0, 0, .7);
   .navWrapper {
     margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
     position: relative;
-    padding: 2.6rem;
+    padding: 1.6rem 2.6rem 1.6rem 2.6rem;
     display: flex;
     flex-direction: row;
     h1 {
@@ -77,14 +78,14 @@ const Navbar = styled.nav`
     .hamburger {
       .hamburger__slice {
         position: fixed;
-        height: calc(100% - 75px);
-        top: 75px;
+        height: calc(100% - 55px);
+        top: 55px;
         left: 0px;
         right: 0px;
         width: 100vw;
         overflow: auto;
         display: none;
-        padding-top: 2.6rem;
+        padding-top: 1.6rem;
         padding-right: 2.6rem;
         ul {
           list-style-type:none;
@@ -156,8 +157,6 @@ const Navbar = styled.nav`
     }
   }
   @media (min-width: 920px) {
-    border-bottom: 1px solid ${props => props.theme.colors.pink};
-    position: relative;
     .navWrapper {
       background-color: transparent !important;
     }
@@ -204,7 +203,6 @@ const Nav = () => {
         }
       }
       // Animations for open the menu
-      document.getElementsByClassName('navWrapper')[0].style.backgroundColor='rgba(0, 0, 0, .7)';
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuSlice__open');
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuIsOpen');
       document.getElementById('menuIcon').classList.add('iconRotate__open');
@@ -233,7 +231,6 @@ const Nav = () => {
         }
       }
         // Animations for close the menu
-        document.getElementsByClassName('navWrapper')[0].style.backgroundColor='transparent';
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuSlice__close');
       document.getElementById('menuIcon').classList.remove('iconRotate__open');
       setTimeout(() => {

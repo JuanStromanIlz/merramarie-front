@@ -59,11 +59,11 @@ const Folder = styled.div`
 
 const FolderView = ({folder}) => {
   const [pageBottom, setPageBottom] = useState(false);
+  const folderRef = useRef(null); 
     
   useEffect(() => { 
     const onScroll = (e) => {
-      let page = document.getElementById('root');
-      setPageBottom(page.scrollHeight < window.scrollY + window.innerHeight + 500);
+      setPageBottom(window.scrollY > (folderRef.current.clientHeight / 3) * 2);
     }; 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -79,7 +79,7 @@ const FolderView = ({folder}) => {
         >
           {folder.title}
         </StickyTitle>
-        <div className='content'>
+        <div  ref={folderRef} className='content'>
           {folder.description ? 
             <div className='content__text'>
               <Linkify>
@@ -108,9 +108,6 @@ const FolderView = ({folder}) => {
               ></iframe>
             </div> 
           : null}
-          <div className='content__social'>
-            
-          </div>
         </div>
       </article>
     </Folder>
