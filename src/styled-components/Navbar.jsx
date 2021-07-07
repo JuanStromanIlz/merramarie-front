@@ -5,12 +5,9 @@ const Navbar = styled.nav`
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, .7);
+  background: rgba(0,0,0,0.8);
   box-shadow: 0 2px 5px 5px rgb(0, 0, 0, .7);
   .navWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1200px;
     position: relative;
     padding: 1rem 2.6rem;
     display: flex;
@@ -47,7 +44,6 @@ const Navbar = styled.nav`
           }
         } 
         li:last-child {
-          margin-left: auto;
           margin-right: 0;
         }
       }
@@ -122,17 +118,28 @@ const Navbar = styled.nav`
         display: flex;
       }
     }
-    .newTag {
-      color: ${props => props.theme.colors.green} !important;
+    .log {
+      a {
+        color: ${props => props.theme.colors.red} !important;
+      }
     }
-    .logTag {
-      color: ${props => props.theme.colors.red} !important;
+    .new { 
+      a {
+        color: ${props => props.theme.colors.green} !important;
+      }
+    }
+    .logTag:nth-child(odd) {
+      margin-left: auto !important;
+      margin-right: 0 !important;
+    }
+    .logTag:nth-child(2n) {
+      margin-left: 3rem !important;
     }
   }
   /* HAMBURGER ANIMATIONS */
   .menuIsOpen {
     display: block !important;
-    background-color: rgba(0, 0, 0, .7);
+    background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 36%);
     border-top: 1px solid ${props => props.theme.colors.pink};
   }
   .iconRotate__open {
@@ -161,6 +168,7 @@ const Navbar = styled.nav`
     }
   }
   @media (min-width: 920px) {
+    position: inherit;
     .navWrapper {
       background-color: transparent !important;
     }
@@ -190,7 +198,7 @@ const Nav = () => {
   function openMenu() {
     if (!menu) {
       // Remove the title in the page
-      document.getElementsByClassName('header__floatTitle')[0].style.transform='translateX(-500px)';
+      document.getElementsByClassName('header__floatTitle')[0].style.transform='translateX(-200%)';
       // Make the cards no click
       let cards = document.getElementsByClassName('card__item');
       if (cards) {
@@ -258,7 +266,7 @@ const Nav = () => {
     <Navbar>
       <div className='navWrapper'>
         <div className='homeTag'>
-          <a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>
+          <a className='homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>
             <img src={process.env.PUBLIC_URL + '/icon.svg'} alt='home'></img>
           </a>
         </div>
@@ -272,8 +280,8 @@ const Nav = () => {
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
-            {adminRoutes && <li><a className='navOption newTag' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
-            <li><a className='navOption logTag' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
+            {adminRoutes && <li className='logTag new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
+            <li className='logTag log'><a className='navOption' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
           </ul>
         </div>
         <div className='hamburgerMenu'>
@@ -293,8 +301,8 @@ const Nav = () => {
                 <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
-                {adminRoutes && <li><a className='navOption newTag' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
-                <li><a className='logTag' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
+                {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
+                <li className='log'><a href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
               </ul>
             </div>
           </div>

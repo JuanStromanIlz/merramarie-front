@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Field } from 'formik';
 
 const Form = styled.form`
   .form__wrapper {
@@ -11,7 +10,9 @@ const Form = styled.form`
     display: flex;
     flex-flow: column nowrap;
     max-width: 400px;
-    input, select, button {
+    input, select, button, textarea {
+      appeareance: none; 
+      resize: none;
       color: ${props => props.theme.colors.pink};
       border: none;
       box-shadow: 0 1px 0 0 rgba(255, 255, 255, .2);
@@ -79,15 +80,15 @@ const Form = styled.form`
   }
   /* Styles for validation */
   .errorStyle {
-    input, select {
+    input, select, textarea {
       box-shadow: 0 1px 0 0 ${props => props.theme.colors.red};
     }
   }
   .okStyle {
-    input, select {
+    input, select, textarea {
       box-shadow: 0 1px 0 0 #64b450;
     }
-    input:before {
+    input:before, select:before, textarea:before {
       border-color: #64b450;
     }
   }
@@ -140,11 +141,6 @@ const Form = styled.form`
   }
 `;
 
-const Input = styled(Field)`
-  appeareance: none; 
-  resize: none;
-`;
-
 const FormContainer = ({children, onSubmit}) => {
   return (
     <Form onSubmit={onSubmit}>
@@ -155,4 +151,4 @@ const FormContainer = ({children, onSubmit}) => {
   );
 }
 
-export { FormContainer as Form, Input };
+export { FormContainer as Form };

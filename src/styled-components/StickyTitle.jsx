@@ -12,14 +12,15 @@ import {
 import { useEffect } from 'react';
 
 const Title = styled.div`
-  margin-bottom: 10rem;
+  margin-bottom: 4rem;
   position: sticky;
-  top: 12rem;
+  top: 8rem;
   z-index: 1;
   transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .header__title {
-    font-size: 5.6rem;
-    line-height: 5.6rem;
+    font-size: 6.6rem;
+    line-height: 6.6rem;
+    transition: .3s ease;
     -webkit-text-stroke: 2px ${props => props.theme.colors.red};
     color: transparent;
     overflow-wrap: break-word;
@@ -38,14 +39,14 @@ const Title = styled.div`
     }
   }
   @media (min-width: 920px) {
-    top: 10rem;
+    top: 5rem;
     transform: translateX(0) !important;
     .header__title {
-      font-size: 7.6rem;
-      line-height: 7.6rem;
+      font-size: 10vw;
+      line-height: 10vw;
     }
     #mediaShare button svg {
-      width: 40px;
+      width: 60px;
     }
   }
 `;

@@ -5,7 +5,7 @@ import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AdminCont } from '../context/AdminContext';
-import { Form, Input } from '../styled-components/EntryForm';
+import { Form } from '../styled-components/EntryForm';
 
 const FILE_SIZE = 1024 * 1024 * 5;
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -24,26 +24,6 @@ const FileUploader = ({ form, field }) => {
     /> 
   );
 };
-
-function customValidate(value){
-  let arrayOfImgs = Array.from(value)
-  let error = false;
-  // Se cambio el metodo map por un forIn
-  for (const key in arrayOfImgs) {
-    const img = arrayOfImgs[key];
-    if (img.size > FILE_SIZE) {
-      return error = true;
-    }
-    if (!SUPPORTED_FORMATS.includes(img.type)) {
-      return error = true;
-    }
-  }
-  if (error) {
-    return false;
-  } else {
-    return true;
-  }
-}
 
 const ItemSchema = Yup.object().shape({
   title: Yup.string().required('Ingrese un titulo'),
@@ -67,8 +47,27 @@ const ItemSchema = Yup.object().shape({
     : true;
   }),
   images: Yup.mixed()
-    .test('images', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => customValidate(value)),
-});
+    .test((value, {createError}) => {
+      let arrayOfImgs = Array.from(value)
+      let error = false;
+      // Se cambio el metodo map por un forIn
+      for (const key in arrayOfImgs) {
+        const img = arrayOfImgs[key];
+        if (img.size > FILE_SIZE) {
+          error = true;
+        }
+        if (!SUPPORTED_FORMATS.includes(img.type)) {
+          error = true;
+        }
+      }
+      return error ?
+        createError({
+          path: 'images',
+          message: 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb'
+        })
+        : true
+    })
+  });
 
 function NewDoc() {
   const {token} = useContext(AdminCont);
@@ -156,7 +155,6 @@ function NewDoc() {
       >
         {({values, errors, touched, handleSubmit}) => (
           <Form onSubmit={handleSubmit}>
-          {console.log(values)}
             <div className={`formInput formInput__label ${touched.label ? errors.label ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='label'>Label</label>
               <Field as='select' name='label'>
@@ -170,30 +168,32 @@ function NewDoc() {
             </div>
             <div className={`formInput ${touched.title ? errors.title ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='title'>Titulo</label>
-              <Input name='title' autoComplete='off' placeholder={errors.title && touched.title ? errors.title : null} />
+              <Field name='title' autoComplete='off' placeholder={errors.title && touched.title ? errors.title : null} />
             </div>
             <div className={`formInput ${touched.category ? errors.category ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='category'># Categoria</label>
-              <Input name='category' autoComplete='off' />
+              <Field name='category' autoComplete='off' />
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='description'>{values.label === 'publications' ? 'Link Externo' : 'Descripción'}</label>
-              <Input name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
+              {values.label !== 'publications' ? 
+                <Field as='textarea' rows='5' name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
+              : <Field name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />}
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='videoLink'>Video Link</label>
-              <Input name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
+              <Field name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
             </div>
-            <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
+            <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='images'>Imagenes</label>
-              <Input
+              <Field
                 name='images' 
                 component={FileUploader}
                 placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null}
               />
-              <div className={`errorWrapper ${errors.global && touched.description && touched.videoLink && touched.images ? 'showError' : null}`}>
+              <div className={`errorWrapper ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'showError' : null : null}`}>
                 <div>
-                  <span>{errors.global}</span>
+                  <span>{errors.global || errors.images}</span>
                 </div>
               </div>
             </div>

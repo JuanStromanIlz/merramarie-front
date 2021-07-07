@@ -82,7 +82,10 @@ a {
   text-decoration: none;
   word-break: break-all;
 }
-button, input {
+p {
+  line-height: 2rem;
+}
+button, input, textarea, select {
   font: inherit;
 }
 .material-icons {

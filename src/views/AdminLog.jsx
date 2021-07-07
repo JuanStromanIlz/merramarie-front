@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { AdminCont } from '../context/AdminContext';
@@ -7,7 +7,7 @@ import { Loading } from '../styled-components/Loading';
 import { useHistory } from 'react-router-dom';
 import { Wrapper } from '../styled-components/PageWrapper';
 import { StickyTitle } from '../styled-components/StickyTitle';
-import { Form, Input } from '../styled-components/EntryForm';
+import { Form } from '../styled-components/EntryForm';
 
 const logInSchema = Yup.object().shape({
   username: Yup.string().required('Ingrese un usuario'),
@@ -65,11 +65,11 @@ function LogInView() {
             <Form onSubmit={handleSubmit}>
               <div className={`formInput ${touched.username ? errors.username ? 'errorStyle' : 'okStyle' : null}`}>
                 <label for='username'>Usuario</label>
-                <Input name='username' autoComplete='off' />
+                <Field name='username' autoComplete='off' />
               </div>
               <div className={`formInput ${touched.password ? errors.password ? 'errorStyle' : 'okStyle' : null}`}>
                 <label for='password'>Contraseña</label>
-                <Input name='password' type='password' autoComplete='off' />
+                <Field name='password' type='password' autoComplete='off' />
               </div>
               <button type='submit'>Ingresar</button>
             </Form>

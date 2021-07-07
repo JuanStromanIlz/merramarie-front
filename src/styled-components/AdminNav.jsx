@@ -2,16 +2,13 @@ import styled from 'styled-components';
 
 const Nav = styled.nav`
   .navWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1200px;
     padding: 1.6rem 2.6rem 1.6rem 2.6rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     .list {
       display: flex;
-      margin-right: auto;
+      margin-left: auto;
       ul {
         display: flex;
         flex-direction: row;
@@ -19,7 +16,7 @@ const Nav = styled.nav`
         padding-left: 0;
         margin: 0;
         li {
-          margin: auto 3rem auto auto;
+          margin-right: 3rem;
           button {
             background: transparent;
             border: none;
@@ -32,6 +29,9 @@ const Nav = styled.nav`
             color: ${props => props.theme.colors.red};
             font-style: italic; 
           }
+        }
+        li:last-child {
+          margin-right: 0;
         }
       }
       .navOption {

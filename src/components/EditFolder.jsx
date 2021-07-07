@@ -1,7 +1,7 @@
 import { Formik, Field } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { Form, Input } from '../styled-components/EntryForm';
+import { Form } from '../styled-components/EntryForm';
 import { StickyTitle } from '../styled-components/StickyTitle';
 
 const FILE_SIZE = 1024 * 1024 * 5;
@@ -22,25 +22,6 @@ const FileUploader = ({ form, field }) => {
   );
 };
 
-function customValidate(value){
-  let arrayOfImgs = Array.from(value)
-  let error = false;
-  // Se cambio el metodo map por un forIn
-  for (const key in arrayOfImgs) {
-    const img = arrayOfImgs[key];
-    if (img.size > FILE_SIZE) {
-      return error = true;
-    }
-    if (!SUPPORTED_FORMATS.includes(img.type)) {
-      return error = true;
-    }
-  }
-  if (error) {
-    return false;
-  } else {
-    return true;
-  }
-}
 const ItemSchema = Yup.object().shape({
   title: Yup.string().required('Ingrese un titulo'),
   category: Yup.string(),
@@ -60,10 +41,45 @@ const ItemSchema = Yup.object().shape({
         path: 'global',
         message: 'uno de estos campos es obligatorio'
       })
-    : true;
+      : true;
   }),
+  deleteImgs: Yup.array()
+    .test((value, {parent, createError}) => {
+      let newImgsArray = Array.from(parent.newImages)
+      if (parent.images) {
+        return value.length === parent.images.length && !parent.videoLink && !parent.description && newImgsArray.length === 0 ?
+          createError({
+            path: 'global',
+            message: 'uno de estos campos es obligatorio'
+          })
+        : true;
+      } else {
+        return true;
+      }
+      
+    })
+  ,
   newImages: Yup.mixed()
-    .test('newImages', 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb', value => !value || customValidate(value))
+    .test((value, {createError}) => {
+      let arrayOfImgs = Array.from(value)
+      let error = false;
+      // Se cambio el metodo map por un forIn
+      for (const key in arrayOfImgs) {
+        const img = arrayOfImgs[key];
+        if (img.size > FILE_SIZE) {
+          error = true;
+        }
+        if (!SUPPORTED_FORMATS.includes(img.type)) {
+          error = true;
+        }
+      }
+      return error ?
+        createError({
+          path: 'images',
+          message: 'Las imagenes deben ser jpg, jpeg, gif o png y no deben superar los 5mb'
+        })
+      : true;
+    })
 });
 
 function EditFolder({folder, sendEdit}) {
@@ -112,26 +128,33 @@ function EditFolder({folder, sendEdit}) {
             </div>
             <div className={`formInput ${touched.title ? errors.title ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='title'>Titulo</label>
-              <Input name='title' autoComplete='off' placeholder={errors.title && touched.title ? errors.title : null} />
+              <Field name='title' autoComplete='off' placeholder={errors.title && touched.title ? errors.title : null} />
             </div>
             <div className={`formInput ${touched.category ? errors.category ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='category'># Categoria</label>
-              <Input name='category' autoComplete='off' />
+              <Field name='category' autoComplete='off' />
             </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='description'>{values.label === 'publications' ? 'Link Externo' : 'Descripción'}</label>
-              <Input name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
-            </div>
+              {values.label !== 'publications' ? 
+                <Field as='textarea' rows='5' name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
+              : <Field name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />}
+              </div>
             <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='videoLink'>Video Link</label>
-              <Input name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
+              <Field name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
             </div>
-            <div className='formInput formInput__images'>
+            <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'errorStyle' : 'okStyle' : null}`}>
               <label for='newImages'>Agregar imagenes</label>
-              <Input
+              <Field
                 name='newImages' 
                 component={FileUploader}
               />
+              <div className={`errorWrapper ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'showError' : null : null}`}>
+                <div>
+                  <span>{errors.global || errors.images}</span>
+                </div>
+              </div>
             </div>
             <div className='formInput'>
               <label>Eliminar imagenes</label>

@@ -3,9 +3,6 @@ import styled from 'styled-components';
 
 const Footer = styled.footer`
   .footerWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1200px;
     h3 {
       font-size: 20px;
     }

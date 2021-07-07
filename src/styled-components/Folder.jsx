@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Linkify from 'react-linkify';
-import LazyLoad from 'react-lazyload';
 import { StickyTitle } from './StickyTitle';
 import { useEffect } from 'react';
 
@@ -11,10 +10,13 @@ const Folder = styled.div`
       > div {
         margin-bottom: 2rem;
       }
+      .content__text {
+        white-space: pre-line;
+      }
       .content__images {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(600px, 1f));
-        grid-gap: 2rem;
+        grid-gap: 2.6rem;
         img {
           height: 100%;
           width: 100%;
@@ -49,10 +51,13 @@ const Folder = styled.div`
   @media (min-width: 920px) {
     .content__images {
       ${'' /* grid-template-columns: repeat(auto-fit, minmax(auto, 400px)) !important; */}
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;
+      grid-template-columns: repeat(2, minmax(auto, 30%)) !important;
       .bigImg {
         grid-column-end: 3 !important;
       }
+    }
+    .content__text {
+      max-width: 60%;
     }
   }
 `;
@@ -94,11 +99,7 @@ const FolderView = ({folder}) => {
           {folder.images ? 
             <div className='content__images'>
               {folder.images.map((img, i) => 
-                <div key={i} className={`imgContainer ${img.width > img.height ? 'bigImg' : null}`}>
-                  <LazyLoad once>
-                    <img src={img.url} alt={folder.title}/>
-                  </LazyLoad>
-                </div>
+                <img loading='lazy' width='100%' height='100%' src={img.url} alt={folder.title}/>
               )}
             </div> 
           : null}
