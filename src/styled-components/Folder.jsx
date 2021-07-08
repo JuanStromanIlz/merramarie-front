@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Linkify from 'react-linkify';
 import { StickyTitle } from './StickyTitle';
-import { useEffect } from 'react';
+import { ImageSlider } from './ImageSlider';
 
 const Folder = styled.div`
   article {
@@ -16,11 +16,22 @@ const Folder = styled.div`
       .content__images {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(600px, 1f));
-        grid-gap: 2.6rem;
-        img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
+        .image {
+          cursor: pointer;
+          overflow: hidden;
+          padding-top: 1.3rem;
+          padding-bottom: 1.3rem;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          }
+        }
+        .image:hover {
+          img {
+            transform: scale(1.1);
+          }
         }
         .bigImg {
           grid-column-start: 1;
@@ -33,27 +44,32 @@ const Folder = styled.div`
         }
       }
       .content__video {
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        padding-top: 56.25%;
-        iframe {
-          position: absolute;
-          top:0;
-          left:0;
-          width:100%;
-          height:100%;
+        .video {
+          max-width: 900px;
+          aspect-ratio: 16 / 9;
+          position: relative;
+          margin: auto;
+          iframe {
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+          }
         }
       }
     }
   }
   @media (min-width: 920px) {
     .content__images {
-      ${'' /* grid-template-columns: repeat(auto-fit, minmax(auto, 400px)) !important; */}
-      grid-template-columns: repeat(2, minmax(auto, 30%)) !important;
-      .bigImg {
-        grid-column-end: 3 !important;
+      grid-template-columns: repeat(auto-fit, calc(100% / 4)) !important;
+      .image {
+        aspect-ratio: 1;
+        padding-left: 1.3rem;
+        padding-right: 1.3rem;
+      }
+      .image:hover {
+        backdrop-filter: invert(.7);
       }
     }
     .content__text {
@@ -64,14 +80,20 @@ const Folder = styled.div`
 
 const FolderView = ({folder}) => {
   const [pageBottom, setPageBottom] = useState(false);
-  const folderRef = useRef(null); 
+  const [singleImg, setImage] = useState(0);
+  const [slider, setSlider] = useState(false);
     
+  function openSlider(index) {
+    setImage(index);
+    setSlider(true);
+  }
+
   useEffect(() => { 
-    const onScroll = (e) => {
-      if (folderRef.current.clientHeight < 250) {
+    const onScroll = () => {
+      if (document.body.offsetHeight < 250) {
         setPageBottom(true);
       } else {
-        setPageBottom(window.scrollY > (folderRef.current.clientHeight / 3) * 2);
+        setPageBottom((window.innerHeight + window.scrollY) >= (document.body.offsetHeight / 3) * 2);
       }
     }; 
     window.addEventListener("scroll", onScroll);
@@ -88,7 +110,7 @@ const FolderView = ({folder}) => {
         >
           {folder.title}
         </StickyTitle>
-        <div  ref={folderRef} className='content'>
+        <div className='content'>
           {folder.description ? 
             <div className='content__text'>
               <Linkify>
@@ -97,20 +119,27 @@ const FolderView = ({folder}) => {
             </div>
           : null}
           {folder.images ? 
+            <>
             <div className='content__images'>
-              {folder.images.map((img, i) => 
-                <img loading='lazy' width='100%' height='100%' src={img.url} alt={folder.title}/>
+              {folder.images.map((img, index) => 
+                <div className='image'>
+                  <img onClick={() => openSlider(index)} loading='lazy' width='100%' height='100%' src={img.url} alt={folder.title}/>
+                </div>
               )}
             </div> 
+            <ImageSlider images={folder.images} singleImg={singleImg} open={slider} setOpen={setSlider} />
+            </>
           : null}
           {folder.videoLink ? 
             <div className='content__video'>
-              <iframe 
-                title={folder.title} 
-                src={folder.videoLink} 
-                frameBorder="0" 
-                allow="fullscreen; picture-in-picture" 
-              ></iframe>
+              <div className='video'>
+                <iframe 
+                  title={folder.title} 
+                  src={folder.videoLink} 
+                  frameBorder="0" 
+                  allow="fullscreen; picture-in-picture" 
+                ></iframe>
+              </div>
             </div> 
           : null}
         </div>

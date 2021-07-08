@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 const Title = styled.div`
   margin-bottom: 4rem;
   position: sticky;
-  top: 8rem;
+  top: 6rem;
   z-index: 1;
   transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .header__title {
@@ -24,6 +24,7 @@ const Title = styled.div`
     -webkit-text-stroke: 2px ${props => props.theme.colors.red};
     color: transparent;
     overflow-wrap: break-word;
+    pointer-events: none;
   }
   #mediaShare {
     display: flex;
@@ -34,16 +35,16 @@ const Title = styled.div`
     button {
       width: fit-content;
       svg {
-        width: 35px;
+        width: 45px;
       }
     }
   }
   @media (min-width: 920px) {
-    top: 5rem;
+    top: 2.6rem;
     transform: translateX(0) !important;
     .header__title {
-      font-size: 10vw;
-      line-height: 10vw;
+      font-size: 13.6rem;
+      line-height: 13.6rem;
     }
     #mediaShare button svg {
       width: 60px;

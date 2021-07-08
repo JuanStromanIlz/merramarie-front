@@ -79,7 +79,7 @@ const Navbar = styled.nav`
         width: 100vw;
         overflow: auto;
         display: none;
-        padding-top: 1.6rem;
+        padding-top: 2.6rem;
         padding-right: 2.6rem;
         ul {
           list-style-type:none;

@@ -5,7 +5,8 @@ import { StickyTitle } from './StickyTitle';
 const Card = styled.div`
   cursor: pointer;
   display: inline-block;
-  padding: 1rem;
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
   transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .mediaContainer {
     aspect-ratio: 7 / 4;
@@ -36,6 +37,10 @@ const Card = styled.div`
       font-size: 20px; 
     }
   }
+  @media (min-width: 480px) {
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+  }
   @media (min-width: 920px) {
     .cardInfo {
       span {
@@ -48,8 +53,7 @@ const Card = styled.div`
 const Label = styled.div`
   .label__content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1f));
-    grid-gap: 2rem;
+    grid-template-columns: repeat(1, auto);
   }
   .cardItem__blur {
     opacity: .3;
@@ -60,12 +64,12 @@ const Label = styled.div`
   }
   @media (min-width: 480px) {
     .label__content {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+      grid-template-columns: repeat(2, calc(100% / 2)) !important;
     }
   }
   @media (min-width: 920px) {
     .label__content {
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+      grid-template-columns: repeat(4, calc(100% / 4)) !important;
     }
   }
 `;
