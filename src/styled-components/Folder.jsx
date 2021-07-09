@@ -122,13 +122,6 @@ const FolderView = ({folder}) => {
           {folder.title}
         </StickyTitle>
         <div className='content'>
-          {folder.description ? 
-            <div className='content__text'>
-              <Linkify>
-                <p>{folder.description}</p>
-              </Linkify>
-            </div>
-          : null}
           {folder.images ? 
             <>
             <div className='content__images'>
@@ -154,6 +147,13 @@ const FolderView = ({folder}) => {
                 ></iframe>
               </div>
             </div> 
+          : null}
+          {folder.description ? 
+            <div className='content__text'>
+              <Linkify>
+                <p>{folder.description}</p>
+              </Linkify>
+            </div>
           : null}
         </div>
       </article>

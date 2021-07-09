@@ -41,24 +41,6 @@ const List = styled.div`
   flex-direction: column;
 `;
 
-const ItemCard = ({item, sendTo, isShow, selectItem}) => {
-  function RedirectTo(title, location) {
-    sendTo(title, location);
-  }
-
-  return (
-    <Item onClick={() => RedirectTo(item.route_title, item.description)}>
-      <div className='icon'>
-        <span className='material-icons'>link</span>
-      </div>
-      <div className='info'>
-        <h1>{item.title}</h1>
-        <span># {item.category}</span>
-      </div>
-    </Item>
-  );
-};
-
 const ListComponent = ({folder, sendTo}) => {
   const [isShow, setIsShow] = useState(null);
 
@@ -66,7 +48,6 @@ const ListComponent = ({folder, sendTo}) => {
     setIsShow(name)
   }
 
-  // <ItemCard item={item} sendTo={sendTo} isShow={isShow} selectItem={selectItem} />
   return (
     <List>
       <StickyTitle>Publicaciones</StickyTitle>
@@ -83,7 +64,9 @@ const ListComponent = ({folder, sendTo}) => {
               </div>
               <div className='info'>
                 <h1>{item.title}</h1>
-                <span># {item.category}</span>
+                {item.category ?
+                  <span># {item.category}</span>
+                : null}
               </div>
             </div>
           </Item>

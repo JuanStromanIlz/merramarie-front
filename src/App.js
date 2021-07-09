@@ -32,7 +32,7 @@ function App() {
           <Route exact path='/artwork' render={(props) => <PublicLabel {...props} labelName='Artwork' />} />
           <Route exact path='/commercial' render={(props) => <PublicLabel {...props} labelName='Comercial' />} />
           <Route exact path='/films' render={(props) => <PublicLabel {...props} labelName='Films' />} />
-          <Route exact path='/exhibitions' render={(props) => <PublicLabel {...props} labelName='Exhibiciones' />} />
+          <Route exact path='/blog' render={(props) => <PublicLabel {...props} labelName='Blog' />} />
           <Route exact path='/publications' component={PublicList} />
           <Route exact path='/about_me' component={AboutMe} />
           <Route exact path='/contact' component={Contact} />

@@ -6,7 +6,6 @@ import { Loading } from '../styled-components/Loading';
 import { Label } from '../styled-components/Label';
 import { Nav } from '../styled-components/Navbar';
 import { Wrapper } from '../styled-components/PageWrapper';
-import { EmptyCard } from '../styled-components/EmptyCard';
 
 function PublicLabel({labelName}) {
   const [adminRoutes, setAdminRoutes] = useState(false);
@@ -46,9 +45,7 @@ function PublicLabel({labelName}) {
     <>
       <Nav />
       <Wrapper>
-        {!labelInfo.length < 1 ?
-          <Label name={labelName} label={labelInfo} sendTo={sendTo}/>
-        : <EmptyCard />}
+        <Label name={labelName} label={labelInfo} sendTo={sendTo}/>
       </Wrapper>
     </>
   );

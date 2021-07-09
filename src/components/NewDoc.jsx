@@ -159,7 +159,7 @@ function NewDoc({setLoading}) {
                 <option value='artwork'>artwork</option>
                 <option value='commercial'>commercial</option>
                 <option value='films'>films</option>
-                <option value='exhibitions'>exhibitions</option>
+                <option value='blog'>blog</option>
                 <option value='publications'>publications</option>
               </Field>
             </div>

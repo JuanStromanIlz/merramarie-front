@@ -29,9 +29,6 @@ const Footer = styled.footer`
             text-transform: uppercase;
             display: block;
           }
-          a:hover {
-            font-style: italic; 
-          }
         }
       }
     }
@@ -44,15 +41,10 @@ const Footer = styled.footer`
   }
   @media (min-width: 920px) {
     h3 {
-      font-size: 12px !important;
+      font-size: 1.3rem !important;
     }
     .footerEnd {
       box-shadow: 0 0 0 0 transparent;
-    }
-  }
-  @media (min-width: 1200px) {
-    h3 {
-      font-size: 15px !important;
     }
   }
 `;

@@ -113,7 +113,10 @@ const LabelView = ({name, label, sendTo}) => {
     <Label>
       <StickyTitle>{name}</StickyTitle>
       <div className='label__content'>
-        {label.map(item => 
+        {label.length === 0 ?
+          <span>Ups! No hay contenido por ahora.</span>
+        :
+        label.map(item => 
           <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow} />
         )}
       </div>

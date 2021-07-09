@@ -2,13 +2,11 @@ import styled from 'styled-components';
 
 const Nav = styled.nav`
   .navWrapper {
-    padding: 1.6rem 2.6rem 1.6rem 2.6rem;
+    padding: 1.6rem 2.6rem;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     .list {
       display: flex;
-      margin-left: auto;
       ul {
         display: flex;
         flex-direction: row;
@@ -27,7 +25,6 @@ const Nav = styled.nav`
           }
           button:hover {
             color: ${props => props.theme.colors.red};
-            font-style: italic; 
           }
         }
         li:last-child {
@@ -35,18 +32,13 @@ const Nav = styled.nav`
         }
       }
       .navOption {
-      font-size: 20px;
-    }
+        font-size: 2rem;
+      }
     }
   }
   @media (min-width: 920px) {
     .navOption {
-      font-size: 12px !important;
-    }
-  }
-  @media (min-width: 1200px) {
-    .navOption {
-      font-size: 15px !important;
+      font-size: 1.3rem !important;
     }
   }
 `;

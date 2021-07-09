@@ -88,6 +88,9 @@ p {
 button, input, textarea, select {
   font: inherit;
 }
+p {
+  font-size: 1.3rem;
+}
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

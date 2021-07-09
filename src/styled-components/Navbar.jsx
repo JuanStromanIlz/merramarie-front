@@ -32,17 +32,20 @@ const Navbar = styled.nav`
         li {
           display: none;
           margin: 0 3rem 0 0;
+          justify-content: center;
+          align-items: center;
           a {
             color: ${props => props.theme.colors.pink};
             text-decoration: none;
             text-transform: uppercase;
-            display: block;
           }
           a:hover {
             color: ${props => props.theme.colors.red};
-            font-style: italic; 
           }
-        } 
+        }
+        li:first-child {
+          display: flex;
+        }
         li:last-child {
           margin-right: 0;
         }
@@ -79,6 +82,7 @@ const Navbar = styled.nav`
         width: 100vw;
         overflow: auto;
         display: none;
+        justify-content: flex-end;
         padding-top: 2.6rem;
         padding-right: 2.6rem;
         ul {
@@ -99,24 +103,18 @@ const Navbar = styled.nav`
             }
             a:hover {
               color: ${props => props.theme.colors.red};
-              font-style: italic; 
             }
-          }
-          li:last-child a {
-            margin-top: 3.2rem;
-            margin-bottom: 0;
           }
         }
       }
     }
     .navOption {
-      font-size: 20px;
+      font-size: 2rem;
     }
     .homeTag {
-      margin-right: 1.6rem;
-      a {
-        display: flex;
-      }
+      font-size: 2.2rem !important;
+      font-weight: 800;
+      color: ${props => props.theme.colors.red} !important;
     }
     .log {
       a {
@@ -128,17 +126,10 @@ const Navbar = styled.nav`
         color: ${props => props.theme.colors.green} !important;
       }
     }
-    .logTag:nth-child(odd) {
-      margin-left: auto !important;
-      margin-right: 0 !important;
-    }
-    .logTag:nth-child(2n) {
-      margin-left: 3rem !important;
-    }
   }
   /* HAMBURGER ANIMATIONS */
   .menuIsOpen {
-    display: block !important;
+    display: flex !important;
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 36%);
     border-top: 1px solid ${props => props.theme.colors.pink};
   }
@@ -173,7 +164,7 @@ const Navbar = styled.nav`
       background-color: transparent !important;
     }
     .list ul li {
-      display: block !important;
+      display: flex !important;
     }
     .hamburger {
       display: none !important;
@@ -182,12 +173,7 @@ const Navbar = styled.nav`
       display: none !important;
     }
     .navOption {
-      font-size: 12px !important;
-    }
-  }
-  @media (min-width: 1200px) {
-    .navOption {
-      font-size: 15px !important;
+      font-size: 1.3rem !important;
     }
   }
 `;
@@ -265,18 +251,14 @@ const Nav = () => {
   return (
     <Navbar>
       <div className='navWrapper'>
-        <div className='homeTag'>
-          <a className='homeTag' href={`${process.env.REACT_APP_FRONTEND}`}>
-            <img src={process.env.PUBLIC_URL + '/icon.svg'} alt='home'></img>
-          </a>
-        </div>
         <div className='list'>
           <ul>
+            <li><a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}editorial`}>merra marie</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}exhibitions`}>exhibiciones</a></li>
+            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}blog`}>blog</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
@@ -297,7 +279,7 @@ const Nav = () => {
                 <li><a href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}exhibitions`}>exhibiciones</a></li>
+                <li><a href={`${process.env.REACT_APP_FRONTEND}blog`}>blog</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>

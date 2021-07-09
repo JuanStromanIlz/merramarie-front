@@ -43,11 +43,11 @@ const Title = styled.div`
     top: 2.6rem;
     transform: translateX(0) !important;
     .header__title {
-      font-size: 13.6rem;
-      line-height: 13.6rem;
+      font-size: 8.6rem;
+      line-height: 8.6rem;
     }
     #mediaShare button svg {
-      width: 60px;
+      width: 50px;
     }
   }
 `;
