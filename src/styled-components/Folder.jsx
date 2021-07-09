@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Linkify from 'react-linkify';
 import { StickyTitle } from './StickyTitle';
 import { ImageSlider } from './ImageSlider';
+import LazyLoad from 'react-lazyload';
 
 const Folder = styled.div`
   article {
@@ -26,11 +27,6 @@ const Folder = styled.div`
             width: 100%;
             object-fit: cover;
             transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          }
-        }
-        .image:hover {
-          img {
-            transform: scale(1.1);
           }
         }
         .bigImg {
@@ -60,17 +56,32 @@ const Folder = styled.div`
       }
     }
   }
-  @media (min-width: 920px) {
+  .lazyload-wrapper {
+    width: 100%;
+    height: 100%;
+    backdrop-filter: invert(5%);
+  }
+  @media (hover: hover) {
+    .image:hover {
+      backdrop-filter: invert(.7);
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+  @media (min-width: 480px) {
     .content__images {
-      grid-template-columns: repeat(auto-fit, calc(100% / 4)) !important;
+      grid-template-columns: repeat(2, calc(100% / 2)) !important;
       .image {
         aspect-ratio: 1;
         padding-left: 1.3rem;
         padding-right: 1.3rem;
       }
-      .image:hover {
-        backdrop-filter: invert(.7);
-      }
+    }
+  }
+  @media (min-width: 920px) {
+    .content__images {
+      grid-template-columns: repeat(auto-fit, calc(100% / 4)) !important;
     }
     .content__text {
       max-width: 60%;
@@ -123,7 +134,9 @@ const FolderView = ({folder}) => {
             <div className='content__images'>
               {folder.images.map((img, index) => 
                 <div className='image'>
-                  <img onClick={() => openSlider(index)} loading='lazy' width='100%' height='100%' src={img.url} alt={folder.title}/>
+                  <LazyLoad once offset={400} resize={true}>
+                    <img onClick={() => openSlider(index)} width='100%' height='100%' src={img.url} alt={folder.title}/>
+                  </LazyLoad>
                 </div>
               )}
             </div> 

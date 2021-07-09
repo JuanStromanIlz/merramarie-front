@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { useCancelToken } from '../hooks/CancelTokenAxios';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AdminCont } from '../context/AdminContext';
@@ -69,12 +68,12 @@ const ItemSchema = Yup.object().shape({
     })
   });
 
-function NewDoc() {
+function NewDoc({setLoading}) {
   const {token} = useContext(AdminCont);
-  const { newCancelToken, isCancel } = useCancelToken();
   let history = useHistory();
 
   async function sendValues(values) {
+    setLoading(true);
     for (let propName in values) {
       if (values[propName] === null || values[propName] === undefined || values[propName].length === 0) {
         delete values[propName];
@@ -100,8 +99,7 @@ function NewDoc() {
           headers: {
             'authorization': `Bearer ${token}`
           },
-          data: newItemForm,
-          cancelToken: newCancelToken()
+          data: newItemForm
         });
         if (res.status === 201) {
           let title = values.title.trim();
@@ -110,7 +108,7 @@ function NewDoc() {
           history.push(`/panel/folder/${title}`);
         }
       } catch(err) {
-        if (isCancel(err)) return;
+        history.push('/error');
       }
     } else {
       try {
@@ -121,8 +119,7 @@ function NewDoc() {
           headers: {
             'authorization': `Bearer ${token}`
           },
-          data: values,
-          cancelToken: newCancelToken()
+          data: values
         });
         if (res.status === 201) {
           let title = values.title.trim();
@@ -131,7 +128,7 @@ function NewDoc() {
           history.push(`/panel/folder/${title}`);
         }
       } catch(err) {
-        if (isCancel(err)) return;
+        history.push('/error');
       }
     }
   }
@@ -180,23 +177,27 @@ function NewDoc() {
                 <Field as='textarea' rows='5' name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
               : <Field name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />}
             </div>
-            <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='videoLink'>Video Link</label>
-              <Field name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
-            </div>
-            <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='images'>Imagenes</label>
-              <Field
-                name='images' 
-                component={FileUploader}
-                placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null}
-              />
-              <div className={`errorWrapper ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'showError' : null : null}`}>
-                <div>
-                  <span>{errors.global || errors.images}</span>
+            {values.label !== 'publications' ? 
+              <>
+                <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
+                  <label for='videoLink'>Video Link</label>
+                  <Field name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
                 </div>
-              </div>
-            </div>
+                <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'errorStyle' : 'okStyle' : null}`}>
+                  <label for='images'>Imagenes</label>
+                  <Field
+                    name='images' 
+                    component={FileUploader}
+                    placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null}
+                  />
+                  <div className={`errorWrapper ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'showError' : null : null}`}>
+                    <div>
+                      <span>{errors.global || errors.images}</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            : null}
             <button type='submit'>Crear</button>
           </Form>
         )}

@@ -139,37 +139,41 @@ function EditFolder({folder, sendEdit}) {
               {values.label !== 'publications' ? 
                 <Field as='textarea' rows='5' name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
               : <Field name='description' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />}
-              </div>
-            <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='videoLink'>Video Link</label>
-              <Field name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
             </div>
-            <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'errorStyle' : 'okStyle' : null}`}>
-              <label for='newImages'>Agregar imagenes</label>
-              <Field
-                name='newImages' 
-                component={FileUploader}
-              />
-              <div className={`errorWrapper ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'showError' : null : null}`}>
-                <div>
-                  <span>{errors.global || errors.images}</span>
+            {values.label !== 'publications' ?
+              <>
+                <div className={`formInput ${touched.description && touched.videoLink && touched.images ? errors.global ? 'errorStyle' : 'okStyle' : null}`}>
+                  <label for='videoLink'>Video Link</label>
+                  <Field name='videoLink' autoComplete='off' placeholder={errors.global && touched.description && touched.videoLink && touched.images ? errors.global : null} />
                 </div>
-              </div>
-            </div>
-            <div className='formInput'>
-              <label>Eliminar imagenes</label>
-            </div>
-            <div className='imagesEdit'>
-            {folder.images ?
-              imagesArray.map(img => 
-              <div className='imageSelect' key={img.path}>
-                <label>
-                  <Field type='checkbox' name='deleteImgs' value={img.path}/>
-                </label>
-                <img src={img.url} alt='some-img'/>
-              </div>
-            ) : null}
-            </div>
+                <div className={`formInput formInput__images ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'errorStyle' : 'okStyle' : null}`}>
+                  <label for='newImages'>Agregar imagenes</label>
+                  <Field
+                    name='newImages' 
+                    component={FileUploader}
+                  />
+                  <div className={`errorWrapper ${touched.description && touched.videoLink && touched.images ? errors.global || errors.images ? 'showError' : null : null}`}>
+                    <div>
+                      <span>{errors.global || errors.images}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className='formInput'>
+                  <label>Eliminar imagenes</label>
+                </div>
+                <div className='imagesEdit'>
+                {folder.images ?
+                  imagesArray.map(img => 
+                  <div className='imageSelect' key={img.path}>
+                    <label>
+                      <Field type='checkbox' name='deleteImgs' value={img.path}/>
+                    </label>
+                    <img src={img.url} alt='some-img'/>
+                  </div>
+                ) : null}
+                </div>
+              </>
+            : null}
             <button type='submit'>Guardar</button>
           </Form>
         )}

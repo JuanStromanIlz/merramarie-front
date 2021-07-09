@@ -25,16 +25,14 @@ function PublicHome() {
   }, []);
 
   return (
+    loading ?
+      <Loading />
+    : 
     <>
-      {loading ?
-        <Loading />
-      : 
-      <>
-        <Nav />
-        <Wrapper>
-          <StickyTitle>Home</StickyTitle>
-        </Wrapper>
-      </>}
+      <Nav />
+      <Wrapper>
+        <StickyTitle>Home</StickyTitle>
+      </Wrapper>
     </>
   );
 };

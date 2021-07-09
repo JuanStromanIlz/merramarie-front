@@ -34,23 +34,20 @@ const Footer = styled.footer`
           }
         }
       }
-      .devInfo {
-        flex-basis: 100%;
-        padding: 0 2.6rem .6rem 2.6rem;
-        span {
-          color: rgba(127, 127, 127, .6);
-        }
-      }
     }
   }
   .footerEnd {
     border-radius: 50%;
     overflow:hidden;
     transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 -10px 10rem 6rem rgba(189, 41, 41, .7);
   }
   @media (min-width: 920px) {
     h3 {
       font-size: 12px !important;
+    }
+    .footerEnd {
+      box-shadow: 0 0 0 0 transparent;
     }
   }
   @media (min-width: 1200px) {

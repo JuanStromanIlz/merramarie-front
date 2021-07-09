@@ -39,24 +39,12 @@ const Slider = styled.div`
       border-radius: 50%;
       transition: .1s ease-in;
     }
-    span:hover {
-      transform: scale(1.8);
-      color: ${props => props.theme.colors.red};
-      opacity: 1;
-    }
-  }
-  button.slide:hover {
-    background-color: ${props => props.theme.colors.pink};
-    opacity: .1;
   }
   .slide__left {
     left: 0;
   }
   .slide__right {
     right: 0;
-  }
-  .close:hover {
-    opacity: 1;
   }
   .close {
     z-index: 2;
@@ -65,9 +53,19 @@ const Slider = styled.div`
     position: absolute;
     top: 1rem;
     right: 1rem;
-    span:hover {
-      transform: scale(.8);
-      color: ${props => props.theme.colors.pink};
+  }
+  @media (hover: hover) {
+    .slide span:hover {
+      transform: scale(1.8);
+      color: ${props => props.theme.colors.red};
+      opacity: 1;
+    }
+    .close:hover {
+      opacity: 1;
+      span {
+        transform: scale(.8);
+        color: ${props => props.theme.colors.pink};
+      }
     }
   }
   @media(min-width: 920px) {
@@ -77,44 +75,33 @@ const Slider = styled.div`
         visibility: visible;
       }
     }
-    button.slide:hover {
-      background-color: transparent;
-      opacity: 1;
-    }
   }
 `;
 
 
 const ImageSlider = ({images, singleImg, open, setOpen}) => {
   const [index, setIndex] = useState(singleImg);
-  const [disable, setDisable] = useState(false);
 
   const slideRight = () => {
-    setDisable(true);
     document.getElementById('imageToShow').style.opacity='0';
     setTimeout(() => {
       setIndex((index + 1) % images.length);
       document.getElementById('imageToShow').style.opacity='1';
-      setDisable(false);
     }, 300);
   };
 
   const slideLeft = () => {
     const nextIndex = index - 1;
-    setDisable(true);
+    document.getElementById('imageToShow').style.opacity='0';
     if (nextIndex < 0) {
-      document.getElementById('imageToShow').style.opacity='0';
       setTimeout(() => {
         setIndex(images.length - 1);
         document.getElementById('imageToShow').style.opacity='1';
-        setDisable(false);
       }, 300);
     } else {
-      document.getElementById('imageToShow').style.opacity='0';
       setTimeout(() => {
         setIndex(nextIndex);
         document.getElementById('imageToShow').style.opacity='1';
-        setDisable(true);
       }, 300);
     }
   };
@@ -129,18 +116,18 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
       document.getElementById('imageSlider').style.display='none';
       document.getElementById('root').removeAttribute('style');
     }
-  }, [singleImg, open]);
+  }, [open, singleImg]);
 
   return (
     <Slider id='imageSlider'>
       <button className='close'>
         <span className='material-icons' onClick={() => setOpen(false)}>close</span>
       </button>
-      <button className='slide slide__left' onClick={disable ? null : slideLeft}>
+      <button className='slide slide__left' onClick={slideLeft}>
         <span className='material-icons'>chevron_left</span>
       </button>
       <img id='imageToShow' src={images[index].url} alt={index} />
-      <button className='slide slide__right' onClick={disable ? null : slideRight}>
+      <button className='slide slide__right' onClick={slideRight}>
         <span className='material-icons'>chevron_right</span>
       </button>
     </Slider>

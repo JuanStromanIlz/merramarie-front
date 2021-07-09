@@ -12,8 +12,7 @@ export const useCancelToken = () => {
     () => () => {
       if (axiosSource.current) axiosSource.current.cancel();
     },
-    []
-  );
+  []);
 
   return { newCancelToken, isCancel };
 };
