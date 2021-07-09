@@ -46,7 +46,6 @@ function AdminFolder() {
     let formWithImages = false;
     let newForm = values;
     delete newForm.images;
-    // let newImages = [];
     let formToCompare = {
       label: folder.label,
       category: folder.category,

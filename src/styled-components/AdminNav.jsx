@@ -23,9 +23,6 @@ const Nav = styled.nav`
             text-decoration: none;
             text-transform: uppercase;
           }
-          button:hover {
-            color: ${props => props.theme.colors.red};
-          }
         }
         li:last-child {
           margin-right: 0;
@@ -34,6 +31,11 @@ const Nav = styled.nav`
       .navOption {
         font-size: 2rem;
       }
+    }
+  }
+  @media (hover: hover) {
+    button:hover {
+      color: ${props => props.theme.colors.red} !important;
     }
   }
   @media (min-width: 920px) {

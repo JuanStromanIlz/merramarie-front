@@ -6,7 +6,7 @@ const Footer = styled.footer`
     padding-left: 2.6rem;
     padding-right: 2.6rem;
     > div {
-      border-top: 2px solid ${props => props.theme.colors.pink};
+      border-top: 1px solid ${props => props.theme.colors.pink};
       padding-top: 2.6rem;
       h3 {
         font-size: 20px;
@@ -38,6 +38,11 @@ const Footer = styled.footer`
     overflow:hidden;
     transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 -10px 10rem 6rem rgba(189, 41, 41, .7);
+  }
+  @media (hover: hover) {
+    a:hover {
+      color: black !important;
+    }
   }
   @media (min-width: 920px) {
     h3 {

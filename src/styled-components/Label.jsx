@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { StickyTitle } from './StickyTitle';
+import { EmptyCard } from './EmptyCard';
 
 const Card = styled.div`
   cursor: pointer;
@@ -28,6 +29,7 @@ const Card = styled.div`
       left:0;
       width:100%;
       height:100%;
+      z-index: -1;
     }
   }
   .cardInfo {
@@ -114,7 +116,7 @@ const LabelView = ({name, label, sendTo}) => {
       <StickyTitle>{name}</StickyTitle>
       <div className='label__content'>
         {label.length === 0 ?
-          <span>Ups! No hay contenido por ahora.</span>
+          <EmptyCard sendTo={sendTo}/>
         :
         label.map(item => 
           <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow} />

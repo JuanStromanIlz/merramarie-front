@@ -91,7 +91,7 @@ function EditFolder({folder, sendEdit}) {
 
   return (
     <div>
-      <StickyTitle>Editar Documento</StickyTitle>
+      <StickyTitle>Editar</StickyTitle>
       <Formik
         initialValues={{
           label: folder.label,

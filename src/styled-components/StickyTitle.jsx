@@ -12,11 +12,13 @@ import {
 import { useEffect } from 'react';
 
 const Title = styled.div`
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid ${props => props.theme.colors.pink};
   position: sticky;
   top: 6rem;
   z-index: 1;
-  transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .header__title {
     font-size: 6.6rem;
     line-height: 6.6rem;
@@ -27,6 +29,7 @@ const Title = styled.div`
     pointer-events: none;
   }
   #mediaShare {
+    height: 0;
     display: flex;
     flex-direction: row;
     transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -37,6 +40,11 @@ const Title = styled.div`
       svg {
         width: 45px;
       }
+    }
+  }
+  @media (hover: hover) {
+    button:hover {
+      transform: scale(.8);
     }
   }
   @media (min-width: 920px) {
@@ -55,6 +63,17 @@ const Title = styled.div`
 const StickyTitle = ({isFolder, share, folder, children}) => {
 
   useEffect(() => {
+    function onScroll() {
+      document.getElementsByClassName('header__floatTitle')[0].style.borderBottom= '0px solid transparent';
+      document.getElementsByClassName('header__floatTitle')[0].style.paddingBottom= '0';
+      if (isFolder) {
+        if (window.innerWidth >= 920) {
+          document.getElementById('mediaShare').style.height='50px';
+        } else {
+          document.getElementById('mediaShare').style.height='45px'
+        }
+      }
+    }
     if (isFolder) {
       if (share) {
         document.getElementById('mediaShare').style.transform='translateX(0)';
@@ -62,6 +81,8 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
         document.getElementById('mediaShare').style.transform='translateX(-500px)';
       }
     }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, [share, isFolder]);
 
   return (

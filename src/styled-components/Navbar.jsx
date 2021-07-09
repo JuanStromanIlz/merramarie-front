@@ -26,21 +26,19 @@ const Navbar = styled.nav`
         display: flex;
         flex-basis: 100%;
         flex-direction: row;
+        justify-content: space-between;
         list-style-type:none;
         padding-left: 0;
         margin: 0;
+        margin-right: 10%;
         li {
           display: none;
-          margin: 0 3rem 0 0;
           justify-content: center;
           align-items: center;
           a {
             color: ${props => props.theme.colors.pink};
             text-decoration: none;
             text-transform: uppercase;
-          }
-          a:hover {
-            color: ${props => props.theme.colors.red};
           }
         }
         li:first-child {
@@ -101,9 +99,6 @@ const Navbar = styled.nav`
               font-size: 20px;
               margin-bottom: 1.6rem;
             }
-            a:hover {
-              color: ${props => props.theme.colors.red};
-            }
           }
         }
       }
@@ -156,6 +151,14 @@ const Navbar = styled.nav`
       100% { 
         opacity: 0; 
       }
+    }
+  }
+  @media (hover: hover) {
+    a:hover {
+      color: ${props => props.theme.colors.red} !important;
+    }
+    .log:hover a, .new:hover a {
+      color: ${props => props.theme.colors.pink} !important;
     }
   }
   @media (min-width: 920px) {
@@ -253,7 +256,7 @@ const Nav = () => {
       <div className='navWrapper'>
         <div className='list'>
           <ul>
-            <li><a className='navOption homeTag' href={`${process.env.REACT_APP_FRONTEND}editorial`}>merra marie</a></li>
+            <li><a className='navOption homeTag' href={process.env.REACT_APP_FRONTEND}>merra marie</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>

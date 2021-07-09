@@ -5,6 +5,7 @@ import { StickyTitle } from './StickyTitle';
 const Item = styled.section`
   cursor: pointer;
   margin-bottom: 2.6rem;
+  width: fit-content;
   .itemWrapper {
     display: flex;
     flex-direction: row;
