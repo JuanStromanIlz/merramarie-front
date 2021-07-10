@@ -28,6 +28,7 @@ const Footer = styled.footer`
             text-decoration: none;
             text-transform: uppercase;
             display: block;
+            font-weight: 200;
           }
         }
       }
@@ -46,7 +47,7 @@ const Footer = styled.footer`
   }
   @media (min-width: 920px) {
     h3 {
-      font-size: 1.3rem !important;
+      font-size: 1.4rem !important;
     }
     .footerEnd {
       box-shadow: 0 0 0 0 transparent;

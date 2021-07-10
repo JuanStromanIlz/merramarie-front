@@ -20,11 +20,13 @@ const Item = styled.section`
     }
     .info {
       padding-left: 1.6rem;
-      h1 {
-        text-transform: uppercase;
+      h2 {
+        font-weight: 100;
       }
-      span {
-        color: ${props => props.theme.colors.red};
+      h3 {
+        text-transform: lowercase;
+        font-weight: 200;
+        color: ${props => props.theme.colors.green};
       }
     }
   }
@@ -32,8 +34,20 @@ const Item = styled.section`
     opacity: .3;
   }
   .item__select {
-    font-style: italic;
     color: ${props => props.theme.colors.green};
+    h2 { 
+      font-style: italic;
+    }
+  }
+  @media (min-width: 920px) {
+    .info {
+      h2 {
+        font-size: 4rem;
+      }
+      h3 {
+        font-size: 2.1rem; 
+      }
+    }
   }
 `;
 
@@ -64,9 +78,9 @@ const ListComponent = ({folder, sendTo}) => {
                 <span className='material-icons'>link</span>
               </div>
               <div className='info'>
-                <h1>{item.title}</h1>
+                <h2>{item.title}</h2>
                 {item.category ?
-                  <span># {item.category}</span>
+                  <h3># {item.category}</h3>
                 : null}
               </div>
             </div>

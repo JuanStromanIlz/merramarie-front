@@ -35,6 +35,7 @@ const Navbar = styled.nav`
           display: none;
           justify-content: center;
           align-items: center;
+          padding: auto 0;
           a {
             color: ${props => props.theme.colors.pink};
             text-decoration: none;
@@ -43,6 +44,7 @@ const Navbar = styled.nav`
         }
         li:first-child {
           display: flex;
+          padding: .6rem 0;
         }
         li:last-child {
           margin-right: 0;
@@ -66,7 +68,7 @@ const Navbar = styled.nav`
           font-size: 35px;
           display: block;
           color: ${props => props.theme.colors.red};
-          transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
       }
     }
@@ -105,10 +107,11 @@ const Navbar = styled.nav`
     }
     .navOption {
       font-size: 2rem;
+      font-weight: 200;
     }
     .homeTag {
       font-size: 2.2rem !important;
-      font-weight: 800;
+      font-weight: 400;
       color: ${props => props.theme.colors.red} !important;
     }
     .log {
@@ -129,10 +132,10 @@ const Navbar = styled.nav`
     border-top: 1px solid ${props => props.theme.colors.pink};
   }
   .iconRotate__open {
-    transform: rotate(45deg);
+    transform: rotate(90deg);
   }
   .menuSlice__open {
-    animation: menuOpen 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: menuOpen .1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     @keyframes menuOpen {
       0% { 
         opacity: 0; 
@@ -143,7 +146,7 @@ const Navbar = styled.nav`
     }
   }
   .menuSlice__close {
-    animation: menuClose 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: menuClose .1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     @keyframes menuClose {
       0% { 
         opacity: 1; 
@@ -176,7 +179,8 @@ const Navbar = styled.nav`
       display: none !important;
     }
     .navOption {
-      font-size: 1.3rem !important;
+      font-size: 1.4rem !important;
+      line-height: 1.4rem;
     }
   }
 `;
@@ -209,7 +213,7 @@ const Nav = () => {
       document.getElementById('menuIcon').classList.add('iconRotate__open');
       setTimeout(() => {
         document.getElementsByClassName('hamburger__slice')[0].classList.remove('menuSlice__open');
-      }, 1000);
+      }, 100);
       setMenu(true);
     } else {
       // Put back the page title
@@ -239,7 +243,7 @@ const Nav = () => {
         document.getElementsByClassName('header__floatTitle')[0].classList.remove('titleSlice__close');
         document.getElementsByClassName('hamburger__slice')[0].classList.remove('menuSlice__close');
         document.getElementsByClassName('hamburger__slice')[0].classList.remove('menuIsOpen');
-      }, 1000);
+      }, 100);
       setMenu(false);
     }
   }
@@ -271,7 +275,7 @@ const Nav = () => {
         </div>
         <div className='hamburgerMenu'>
           <button onClick={() => openMenu()}>
-            <span id='menuIcon' className='material-icons navOption'>add</span>
+            <span id='menuIcon' className='material-icons navOption'>arrow_drop_down</span>
           </button>
         </div>
         <div className='hamburger'>

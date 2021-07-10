@@ -2,27 +2,30 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { StickyTitle } from './StickyTitle';
 import { EmptyCard } from './EmptyCard';
+import LazyLoad from 'react-lazyload';
 
 const Card = styled.div`
   cursor: pointer;
   display: inline-block;
-  padding-top: 1.3rem;
-  padding-bottom: 1.3rem;
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
   transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
   .mediaContainer {
     aspect-ratio: 7 / 4;
-    margin-bottom: 1.5rem;
-  }
-  .mediaContainer__image {
+    position: relative;
+    overflow: hidden;
+    img, iframe {
+      filter: brightness(.62);
+    }
     img {
+      filter: brightness(.62);
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
+      transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-  }
-  .mediaContainer__video {
-    position: relative;
     iframe {
       position: absolute;
       top:0;
@@ -33,20 +36,55 @@ const Card = styled.div`
     }
   }
   .cardInfo {
-    span {
-      color: ${props => props.theme.colors.red};
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.3rem;
+    transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(1px);
+    h2 {
+      font-weight: 100;
+    }
+    h3 {
       text-transform: lowercase;
-      font-size: 20px; 
+      font-weight: 200;
+      color: ${props => props.theme.colors.green};
+    }
+  }
+  .lazyload-wrapper {
+    width: 100%;
+    height: 100%;
+    backdrop-filter: invert(5%);
+  }
+  @media (hover: hover) {
+    :hover {
+      img, iframe {
+        filter: brightness(1);
+      }
+      img {
+        transform: scale(1.1);
+      }
+      .cardInfo {
+        opacity: 0;
+      }
     }
   }
   @media (min-width: 480px) {
-    padding-left: 1.3rem;
-    padding-right: 1.3rem;
+    :nth-child(odd) {
+      margin-right: 1.3rem;
+    }
+    :nth-child(even) {
+      margin-left: 1.3rem;
+    }
   }
   @media (min-width: 920px) {
     .cardInfo {
-      span {
-        font-size: 15px;
+      h2 {
+        font-size: 4rem;
+      }
+      h3 {
+        font-size: 2.1rem; 
       }
     }
   }
@@ -57,34 +95,24 @@ const Label = styled.div`
     display: grid;
     grid-template-columns: repeat(1, auto);
   }
-  .cardItem__blur {
-    opacity: .3;
-    transform: scale(.8);
-  }
-  .cardItem__select {
-    transform: scale(1.1);
-  }
   @media (min-width: 480px) {
     .label__content {
       grid-template-columns: repeat(2, calc(100% / 2)) !important;
-    }
-  }
-  @media (min-width: 920px) {
-    .label__content {
-      grid-template-columns: repeat(4, calc(100% / 4)) !important;
     }
   }
 `;
 
 const LabelCard = ({item, sendTo, selectItem, isShow}) => {
   return (
-    <Card className={`card__item ${isShow !== null && isShow !== item.route_title ? 'cardItem__blur' : isShow !== null && isShow === item.route_title ? 'cardItem__select' : '' }`} onClick={() => sendTo(item.route_title)} onMouseOver={() => selectItem(item.route_title)} onMouseLeave={() => selectItem(null)}>
+    <Card className='card__item' onClick={() => sendTo(item.route_title)} onMouseOver={() => selectItem(item.route_title)} onMouseLeave={() => selectItem(null)}>
       {item.images ? 
-        <div className='mediaContainer mediaContainer__image'>
-          <img src={item.images[0].url} alt={item.title}></img>
+        <div className='mediaContainer'>
+          <LazyLoad once offset={400} resize={true}>
+            <img src={item.images[0].url} alt={item.title}></img>
+          </LazyLoad>
         </div>
       : item.videoLink ?
-        <div className='mediaContainer mediaContainer__video'>
+        <div className='mediaContainer'>
           <iframe 
             title={item.title} 
             src={item.videoLink} 
@@ -95,9 +123,9 @@ const LabelCard = ({item, sendTo, selectItem, isShow}) => {
         </div>
       : null}
       <div className='cardInfo'>
-        <h1>{item.title}</h1>
+        <h2>{item.title}</h2>
         {item.category ?
-          <span># {item.category}</span>
+          <h3># {item.category}</h3>
         : null}
       </div>
     </Card>

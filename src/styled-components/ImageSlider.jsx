@@ -7,7 +7,7 @@ const Slider = styled.div`
   inset: 0;
   z-index: 1;
   margin: 0 !important;
-  background: rgba(0,0,0, .97);
+  background: rgba(0,0,0, .8);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -16,7 +16,7 @@ const Slider = styled.div`
     width: 90%;
     height: 90%;
     object-fit: scale-down;
-    transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: .2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   button {
     background: transparent;
@@ -53,6 +53,9 @@ const Slider = styled.div`
     position: absolute;
     top: 1rem;
     right: 1rem;
+    span {
+      font-size: 3rem;
+    }
   }
   @media (hover: hover) {
     .slide span:hover {
@@ -63,7 +66,7 @@ const Slider = styled.div`
     .close:hover {
       opacity: 1;
       span {
-        transform: scale(.8);
+        transform: scale(1.5);
         color: ${props => props.theme.colors.pink};
       }
     }
@@ -87,7 +90,7 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
     setTimeout(() => {
       setIndex((index + 1) % images.length);
       document.getElementById('imageToShow').style.opacity='1';
-    }, 300);
+    }, 200);
   };
 
   const slideLeft = () => {
@@ -97,12 +100,12 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
       setTimeout(() => {
         setIndex(images.length - 1);
         document.getElementById('imageToShow').style.opacity='1';
-      }, 300);
+      }, 200);
     } else {
       setTimeout(() => {
         setIndex(nextIndex);
         document.getElementById('imageToShow').style.opacity='1';
-      }, 300);
+      }, 200);
     }
   };
 
@@ -111,10 +114,10 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
       setIndex(singleImg);
       document.getElementById('imageToShow').style.opacity='1';
       document.getElementById('imageSlider').style.display='flex';
-      document.getElementById('root').style.cssText='position: fixed; inset: 0;';
+      // document.getElementById('root').style.cssText='position: fixed; inset: 0;';
     } else {
       document.getElementById('imageSlider').style.display='none';
-      document.getElementById('root').removeAttribute('style');
+      // document.getElementById('root').removeAttribute('style');
     }
   }, [open, singleImg]);
 

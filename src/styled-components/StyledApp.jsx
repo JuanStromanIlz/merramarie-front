@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const StyledApp = createGlobalStyle`
-@font-face {
+${'' /* @font-face {
   font-family: Neue Montreal;
   src: local('Montreal'), url(./fonts/montreal/NeueMontreal-Light.otf) format('truetype');
   font-weight: 400;
@@ -24,7 +24,7 @@ const StyledApp = createGlobalStyle`
   src: local('Montreal'), url(./fonts/montreal/NeueMontreal-BoldItalic.otf) format('truetype');
   font-weight: 700;
   font-style: italic;
-}
+} */}
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -34,7 +34,7 @@ html {
 }
 ::-webkit-scrollbar {
   background-color: #000;
-  width: 10px;
+  width: 5px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #fff;
@@ -46,7 +46,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Montreal,Helvetica,Arial,sans-serif;
+  ${'' /* font-family: Montreal,Helvetica,Arial,sans-serif; */}
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -82,14 +83,13 @@ a {
   text-decoration: none;
   word-break: break-all;
 }
-p {
-  line-height: 2rem;
-}
 button, input, textarea, select {
   font: inherit;
 }
 p {
   font-size: 1.3rem;
+  line-height: 2.1rem;
+  font-weight: 200;
 }
 .material-icons {
   font-family: 'Material Icons';

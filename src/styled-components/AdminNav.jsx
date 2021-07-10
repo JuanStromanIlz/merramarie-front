@@ -30,6 +30,7 @@ const Nav = styled.nav`
       }
       .navOption {
         font-size: 2rem;
+        font-weight: 200;
       }
     }
   }
@@ -40,7 +41,7 @@ const Nav = styled.nav`
   }
   @media (min-width: 920px) {
     .navOption {
-      font-size: 1.3rem !important;
+      font-size: 1.4rem !important;
     }
   }
 `;
