@@ -44,11 +44,11 @@ const Card = styled.div`
     transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     backdrop-filter: blur(1px);
     h2 {
-      font-weight: 100;
+      font-weight: 200;
     }
     h3 {
       text-transform: lowercase;
-      font-weight: 200;
+      font-weight: 100;
       color: ${props => props.theme.colors.green};
     }
   }
@@ -125,7 +125,7 @@ const LabelCard = ({item, sendTo, selectItem, isShow}) => {
       <div className='cardInfo'>
         <h2>{item.title}</h2>
         {item.category ?
-          <h3># {item.category}</h3>
+          <h3>#{item.category}</h3>
         : null}
       </div>
     </Card>
@@ -144,7 +144,7 @@ const LabelView = ({name, label, sendTo}) => {
       <StickyTitle>{name}</StickyTitle>
       <div className='label__content'>
         {label.length === 0 ?
-          <EmptyCard sendTo={sendTo}/>
+          <EmptyCard />
         :
         label.map(item => 
           <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow} />

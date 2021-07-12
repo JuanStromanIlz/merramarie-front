@@ -63,11 +63,13 @@ const Folder = styled.div`
   }
   @media (hover: hover) {
     .image:hover {
-      backdrop-filter: invert(.7);
       img {
         transform: scale(1.1);
       }
     }
+  a:hover {
+    text-decoration: underline;
+  }
   }
   @media (min-width: 480px) {
     .content__images {
@@ -100,16 +102,19 @@ const FolderView = ({folder}) => {
   }
 
   useEffect(() => { 
+    if (document.body.offsetHeight <= window.innerHeight) {
+      setPageBottom(true);
+    }
     const onScroll = () => {
-      if (document.body.offsetHeight < 250) {
-        setPageBottom(true);
-      } else {
+      if (!pageBottom) {
         setPageBottom((window.innerHeight + window.scrollY) >= (document.body.offsetHeight / 3) * 2);
+      } if (pageBottom) {
+        window.removeEventListener('scroll', onScroll);
       }
-    }; 
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [pageBottom]);
 
   return (
     <Folder className='folder__item'>
@@ -142,8 +147,8 @@ const FolderView = ({folder}) => {
                 <iframe 
                   title={folder.title} 
                   src={folder.videoLink} 
-                  frameBorder="0" 
-                  allow="fullscreen; picture-in-picture" 
+                  frameBorder='0' 
+                  allow='fullscreen; picture-in-picture' 
                 ></iframe>
               </div>
             </div> 

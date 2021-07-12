@@ -114,10 +114,8 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
       setIndex(singleImg);
       document.getElementById('imageToShow').style.opacity='1';
       document.getElementById('imageSlider').style.display='flex';
-      // document.getElementById('root').style.cssText='position: fixed; inset: 0;';
     } else {
       document.getElementById('imageSlider').style.display='none';
-      // document.getElementById('root').removeAttribute('style');
     }
   }, [open, singleImg]);
 

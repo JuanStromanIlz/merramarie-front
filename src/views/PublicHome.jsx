@@ -29,10 +29,7 @@ function PublicHome() {
       <Loading />
     : 
     <>
-      <Nav />
-      <Wrapper>
-        <StickyTitle>Home</StickyTitle>
-      </Wrapper>
+      <Banner />
     </>
   );
 };

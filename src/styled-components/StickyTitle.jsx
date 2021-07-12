@@ -12,15 +12,14 @@ import {
 import { useEffect } from 'react';
 
 const Title = styled.div`
-  margin-bottom: 2rem;
-  position: sticky;
+  padding-bottom: 2.3rem;
   top: 6rem;
   z-index: 1;
+  transition: .8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .header__title {
-    font-size: 6.6rem;
+    font-size: 3.6rem;
     font-weight: 400;
-    line-height: 6.6rem;
-    transition: .3s ease;
+    line-height: 3.6rem;
     -webkit-text-stroke: 2px ${props => props.theme.colors.red};
     color: transparent;
     overflow-wrap: break-word;
@@ -30,7 +29,7 @@ const Title = styled.div`
     height: 0;
     display: flex;
     flex-direction: row;
-    transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: .8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateX(-500px);
     margin-left: -1rem;
     button {
@@ -49,8 +48,8 @@ const Title = styled.div`
     top: 2.6rem;
     transform: translateX(0) !important;
     .header__title {
-      font-size: 8.6rem;
-      line-height: 8.6rem;
+      font-size: 7rem;
+      line-height: 7rem;
     }
     #mediaShare button svg {
       width: 50px;
@@ -61,25 +60,12 @@ const Title = styled.div`
 const StickyTitle = ({isFolder, share, folder, children}) => {
 
   useEffect(() => {
-    function onScroll() {
-      document.getElementsByClassName('header__floatTitle')[0].style.marginBottom= '0';
-      if (isFolder) {
-        if (window.innerWidth >= 920) {
-          document.getElementById('mediaShare').style.height='50px';
-        } else {
-          document.getElementById('mediaShare').style.height='45px'
-        }
-      }
-    }
     if (isFolder) {
+      document.getElementsByClassName('header__floatTitle')[0].style.position='sticky';
       if (share) {
-        document.getElementById('mediaShare').style.transform='translateX(0)';
-      } else {
-        document.getElementById('mediaShare').style.transform='translateX(-500px)';
-      }
+        document.getElementById('mediaShare').style.cssText='transform: translateX(0); height: 50px;';
+      } 
     }
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
   }, [share, isFolder]);
 
   return (
@@ -91,7 +77,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             <div>
               <FacebookShareButton
                 url={process.env.REACT_APP_FRONTEND + folder.route}
-                quote={`Merra Marie: ` + folder.title}
+                quote={folder.title}
               >
                 <FacebookIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </FacebookShareButton>
@@ -99,7 +85,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             <div>
               <TwitterShareButton
                 url={process.env.REACT_APP_FRONTEND + folder.route}
-                title={`Merra Marie: ` + folder.title}
+                title={folder.title}
               >
                 <TwitterIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </TwitterShareButton>
@@ -107,7 +93,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             <div>
               <TumblrShareButton
                 url={process.env.REACT_APP_FRONTEND + folder.route}
-                title={`Merra Marie: ` + folder.title}
+                title={folder.title}
               >
                 <TumblrIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </TumblrShareButton>
@@ -115,7 +101,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             <div>
               <WhatsappShareButton
                 url={process.env.REACT_APP_FRONTEND + folder.route}
-                title={`Merra Marie: ` + folder.title}
+                title={folder.title}
               >
                 <WhatsappIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </WhatsappShareButton>

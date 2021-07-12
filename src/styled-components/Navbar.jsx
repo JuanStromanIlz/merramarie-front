@@ -5,8 +5,7 @@ const Navbar = styled.nav`
   position: sticky;
   top: 0;
   z-index: 1;
-  background: rgba(0,0,0,0.8);
-  box-shadow: 0 2px 5px 5px rgb(0, 0, 0, .7);
+  transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .navWrapper {
     position: relative;
     padding: 1rem 2.6rem;
@@ -44,7 +43,7 @@ const Navbar = styled.nav`
         }
         li:first-child {
           display: flex;
-          padding: .6rem 0;
+          padding: .1rem 0;
         }
         li:last-child {
           margin-right: 0;
@@ -111,13 +110,8 @@ const Navbar = styled.nav`
     }
     .homeTag {
       font-size: 2.2rem !important;
-      font-weight: 400;
+      font-weight: 700 !important;
       color: ${props => props.theme.colors.red} !important;
-    }
-    .log {
-      a {
-        color: ${props => props.theme.colors.red} !important;
-      }
     }
     .new { 
       a {
@@ -129,7 +123,6 @@ const Navbar = styled.nav`
   .menuIsOpen {
     display: flex !important;
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 36%);
-    border-top: 1px solid ${props => props.theme.colors.pink};
   }
   .iconRotate__open {
     transform: rotate(90deg);
@@ -172,6 +165,9 @@ const Navbar = styled.nav`
     .list ul li {
       display: flex !important;
     }
+    .list ul li:first-child {
+      padding: .6rem 0 !important;
+    }
     .hamburger {
       display: none !important;
     }
@@ -208,6 +204,7 @@ const Nav = () => {
         }
       }
       // Animations for open the menu
+      document.getElementsByClassName('navWrapper')[0].style.background='linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 36%)';
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuSlice__open');
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuIsOpen');
       document.getElementById('menuIcon').classList.add('iconRotate__open');
@@ -236,6 +233,7 @@ const Nav = () => {
         }
       }
         // Animations for close the menu
+        document.getElementsByClassName('navWrapper')[0].removeAttribute('style');;
       document.getElementsByClassName('hamburger__slice')[0].classList.add('menuSlice__close');
       document.getElementById('menuIcon').classList.remove('iconRotate__open');
       setTimeout(() => {
@@ -269,8 +267,8 @@ const Nav = () => {
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
             <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
-            {adminRoutes && <li className='logTag new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
-            <li className='logTag log'><a className='navOption' href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
+            {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
+            {adminRoutes && <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/log_out`}>log out</a></li>}
           </ul>
         </div>
         <div className='hamburgerMenu'>
@@ -291,7 +289,7 @@ const Nav = () => {
                 <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
                 <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
                 {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
-                <li className='log'><a href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + 'panel/log_out' : process.env.REACT_APP_FRONTEND + 'panel/log_in'}`}>{adminRoutes ? 'log out' : 'log in'}</a></li>
+                {adminRoutes && <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/log_out`}>log out</a></li>}
               </ul>
             </div>
           </div>

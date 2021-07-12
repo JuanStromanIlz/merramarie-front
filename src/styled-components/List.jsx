@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { StickyTitle } from './StickyTitle';
+import { EmptyCard } from './EmptyCard';
 
 const Item = styled.section`
   cursor: pointer;
@@ -21,22 +22,21 @@ const Item = styled.section`
     .info {
       padding-left: 1.6rem;
       h2 {
-        font-weight: 100;
+        font-weight: 200;
       }
       h3 {
         text-transform: lowercase;
-        font-weight: 200;
+        font-weight: 100;
         color: ${props => props.theme.colors.green};
       }
     }
   }
-  .item__blur {
-    opacity: .3;
-  }
-  .item__select {
-    color: ${props => props.theme.colors.green};
-    h2 { 
-      font-style: italic;
+  @media (hover: hover) {
+    .itemWrapper:hover {
+      color: ${props => props.theme.colors.green};
+      h2 { 
+        font-style: italic;
+      }
     }
   }
   @media (min-width: 920px) {
@@ -67,20 +67,23 @@ const ListComponent = ({folder, sendTo}) => {
     <List>
       <StickyTitle>Publicaciones</StickyTitle>
       <div>
-        {folder.map(item => 
+        {folder.length === 0 ?
+          <EmptyCard />
+          : 
+          folder.map(item => 
           <Item
             onClick={() => sendTo(item.route_title, item.description)} 
             onMouseOver={() => selectItem(item.route_title)} 
             onMouseLeave={() => selectItem(null)}
           >
-            <div className={`itemWrapper ${isShow !== null && isShow !== item.route_title ? 'item__blur' : isShow !== null && isShow === item.route_title ? 'item__select' : null}`}>
+            <div className='itemWrapper'>
               <div className='icon'>
                 <span className='material-icons'>link</span>
               </div>
               <div className='info'>
                 <h2>{item.title}</h2>
                 {item.category ?
-                  <h3># {item.category}</h3>
+                  <h3>#{item.category}</h3>
                 : null}
               </div>
             </div>

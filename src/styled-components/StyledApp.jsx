@@ -40,7 +40,8 @@ html {
   background-color: #fff;
 }
 ::selection {
-  background-color: ${props => props.theme.colors.red};
+  color: ${props => props.theme.colors.red};
+  background-color: transparent;
 }
 body {
   margin: 0;
