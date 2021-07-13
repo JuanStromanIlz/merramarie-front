@@ -259,16 +259,16 @@ const Nav = () => {
         <div className='list'>
           <ul>
             <li><a className='navOption homeTag' href={process.env.PUBLIC_URL}>merra marie</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}editorial`}>editorial</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}artwork`}>artwork</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}commercial`}>comercial</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}films`}>films</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}blog`}>blog</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}publications`}>publicaciones</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}about_me`}>sobre mi</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}contact`}>contacto</a></li>
-            {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}panel/new`}>nuevo</a></li>}
-            {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}panel/log_out`}>log out</a></li>}
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/films`}>films</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/blog`}>blog</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/publications`}>publicaciones</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/about_me`}>sobre mi</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/contact`}>contacto</a></li>
+            {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/new`}>nuevo</a></li>}
+            {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/log_out`}>log out</a></li>}
           </ul>
         </div>
         <div className='hamburgerMenu'>
@@ -280,16 +280,16 @@ const Nav = () => {
           <div className='hamburger__slice'>
             <div>
               <ul>
-                <li><a href={`${process.env.PUBLIC_URL}editorial`}>editorial</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}artwork`}>artwork</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}commercial`}>comercial</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}films`}>films</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}blog`}>blog</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}publications`}>publicaciones</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}about_me`}>sobre mi</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}contact`}>contacto</a></li>
-                {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}panel/new`}>nuevo</a></li>}
-                {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}panel/log_out`}>log out</a></li>}
+                <li><a href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/films`}>films</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/blog`}>blog</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/publications`}>publicaciones</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/about_me`}>sobre mi</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}/contact`}>contacto</a></li>
+                {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/new`}>nuevo</a></li>}
+                {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/log_out`}>log out</a></li>}
               </ul>
             </div>
           </div>

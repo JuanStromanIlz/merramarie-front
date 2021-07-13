@@ -170,14 +170,14 @@ const BannerContainer = () => {
         </div>
         <div id='homeMenu'>
           <ul>
-            <li><a href={`${process.env.PUBLIC_URL}editorial`}>editorial</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}artwork`}>artwork</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}commercial`}>comercial</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}films`}>films</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}blog`}>blog</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}publications`}>publicaciones</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}about_me`}>sobre mi</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}contact`}>contacto</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/films`}>films</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/blog`}>blog</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/publications`}>publicaciones</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/about_me`}>sobre mi</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}/contact`}>contacto</a></li>
           </ul>
         </div>
       </Banner>

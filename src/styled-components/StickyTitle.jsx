@@ -76,7 +76,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
           <div id='mediaShare'>
             <div>
               <FacebookShareButton
-                url={process.env.PUBLIC_URL + folder.route}
+                url={process.env.PUBLIC_URL + folder.route_title}
                 quote={folder.title}
               >
                 <FacebookIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
@@ -84,7 +84,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             </div>
             <div>
               <TwitterShareButton
-                url={process.env.PUBLIC_URL + folder.route}
+                url={process.env.PUBLIC_URL + folder.route_title}
                 title={folder.title}
               >
                 <TwitterIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
@@ -92,7 +92,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             </div>
             <div>
               <TumblrShareButton
-                url={process.env.PUBLIC_URL + folder.route}
+                url={process.env.PUBLIC_URL + folder.route_title}
                 title={folder.title}
               >
                 <TumblrIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
@@ -100,7 +100,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             </div>
             <div>
               <WhatsappShareButton
-                url={process.env.PUBLIC_URL + folder.route}
+                url={process.env.PUBLIC_URL + folder.route_title}
                 title={folder.title}
               >
                 <WhatsappIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
