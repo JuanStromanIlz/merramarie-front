@@ -1,30 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const StyledApp = createGlobalStyle`
-${'' /* @font-face {
-  font-family: Neue Montreal;
-  src: local('Montreal'), url(./fonts/montreal/NeueMontreal-Light.otf) format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: Neue Montreal;
-  src: local('Montreal'), url(./fonts/montreal/NeueMontreal-LightItalic.otf) format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-@font-face {
-  font-family: Neue Montreal;
-  src: local('Montreal'), url(./fonts/montreal/NeueMontreal-Bold.otf) format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: Neue Montreal;
-  src: local('Montreal'), url(./fonts/montreal/NeueMontreal-BoldItalic.otf) format('truetype');
-  font-weight: 700;
-  font-style: italic;
-} */}
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -47,7 +23,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  ${'' /* font-family: Montreal,Helvetica,Arial,sans-serif; */}
   font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;

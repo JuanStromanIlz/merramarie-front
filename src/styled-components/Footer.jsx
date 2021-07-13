@@ -82,13 +82,13 @@ const FooterComp = ({label, nextFolder}) => {
         <div>
           <ul>
             <li className='first'>
-              <a href={`${process.env.REACT_APP_FRONTEND + label}`}>
+              <a href={`${process.env.PUBLIC_URL + label}`}>
                 <h3>Volver</h3>
               </a>
             </li>
             {nextFolder ? 
               <li className='last'>
-                <a href={`${adminRoutes ? process.env.REACT_APP_FRONTEND + `${'panel/folder/' + nextFolder}` : process.env.REACT_APP_FRONTEND + nextFolder}`}>
+                <a href={`${adminRoutes ? process.env.PUBLIC_URL + `${'panel/folder/' + nextFolder}` : process.env.PUBLIC_URL + nextFolder}`}>
                   <h3>Siguiente</h3>  
                 </a>
               </li>

@@ -1,4 +1,4 @@
-import { StickyTitle } from "../styled-components/StickyTitle";
+import { StickyTitle } from '../styled-components/StickyTitle';
 import { Nav } from '../styled-components/Navbar';
 import { Wrapper } from '../styled-components/PageWrapper';
 import styled from 'styled-components';
@@ -10,9 +10,6 @@ const Contact = styled.ul`
   display: flex;
   flex-direction: column;
   li {
-    display: flex;
-    flex-direction: row;
-    gap: 2.6rem;
     a:hover {
       text-decoration: underline;
     }
@@ -27,20 +24,13 @@ function AboutMe() {
         <StickyTitle>Contacto</StickyTitle>
         <Contact>
           <li>
-            <span>Red</span>
-            <a href='/'>link</a>
+            <span>Mail: <a href='mailto:muchutmaria@gmail.com' target='_blank'>muchutmaria@gmail.com</a></span>  
           </li>
           <li>
-            <span>Red</span>
-            <a href='/'>link</a>
+            <span>Instagram: <a href='https://www.instagram.com/zvldlz/' target='_blank'>@zvldlz</a></span>
           </li>
           <li>
-            <span>Red</span>
-            <a href='/'>link</a>
-          </li>
-          <li>
-            <span>Red</span>
-            <a href='/'>link</a>
+            <span>Tumblr: <a href='https://peroquepena.tumblr.com/' target='_blank'>peroquepena.tumblr.com</a></span>
           </li>
         </Contact>
       </Wrapper>

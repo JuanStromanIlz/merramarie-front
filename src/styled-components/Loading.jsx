@@ -3,36 +3,40 @@ import styled from 'styled-components';
 const Loading = styled.div`
   width: 100vw;
   height: 100vh;
-  .loadingAnimation {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-    background: red;
-  }
+  display: grid;
+  place-items: center;
   img {
-    width: 25vw;
-    display: block;
     position: absolute;
     inset: 0;
     margin: auto;
-    animation: sun 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    width: 20vw;
+    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   }
-  @keyframes sun {
+  @keyframes lds-heart {
     0% {
-      transform: rotate(0deg);
-      opacity: .3;
+      transform: scale(0.95);
+    }
+    5% {
+      transform: scale(1.1);
+    }
+    39% {
+      transform: scale(0.85);
+    }
+    45% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(0.95);
     }
     100% {
-      transform: rotate(360deg);
-      opacity: 1;
+      transform: scale(0.9);
     }
   }
 `;
 const LoadingIcon = () => {
   return (
     <Loading>
-      <img src={process.env.PUBLIC_URL + '/icon.svg'} alt='loading'></img>
+      <img src={process.env.PUBLIC_URL + '/heart.svg'} alt='loading'></img>
     </Loading>
   );
 }

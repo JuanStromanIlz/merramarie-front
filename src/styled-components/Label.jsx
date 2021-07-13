@@ -11,6 +11,8 @@ const Card = styled.div`
   margin-bottom: 1.3rem;
   transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
+  background: ${props => props.theme.colors.red};
+  aspect-ratio: 7 / 4;
   .mediaContainer {
     aspect-ratio: 7 / 4;
     position: relative;

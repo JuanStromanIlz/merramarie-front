@@ -14,7 +14,7 @@ function ErrorView() {
   return (
     <Error>
       <span>Ocurrio un error</span>
-      <a href={`${process.env.REACT_APP_FRONTEND}`}>Volver al home</a>
+      <a href={`${process.env.PUBLIC_URL}`}>Volver al home</a>
     </Error>
   );
 

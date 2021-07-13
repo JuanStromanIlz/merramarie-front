@@ -258,17 +258,17 @@ const Nav = () => {
       <div className='navWrapper'>
         <div className='list'>
           <ul>
-            <li><a className='navOption homeTag' href={process.env.REACT_APP_FRONTEND}>merra marie</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}blog`}>blog</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
-            <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
-            {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
-            {adminRoutes && <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/log_out`}>log out</a></li>}
+            <li><a className='navOption homeTag' href={process.env.PUBLIC_URL}>merra marie</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}editorial`}>editorial</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}artwork`}>artwork</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}commercial`}>comercial</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}films`}>films</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}blog`}>blog</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}publications`}>publicaciones</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}about_me`}>sobre mi</a></li>
+            <li><a className='navOption' href={`${process.env.PUBLIC_URL}contact`}>contacto</a></li>
+            {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}panel/new`}>nuevo</a></li>}
+            {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}panel/log_out`}>log out</a></li>}
           </ul>
         </div>
         <div className='hamburgerMenu'>
@@ -280,16 +280,16 @@ const Nav = () => {
           <div className='hamburger__slice'>
             <div>
               <ul>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}blog`}>blog</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
-                <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
-                {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/new`}>nuevo</a></li>}
-                {adminRoutes && <li><a className='navOption' href={`${process.env.REACT_APP_FRONTEND}panel/log_out`}>log out</a></li>}
+                <li><a href={`${process.env.PUBLIC_URL}editorial`}>editorial</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}artwork`}>artwork</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}commercial`}>comercial</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}films`}>films</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}blog`}>blog</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}publications`}>publicaciones</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}about_me`}>sobre mi</a></li>
+                <li><a href={`${process.env.PUBLIC_URL}contact`}>contacto</a></li>
+                {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}panel/new`}>nuevo</a></li>}
+                {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}panel/log_out`}>log out</a></li>}
               </ul>
             </div>
           </div>

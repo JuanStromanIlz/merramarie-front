@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useCancelToken } from '../hooks/CancelTokenAxios';
-import { StickyTitle } from './StickyTitle';
 import { Loading } from './Loading';
 
 const Banner = styled.div`
@@ -33,30 +31,13 @@ const Banner = styled.div`
       align-items: center;
       justify-content: space-around;
       padding: 2.6rem;
-      .clickToOpen {
-        width: fit-content;
-        top: -100%;
-        border-radius: 50%;
-        aspect-ratio: 1;
-        border: 1px solid ${props => props.theme.colors.pink};
-        background: transparent;
-        backdrop-filter: blur(2px);
-        padding: 1.3rem;
-        color: ${props => props.theme.colors.pink};
-        animation: pulse .8s infinite alternate;
-        span {
-          font-size: 2rem;
-          display: block;
-        }
-        @keyframes pulse {
-          0% {
-            border-width: 1px;
-          }
-          100% {
-            border-width: 3px;
-            box-shadow: 0 0 10px 1px ${props => props.theme.colors.pink};
-          }
-        }
+      #heart {
+        transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity: 0;
+        display: inline-block;
+        position: absolute;
+        width: 80px;
+        height: 80px;
       }
     }
     img {
@@ -79,9 +60,9 @@ const Banner = styled.div`
       flex-direction: column;
       justify-content: space-around;
       li {
-        font-size: 4rem;
+        font-size: 3.6rem;
         font-weight: 400;
-        line-height: 4rem;
+        line-height: 3.6rem;
         a {
           -webkit-text-stroke: 2px ${props => props.theme.colors.red};
           color: transparent;
@@ -101,13 +82,14 @@ const Banner = styled.div`
       line-height: 13rem !important;
     }
     #textContainer {
-      .clickToOpen {
+      #lds-heart {
         position: absolute;
       }
     }
     #homeMenu {
       ul li {
         font-size: 5rem;
+        line-height: 5rem;
       }
     }
   }
@@ -117,7 +99,6 @@ const BannerContainer = () => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
   const [imageShow, setimageShow] = useState(0);
-  const { newCancelToken, isCancel } = useCancelToken();
 
   function openHome() {
     document.getElementById('cortina').style.cssText='transform: translateX(-100%); opacity: 0;';
@@ -125,16 +106,16 @@ const BannerContainer = () => {
 
   useEffect(() => {
     function onMouseMove(e) {
-      document.getElementById('circle').style.cursor='none';
-      document.getElementById('circle').style.transform='translate(-50%,-50%)';
-      document.getElementById('circle').style.left = e.pageX + 'px';
-      document.getElementById('circle').style.top = e.pageY + 'px';
+      document.getElementById('heart').style.cursor='pointer';
+      document.getElementById('heart').style.transform='translate(-50%,-50%)';
+      document.getElementById('heart').style.left = e.pageX + 'px';
+      document.getElementById('heart').style.top = e.pageY + 'px';
     }
     if (loading) {
       async function getInfo() {
         let promises = [];
         let urls = [];
-        let labels = await axios.get(process.env.REACT_APP_APIHOST + 'public/all', {cancelToken: newCancelToken()});
+        let labels = await axios.get(process.env.REACT_APP_APIHOST + 'public/all');
         if (labels) {
           let list = labels.data;
           list.map(label => {
@@ -167,7 +148,7 @@ const BannerContainer = () => {
       document.addEventListener('mousemove', onMouseMove);
     }
     return () => window.removeEventListener('mousemove', onMouseMove);
-  }, [images]);
+  }, [images, loading]);
 
   return (
     loading ?
@@ -184,19 +165,19 @@ const BannerContainer = () => {
             <img src={imageShow} alt=''></img>
           </>}
           <div id='textContainer'>
-            <button id='circle' className='clickToOpen'><span>click!</span></button>
+            <img id='heart' src={process.env.PUBLIC_URL + 'heart.svg'} alt='click'></img>
           </div>
         </div>
         <div id='homeMenu'>
           <ul>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}editorial`}>editorial</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}artwork`}>artwork</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}commercial`}>comercial</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}films`}>films</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}blog`}>blog</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}publications`}>publicaciones</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}about_me`}>sobre mi</a></li>
-            <li><a href={`${process.env.REACT_APP_FRONTEND}contact`}>contacto</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}editorial`}>editorial</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}artwork`}>artwork</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}commercial`}>comercial</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}films`}>films</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}blog`}>blog</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}publications`}>publicaciones</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}about_me`}>sobre mi</a></li>
+            <li><a href={`${process.env.PUBLIC_URL}contact`}>contacto</a></li>
           </ul>
         </div>
       </Banner>
