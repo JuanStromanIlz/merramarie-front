@@ -258,7 +258,7 @@ const Nav = () => {
       <div className='navWrapper'>
         <div className='list'>
           <ul>
-            <li><a className='navOption homeTag' href={process.env.PUBLIC_URL}>merra marie</a></li>
+            <li><a className='navOption homeTag' href={`${process.env.PUBLIC_URL}/`}>merra marie</a></li>
             <li><a className='navOption' href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
             <li><a className='navOption' href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
             <li><a className='navOption' href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
