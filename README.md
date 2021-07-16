@@ -5,7 +5,6 @@
   <h1>📷Merra Marie Portfolio (FRONTEND)📹</h1>
   <h3>Desarrollo del frontend para la app web de la artista Merra Marie</h3>
   <p>La misma cuenta con un acceso comun para que los visitantes naveguen el contenido, asi como una seccion de administración para poder editar las entradas de la pagina.</p>
-  <h3><a href='https://merramarie.vercel.app/'>Ver Online</a></h3>
   <h2>📖 En este proyecto ✎:</h2>
   <ul>
     <li>react hooks ✨.</li>
