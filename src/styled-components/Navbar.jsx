@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
@@ -258,17 +259,17 @@ const Nav = () => {
       <div className='navWrapper'>
         <div className='list'>
           <ul>
-            <li><a className='navOption homeTag' href={`${process.env.PUBLIC_URL}/`}>merra marie</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/films`}>films</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/blog`}>blog</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/publications`}>publicaciones</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/about_me`}>sobre mi</a></li>
-            <li><a className='navOption' href={`${process.env.PUBLIC_URL}/contact`}>contacto</a></li>
-            {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/new`}>nuevo</a></li>}
-            {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/log_out`}>log out</a></li>}
+            <li><Link className='navOption link homeTag' to='/'>merra marie</Link></li>
+            <li><Link className='navOption link' to='/editorial'>editorial</Link></li>
+            <li><Link className='navOption link' to='/artwork'>artwork</Link></li>
+            <li><Link className='navOption link' to='/commercial'>comercial</Link></li>
+            <li><Link className='navOption link' to='/films'>films</Link></li>
+            <li><Link className='navOption link' to='blog'>blog</Link></li>
+            <li><Link className='navOption link' to='/publications'>publicaciones</Link></li>
+            <li><Link className='navOption link' to='/about_me'>sobre mi</Link></li>
+            <li><Link className='navOption link' to='/contact'>contacto</Link></li>
+            {adminRoutes && <li className='new'><Link className='navOption link' to='/panel/new'>nuevo</Link></li>}
+            {adminRoutes && <li><Link className='navOption link' to='/panel/log_out'>log out</Link></li>}
           </ul>
         </div>
         <div className='hamburgerMenu'>
@@ -280,16 +281,16 @@ const Nav = () => {
           <div className='hamburger__slice'>
             <div>
               <ul>
-                <li><a href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/films`}>films</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/blog`}>blog</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/publications`}>publicaciones</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/about_me`}>sobre mi</a></li>
-                <li><a href={`${process.env.PUBLIC_URL}/contact`}>contacto</a></li>
-                {adminRoutes && <li className='new'><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/new`}>nuevo</a></li>}
-                {adminRoutes && <li><a className='navOption' href={`${process.env.PUBLIC_URL}/panel/log_out`}>log out</a></li>}
+                <li><Link to='/editorial' className='link'>editorial</Link></li>
+                <li><Link to='/artwork' className='link'>artwork</Link></li>
+                <li><Link to='/commercial' className='link'>comercial</Link></li>
+                <li><Link to='/films' className='link'>films</Link></li>
+                <li><Link to='blog' className='link'>blog</Link></li>
+                <li><Link to='/publications' className='link'>publicaciones</Link></li>
+                <li><Link to='/about_me' className='link'>sobre mi</Link></li>
+                <li><Link to='/contact' className='link'>contacto</Link></li>
+                {adminRoutes && <li className='new'><Link className='navOption link' to='/panel/new'>nuevo</Link></li>}
+                {adminRoutes && <li><Link className='navOption link' to='/panel/log_out'>log out</Link></li>}
               </ul>
             </div>
           </div>

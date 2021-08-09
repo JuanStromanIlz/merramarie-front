@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Empty = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ const Empty = styled.div`
 const EmptyCard = () => (
   <Empty>
     <span>Ups! esta sección esta vacia.</span>
-    <a href={`${process.env.PUBLIC_URL}/`}>Volver al home</a>
+    <Link to='/' className='link'>Volver al home</Link>
   </Empty>
 );
 

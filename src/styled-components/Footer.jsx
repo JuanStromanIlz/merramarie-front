@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Footer = styled.footer`
@@ -82,15 +83,15 @@ const FooterComp = ({label, nextFolder}) => {
         <div>
           <ul>
             <li className='first'>
-              <a href={`${process.env.PUBLIC_URL}/${label}`}>
+              <Link to={`/${label}`} className='link'>
                 <h3>Volver</h3>
-              </a>
+              </Link>
             </li>
             {nextFolder ? 
               <li className='last'>
-                <a href={`${adminRoutes ? process.env.PUBLIC_URL + `${'/panel/folder/' + nextFolder}` : process.env.PUBLIC_URL + '/' + nextFolder}`}>
+                <Link to={`${adminRoutes ? '/panel/folder/' + nextFolder : '/' + nextFolder }`} className='link'>
                   <h3>Siguiente</h3>  
-                </a>
+                </Link>
               </li>
             : null}
           </ul>

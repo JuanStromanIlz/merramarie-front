@@ -94,6 +94,9 @@ p {
 .noClick {
     z-index: -1;
   }
+.link {
+  display: contents;
+}
 `;
 
 const theme = {

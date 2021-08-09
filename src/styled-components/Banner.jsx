@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Loading } from './Loading';
+import { Link } from 'react-router-dom';
 
 const Banner = styled.div`
   #cortina {
@@ -97,8 +98,7 @@ const Banner = styled.div`
 
 const BannerContainer = () => {
   const [loading, setLoading] = useState(true);
-  const [images, setImages] = useState([]);
-  const [imageShow, setimageShow] = useState(0);
+  const [imageShow, setimageShow] = useState(null);
 
   function openHome() {
     document.getElementById('cortina').style.cssText='transform: translateX(-100%); opacity: 0;';
@@ -111,44 +111,42 @@ const BannerContainer = () => {
       document.getElementById('heart').style.left = e.pageX + 'px';
       document.getElementById('heart').style.top = e.pageY + 'px';
     }
-    if (loading) {
-      async function getInfo() {
-        let promises = [];
-        let urls = [];
-        let labels = await axios.get(process.env.REACT_APP_APIHOST + 'public/all');
-        if (labels) {
-          let list = labels.data;
-          list.map(label => {
-            let promise = axios.get(process.env.REACT_APP_APIHOST + 'public/label/' + label);
-            promises.push(promise);
-          });
-          let promisesList = await Promise.all(promises);
-          promisesList.filter(labels => {
-            labels.data.map(item => {
-              if ('images' in item) {
-                let images = Array.from(item.images);
-                images.map(image => urls.push(image.url));
-              }
-            });
-          });
-          setImages(urls);
-          let img = Math.floor(Math.random() * (images.length + 1));
-          setimageShow(images[img]);
-          setLoading(false);
-          setTimeout(() => {
-            let showImgs = document.getElementsByTagName('img');
-            for (let i = 0; i < showImgs.length; i++) {
-              document.getElementsByTagName('img')[i].style.opacity='1';
+    async function getInfo() {
+      let promises = [];
+      let urls = [];
+      let labels = await axios.get(process.env.REACT_APP_APIHOST + 'public/all');
+      if (labels) {
+        let list = labels.data;
+        list.map(label => {
+          let promise = axios.get(process.env.REACT_APP_APIHOST + 'public/label/' + label);
+          promises.push(promise);
+        });
+        let promisesList = await Promise.all(promises);
+        promisesList.filter(labels => {
+          labels.data.map(item => {
+            if ('images' in item) {
+              let images = Array.from(item.images);
+              images.map(image => urls.push(image.url));
             }
-          }, 700);
-        }
+          });
+        });
+        let img = Math.floor(Math.random() * (urls.length + 1));
+        setimageShow(urls[img]);
+        setLoading(false);
+        window.addEventListener('mousemove', onMouseMove);
+        setTimeout(() => {
+          let showImgs = document.getElementsByTagName('img');
+          for (let i = 0; i < showImgs.length; i++) {
+            document.getElementsByTagName('img')[i].style.opacity='1';
+          }
+        }, 700);
       }
-      getInfo();
-    } else {
-      document.addEventListener('mousemove', onMouseMove);
     }
-    return () => window.removeEventListener('mousemove', onMouseMove);
-  }, [images, loading]);
+    getInfo();
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+    }
+  }, []);
 
   return (
     loading ?
@@ -156,7 +154,7 @@ const BannerContainer = () => {
     : 
       <Banner>
         <div id='cortina' onClick={openHome}>
-          {images.length === 0 ?
+          {imageShow === null ?
             <h1>Merra Marie</h1>
           : 
           <>
@@ -170,14 +168,14 @@ const BannerContainer = () => {
         </div>
         <div id='homeMenu'>
           <ul>
-            <li><a href={`${process.env.PUBLIC_URL}/editorial`}>editorial</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/artwork`}>artwork</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/commercial`}>comercial</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/films`}>films</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/blog`}>blog</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/publications`}>publicaciones</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/about_me`}>sobre mi</a></li>
-            <li><a href={`${process.env.PUBLIC_URL}/contact`}>contacto</a></li>
+            <li><Link to='/editorial' className='link'>editorial</Link></li>
+            <li><Link to='/artwork' className='link'>artwork</Link></li>
+            <li><Link to='/commercial' className='link'>comercial</Link></li>
+            <li><Link to='/films' className='link'>films</Link></li>
+            <li><Link to='/blog' className='link'>blog</Link></li>
+            <li><Link to='/publications' className='link'>publicaciones</Link></li>
+            <li><Link to='/about_me' className='link'>sobre mi</Link></li>
+            <li><Link to='/contact' className='link'>contacto</Link></li>
           </ul>
         </div>
       </Banner>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Error = styled.div`
@@ -14,7 +15,7 @@ function ErrorView() {
   return (
     <Error>
       <span>Ocurrio un error</span>
-      <a href={`${process.env.PUBLIC_URL}/`}>Volver al home</a>
+      <Link to='/' className='link'>Volver al home</Link>
     </Error>
   );
 
