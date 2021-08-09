@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { StickyTitle } from './StickyTitle';
 import { EmptyCard } from './EmptyCard';
 import LazyLoad from 'react-lazyload';
+import { Link } from 'react-router-dom';
 
 const Card = styled.div`
   cursor: pointer;
@@ -104,42 +104,39 @@ const Label = styled.div`
   }
 `;
 
-const LabelCard = ({item, sendTo, selectItem, isShow}) => {
+const LabelCard = ({item, adminRoutes}) => {
   return (
-    <Card className='card__item' onClick={() => sendTo(item.route_title)} onMouseOver={() => selectItem(item.route_title)} onMouseLeave={() => selectItem(null)}>
-      {item.images ? 
-        <div className='mediaContainer'>
-          <LazyLoad once offset={400} resize={true}>
-            <img src={item.images[0].url} alt={item.title}></img>
-          </LazyLoad>
-        </div>
-      : item.videoLink ?
-        <div className='mediaContainer'>
-          <iframe 
-            title={item.title} 
-            src={item.videoLink} 
-            frameborder="0" 
-            allow="fullscreen; picture-in-picture" 
-            allowfullscreen 
-          ></iframe>
-        </div>
-      : null}
-      <div className='cardInfo'>
-        <h2>{item.title}</h2>
-        {item.category ?
-          <h3>#{item.category}</h3>
+    <Link to={adminRoutes ? '/panel/folder/' + item.route_title : '/' + item.route_title} className='link'>
+      <Card className='card__item'>
+        {item.images ? 
+          <div className='mediaContainer'>
+            <LazyLoad once offset={400} resize={true}>
+              <img src={item.images[0].url} alt={item.title}></img>
+            </LazyLoad>
+          </div>
+        : item.videoLink ?
+          <div className='mediaContainer'>
+            <iframe 
+              title={item.title} 
+              src={item.videoLink} 
+              frameborder="0" 
+              allow="fullscreen; picture-in-picture" 
+              allowfullscreen 
+            ></iframe>
+          </div>
         : null}
-      </div>
-    </Card>
+        <div className='cardInfo'>
+          <h2>{item.title}</h2>
+          {item.category ?
+            <h3>#{item.category}</h3>
+          : null}
+        </div>
+      </Card>
+    </Link>
   );
 };
 
-const LabelView = ({name, label, sendTo}) => {
-  const [isShow, setIsShow] = useState(null);
-
-  function selectItem(name) {
-    setIsShow(name)
-  }
+const LabelView = ({name, label, adminRoutes}) => {
 
   return (
     <Label>
@@ -149,7 +146,7 @@ const LabelView = ({name, label, sendTo}) => {
           <EmptyCard />
         :
         label.map(item => 
-          <LabelCard item={item} sendTo={sendTo} selectItem={selectItem} isShow={isShow} />
+          <LabelCard item={item} adminRoutes={adminRoutes}/>
         )}
       </div>
     </Label>

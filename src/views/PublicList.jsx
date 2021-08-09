@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
 import { useCancelToken } from '../hooks/CancelTokenAxios';
 import { Loading } from '../styled-components/Loading';
 import { List } from '../styled-components/List';
@@ -12,15 +11,6 @@ function PublicList() {
   const [labelInfo, setLabelInfo] = useState([]);
   const [loading, setLoading] = useState(true);
   const { newCancelToken, isCancel } = useCancelToken();
-  let history = useHistory();
-
-  function sendTo(title, location) {
-    if (adminRoutes) {
-      history.push(`/panel/folder/${title}`);
-    } else {
-      window.open(location, '_blank');
-    }
-  }
 
   useEffect(() => {
     let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
@@ -44,7 +34,7 @@ function PublicList() {
     <>
       <Nav />
       <Wrapper>
-        <List folder={labelInfo} sendTo={sendTo} />
+        <List folder={labelInfo} adminRoutes={adminRoutes} />
       </Wrapper>
     </>
   );

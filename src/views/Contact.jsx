@@ -24,13 +24,13 @@ function AboutMe() {
         <StickyTitle>Contacto</StickyTitle>
         <Contact>
           <li>
-            <span>Mail: <a href='mailto:muchutmaria@gmail.com' target='_blank'>muchutmaria@gmail.com</a></span>  
+            <span>Mail: <a href='mailto:muchutmaria@gmail.com' target='_blank' rel='noreferrer'>muchutmaria@gmail.com</a></span>  
           </li>
           <li>
-            <span>Instagram: <a href='https://www.instagram.com/zvldlz/' target='_blank'>@zvldlz</a></span>
+            <span>Instagram: <a href='https://www.instagram.com/zvldlz/' target='_blank' rel='noreferrer'>@zvldlz</a></span>
           </li>
           <li>
-            <span>Tumblr: <a href='https://peroquepena.tumblr.com/' target='_blank'>peroquepena.tumblr.com</a></span>
+            <span>Tumblr: <a href='https://peroquepena.tumblr.com/' target='_blank' rel='noreferrer'>peroquepena.tumblr.com</a></span>
           </li>
         </Contact>
       </Wrapper>

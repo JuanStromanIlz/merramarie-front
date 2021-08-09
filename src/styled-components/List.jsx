@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { StickyTitle } from './StickyTitle';
 import { EmptyCard } from './EmptyCard';
+import { Link } from 'react-router-dom';
 
 const Item = styled.section`
   cursor: pointer;
@@ -51,18 +51,49 @@ const Item = styled.section`
   }
 `;
 
+const LinkItem = ({item, adminRoutes}) => {
+  return (
+    adminRoutes ? 
+    <Link to={`/panel/folder/${item.route_title}`} className='link'>
+      <Item>
+        <div className='itemWrapper'>
+          <div className='icon'>
+            <span className='material-icons'>link</span>
+          </div>
+          <div className='info'>
+            <h2>{item.title}</h2>
+            {item.category ?
+              <h3>#{item.category}</h3>
+            : null}
+          </div>
+        </div>
+      </Item>
+    </Link>
+    :
+    <a href={item.description} target='_blank' rel='noreferrer' className='link'>
+      <Item>
+        <div className='itemWrapper'>
+          <div className='icon'>
+            <span className='material-icons'>link</span>
+          </div>
+          <div className='info'>
+            <h2>{item.title}</h2>
+            {item.category ?
+              <h3>#{item.category}</h3>
+            : null}
+          </div>
+        </div>
+      </Item>
+    </a>
+  );
+};
+
 const List = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ListComponent = ({folder, sendTo}) => {
-  const [isShow, setIsShow] = useState(null);
-
-  function selectItem(name) {
-    setIsShow(name)
-  }
-
+const ListComponent = ({folder, adminRoutes}) => {
   return (
     <List>
       <StickyTitle>Publicaciones</StickyTitle>
@@ -70,25 +101,7 @@ const ListComponent = ({folder, sendTo}) => {
         {folder.length === 0 ?
           <EmptyCard />
           : 
-          folder.map(item => 
-          <Item
-            onClick={() => sendTo(item.route_title, item.description)} 
-            onMouseOver={() => selectItem(item.route_title)} 
-            onMouseLeave={() => selectItem(null)}
-          >
-            <div className='itemWrapper'>
-              <div className='icon'>
-                <span className='material-icons'>link</span>
-              </div>
-              <div className='info'>
-                <h2>{item.title}</h2>
-                {item.category ?
-                  <h3>#{item.category}</h3>
-                : null}
-              </div>
-            </div>
-          </Item>
-        )}
+          folder.map(item => <LinkItem item={item} adminRoutes={adminRoutes} />)}
       </div>
     </List>
   );
