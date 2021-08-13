@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NewDoc } from '../components/NewDoc';
 import { Nav } from '../styled-components/Navbar';
 import { Wrapper } from '../styled-components/PageWrapper';
@@ -7,6 +7,10 @@ import { Loading } from '../styled-components/Loading';
 
 const AdminNewEntry = () => {
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    window.document.title= 'Nueva entrada | Merra Marie';
+  }, []);
 
   return (
     loading ?

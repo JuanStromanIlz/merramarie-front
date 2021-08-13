@@ -13,6 +13,7 @@ function PublicList() {
   const { newCancelToken, isCancel } = useCancelToken();
 
   useEffect(() => {
+    window.document.title= 'Publicaciones | Merra Marie';
     let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
     if (admin) {
       setAdminRoutes(true);

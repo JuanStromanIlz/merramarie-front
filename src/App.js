@@ -24,28 +24,28 @@ import ErrorView from './views/ErrorView';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <StyledApp />
-      <Router>
-        <Switch>
-          <Route exact path='/' component={PublicHome}/>
-          <Route exact path='/editorial' render={(props) => <PublicLabel {...props} labelName='Editorial' />} />
-          <Route exact path='/artwork' render={(props) => <PublicLabel {...props} labelName='Artwork' />} />
-          <Route exact path='/commercial' render={(props) => <PublicLabel {...props} labelName='Comercial' />} />
-          <Route exact path='/films' render={(props) => <PublicLabel {...props} labelName='Films' />} />
-          <Route exact path='/blog' render={(props) => <PublicLabel {...props} labelName='Blog' />} />
-          <Route exact path='/publications' component={PublicList} />
-          <Route exact path='/about_me' component={AboutMe} />
-          <Route exact path='/contact' component={Contact} />
-          <Route exact path='/error' component={ErrorView} />
-          <Route exact path='/:name' component={PublicFolder}/>
-          <AdminContext>
-            <Route exact path='/panel/log_in' component={AdminLog} />
-            <PrivateRoute exact path='/panel/log_out' component={AdminLogOut}/>
-            <PrivateRoute exact path='/panel/new' component={AdminNewEntry}/>
-            <PrivateRoute exact path='/panel/folder/:name' component={AdminFolder}/>
-          </AdminContext>
-        </Switch>
-      </Router>
+      <AdminContext>
+        <StyledApp />
+        <Router>
+          <Switch>
+            <Route exact path='/' component={PublicHome}/>
+            <Route exact path='/editorial' render={(props) => <PublicLabel {...props} labelName='Editorial' />} />
+            <Route exact path='/artwork' render={(props) => <PublicLabel {...props} labelName='Artwork' />} />
+            <Route exact path='/commercial' render={(props) => <PublicLabel {...props} labelName='Comercial' />} />
+            <Route exact path='/films' render={(props) => <PublicLabel {...props} labelName='Films' />} />
+            <Route exact path='/blog' render={(props) => <PublicLabel {...props} labelName='Blog' />} />
+            <Route exact path='/publications' component={PublicList} />
+            <Route exact path='/about_me' component={AboutMe} />
+            <Route exact path='/contact' component={Contact} />
+            <Route exact path='/error' component={ErrorView} />
+            <Route exact path='/:name' component={PublicFolder}/>
+              <Route exact path='/panel/log_in' component={AdminLog} />
+              <PrivateRoute exact path='/panel/log_out' component={AdminLogOut}/>
+              <PrivateRoute exact path='/panel/new' component={AdminNewEntry}/>
+              <PrivateRoute exact path='/panel/folder/:name' component={AdminFolder}/>
+          </Switch>
+        </Router>
+      </AdminContext>
     </ThemeProvider>
   );
 }

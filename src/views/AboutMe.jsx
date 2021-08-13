@@ -2,8 +2,13 @@ import { StickyTitle } from '../styled-components/StickyTitle';
 import { Nav } from '../styled-components/Navbar';
 import { About } from '../styled-components/About';
 import { Wrapper } from '../styled-components/PageWrapper';
+import { useEffect } from 'react';
 
 function AboutMe() {
+
+  useEffect(() => {
+    window.document.title= 'Sobre Mi | Merra Marie';
+  }, []);
 
   return (
     <>

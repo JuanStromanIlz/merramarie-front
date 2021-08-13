@@ -14,6 +14,7 @@ function PublicLabel({labelName}) {
   const label = window.location.pathname;
 
   useEffect(() => {
+    window.document.title= labelName + ' | Merra Marie';
     let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
     if (admin) {
       setAdminRoutes(true);

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -44,7 +44,10 @@ function LogInView() {
       }
     }
   }
-
+  useEffect(() => {
+    window.document.title= 'Log In | Merra Marie';
+  }, []);
+  
   return (
     loading ?
       <Loading /> :

@@ -1,14 +1,17 @@
-import {createContext, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 
 const AdminCont = createContext();
 const {Consumer, Provider} = AdminCont;
 
-/* LOCAL STORAGE */
-const merraMariePortfolio = localStorage;
-const localToken = merraMariePortfolio.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
-
 const AdminContext = ({children}) => {
-  const [token, setToken] = useState(localToken);
+  const [token, setToken] = useState(false);
+
+  useEffect(()=> {
+    /* LOCAL STORAGE */
+    let merraMariePortfolio = localStorage;
+    let localToken = merraMariePortfolio.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
+    setToken(localToken);
+  }, []);
   
   return (
     <Provider value={{

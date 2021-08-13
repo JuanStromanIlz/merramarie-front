@@ -19,6 +19,7 @@ function PublicFolder() {
       cancelToken: newCancelToken()
     }).then((res) => {
       setFolder(res.data);
+      window.document.title= res.data.title + ' | Merra Marie';
       setLoading(false);
     }).catch((error) => {
       if (isCancel(error)) return;
