@@ -127,32 +127,65 @@ const FolderView = ({folder}) => {
           {folder.title}
         </StickyTitle>
         <div className='content'>
-          {folder.images ? 
+          {folder.label === 'films' ? 
             <>
-            <div className='content__images'>
-              {folder.images.map((img, index) => 
-                <div className='image'>
-                  <LazyLoad once offset={400} resize={true}>
-                    <img onClick={() => openSlider(index)} width='100%' height='100%' src={img.url} alt={folder.title}/>
-                  </LazyLoad>
-                </div>
-              )}
-            </div> 
-            <ImageSlider images={folder.images} singleImg={singleImg} open={slider} setOpen={setSlider} />
+              {folder.videoLink ? 
+                <div className='content__video'>
+                  <div className='video'>
+                    <iframe 
+                      title={folder.title} 
+                      src={folder.videoLink} 
+                      frameBorder='0' 
+                      allow='fullscreen; picture-in-picture' 
+                    ></iframe>
+                  </div>
+                </div> 
+              : null}
+              {folder.images ? 
+                <>
+                  <div className='content__images'>
+                    {folder.images.map((img, index) => 
+                      <div className='image'>
+                        <LazyLoad once offset={400} resize={true}>
+                          <img onClick={() => openSlider(index)} width='100%' height='100%' src={img.url} alt={folder.title}/>
+                        </LazyLoad>
+                      </div>
+                    )}
+                  </div> 
+                  <ImageSlider images={folder.images} singleImg={singleImg} open={slider} setOpen={setSlider} />
+                </>
+              : null}
             </>
-          : null}
-          {folder.videoLink ? 
-            <div className='content__video'>
-              <div className='video'>
-                <iframe 
-                  title={folder.title} 
-                  src={folder.videoLink} 
-                  frameBorder='0' 
-                  allow='fullscreen; picture-in-picture' 
-                ></iframe>
-              </div>
-            </div> 
-          : null}
+          :
+            <>
+              {folder.images ? 
+                <>
+                  <div className='content__images'>
+                    {folder.images.map((img, index) => 
+                      <div className='image'>
+                        <LazyLoad once offset={400} resize={true}>
+                          <img onClick={() => openSlider(index)} width='100%' height='100%' src={img.url} alt={folder.title}/>
+                        </LazyLoad>
+                      </div>
+                    )}
+                  </div> 
+                  <ImageSlider images={folder.images} singleImg={singleImg} open={slider} setOpen={setSlider} />
+                </>
+              : null}
+              {folder.videoLink ? 
+                <div className='content__video'>
+                  <div className='video'>
+                    <iframe 
+                      title={folder.title} 
+                      src={folder.videoLink} 
+                      frameBorder='0' 
+                      allow='fullscreen; picture-in-picture' 
+                    ></iframe>
+                  </div>
+                </div> 
+              : null}
+            </>
+          }  
           {folder.description ? 
             <div className='content__text'>
               <Linkify>
