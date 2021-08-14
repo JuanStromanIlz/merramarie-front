@@ -108,13 +108,7 @@ const LabelCard = ({item, adminRoutes}) => {
   return (
     <Link to={adminRoutes ? '/panel/folder/' + item.route_title : '/' + item.route_title} className='link'>
       <Card className='card__item'>
-        {item.images ? 
-          <div className='mediaContainer'>
-            <LazyLoad once offset={400} resize={true}>
-              <img src={item.images[0].url} alt={item.title}></img>
-            </LazyLoad>
-          </div>
-        : item.videoLink ?
+        {item.label === 'films' ? 
           <div className='mediaContainer'>
             <iframe 
               title={item.title} 
@@ -124,7 +118,27 @@ const LabelCard = ({item, adminRoutes}) => {
               allowfullscreen 
             ></iframe>
           </div>
-        : null}
+        : 
+          <>
+            {item.images ? 
+              <div className='mediaContainer'>
+                <LazyLoad once offset={400} resize={true}>
+                  <img src={item.images[0].url} alt={item.title}></img>
+                </LazyLoad>
+              </div>
+            : item.videoLink ?
+              <div className='mediaContainer'>
+                <iframe 
+                  title={item.title} 
+                  src={item.videoLink} 
+                  frameborder="0" 
+                  allow="fullscreen; picture-in-picture" 
+                  allowfullscreen 
+                ></iframe>
+              </div>
+            : null}
+          </>
+        }
         <div className='cardInfo'>
           <h2>{item.title}</h2>
           {item.category ?
