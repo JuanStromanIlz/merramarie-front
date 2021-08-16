@@ -18,14 +18,14 @@ function AdminFolder() {
   const [edit, setEdit] = useState(false);
   const { newCancelToken, isCancel } = useCancelToken();
   const { token } = useContext(AdminCont);
-  let { name } = useParams();
+  let { label, title } = useParams();
   let history = useHistory();
 
   async function deleteItem() {
     try {
       let res = await axios({
         method: 'delete',
-        url: `${process.env.REACT_APP_APIHOST}panel/delete/${name}`,
+        url: `${process.env.REACT_APP_APIHOST}panel/delete/${label}/${title}`,
         withCredentials: true,
         headers: {
           'authorization': `Bearer ${token}`
@@ -86,7 +86,7 @@ function AdminFolder() {
         }
         let res = await axios({
           method: 'patch',
-          url: `${process.env.REACT_APP_APIHOST}panel/edit_new_imgs/${name}`,
+          url: `${process.env.REACT_APP_APIHOST}panel/edit_new_imgs/${label}/${title}`,
           withCredentials: true,
           headers: {
             'authorization': `Bearer ${token}`
@@ -95,10 +95,10 @@ function AdminFolder() {
           cancelToken: newCancelToken()
         });
         if (res.status === 201) {
-          let title = values.title.trim();
-          title = title.toLowerCase();
-          title = title.replace(/ /g, '_');
-          axios.get(process.env.REACT_APP_APIHOST + 'panel/folder/' + title, {
+          let newTitle = values.title.trim();
+          newTitle = newTitle.toLowerCase();
+          newTitle = newTitle.replace(/ /g, '_');
+          axios.get(`${process.env.REACT_APP_APIHOST}panel/${label}/${newTitle}`, {
             cancelToken: newCancelToken(),
             withCredentials: true,
             headers: {
@@ -119,7 +119,7 @@ function AdminFolder() {
       try {
         let res = await axios({
           method: 'patch',
-          url: `${process.env.REACT_APP_APIHOST}panel/edit/${name}`,
+          url: `${process.env.REACT_APP_APIHOST}panel/edit/${label}/${title}`,
           withCredentials: true,
           headers: {
             'authorization': `Bearer ${token}`
@@ -128,10 +128,10 @@ function AdminFolder() {
           cancelToken: newCancelToken()
         });
         if (res.status === 201) {
-          let title = values.title.trim();
-          title = title.toLowerCase();
-          title = title.replace(/ /g, '_');
-          axios.get(process.env.REACT_APP_APIHOST + 'panel/folder/' + title, {
+          let newTitle = values.title.trim();
+          newTitle = newTitle.toLowerCase();
+          newTitle = newTitle.replace(/ /g, '_');
+          axios.get(`${process.env.REACT_APP_APIHOST}panel/${label}/${newTitle}`, {
             cancelToken: newCancelToken(),
             withCredentials: true,
             headers: {
@@ -152,7 +152,8 @@ function AdminFolder() {
   }
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_APIHOST + 'panel/folder/' + name, {
+    setLoading(true);
+    axios.get(`${process.env.REACT_APP_APIHOST}panel/${label}/${title}`, {
       cancelToken: newCancelToken(),
       withCredentials: true,
       headers: {
@@ -165,7 +166,7 @@ function AdminFolder() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [name]);
+  }, [label, title]);
 
   return (
     loading ?

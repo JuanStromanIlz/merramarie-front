@@ -12,10 +12,11 @@ function PublicFolder() {
   const [folder, setFolder] = useState({});
   const [loading, setLoading] = useState(true);
   const { newCancelToken, isCancel } = useCancelToken();
-  let {name} = useParams();
+  let {label, title} = useParams();
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_APIHOST + 'public/folder/' + name, {
+    setLoading(true);
+    axios.get(`${process.env.REACT_APP_APIHOST}public/${label}/${title}`, {
       cancelToken: newCancelToken()
     }).then((res) => {
       setFolder(res.data);
@@ -24,7 +25,7 @@ function PublicFolder() {
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [name]);
+  }, [label, title]);
 
   return (
     loading ?

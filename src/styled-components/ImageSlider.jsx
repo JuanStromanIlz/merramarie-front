@@ -8,35 +8,51 @@ const Slider = styled.div`
   z-index: 1;
   margin: 0 !important;
   background: rgba(0,0,0, .8);
-  display: flex;
   justify-content: space-around;
   align-items: center;
-  img {
-    opacity: 0;
-    width: 90%;
-    height: 90%;
-    object-fit: scale-down;
-    transition: .2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  .imgContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .slider {
+      opacity: 0;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      transition: .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      img {
+        object-fit: scale-down;
+        width: 90%;
+        height: 90%;
+        display: flex;
+        margin: auto;
+      }
+    }
+    .slider__show {
+      opacity: 1;
+    }
   }
   button {
     background: transparent;
     border: none;
     color: ${props => props.theme.colors.pink};
-    opacity: .4;
     position: absolute;
     top: 0;
     bottom: 0;
-    span {
-      font-size: 4rem;
-    }
   }
   .slide {
+    display: none;
+    place-items: center;
     z-index: 1;
     width: 30vw;
     max-width: 200px;
     span {
       visibility: hidden;
       border-radius: 50%;
+      border: 2px solid ${props => props.theme.colors.pink};
+      -webkit-text-stroke: 2px ${props => props.theme.colors.pink};
+      color: transparent;
+      font-size: 6rem;
       transition: .1s ease-in;
     }
   }
@@ -54,19 +70,42 @@ const Slider = styled.div`
     top: 1rem;
     right: 1rem;
     span {
-      font-size: 3rem;
+      font-size: 4rem;
+      color: ${props => props.theme.colors.red};
+    }
+  }
+  .list {
+    position: absolute;
+    bottom: 1.3rem;
+    width: 100%;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 1.2rem;
+    .listItem {
+      cursor: pointer;
+      border-radius: 25px;
+      padding: .8rem;
+      background: transparent;
+      border: 1px solid ${props => props.theme.colors.pink};
+      margin: 0 .8rem;
+      transition: .5s;
+    }
+    .listItem__active {
+      background: ${props => props.theme.colors.red};
+      box-shadow: 0 0 10px 4px ${props => props.theme.colors.red};
     }
   }
   @media (hover: hover) {
     .slide span:hover {
-      transform: scale(1.8);
-      color: ${props => props.theme.colors.red};
-      opacity: 1;
+      transform: scale(1.2);
+      border: 2px solid ${props => props.theme.colors.red};
+      -webkit-text-stroke: 2px ${props => props.theme.colors.red};
     }
     .close:hover {
       opacity: 1;
       span {
-        transform: scale(1.5);
         color: ${props => props.theme.colors.pink};
       }
     }
@@ -74,6 +113,7 @@ const Slider = styled.div`
   @media(min-width: 920px) {
     button.slide {
       opacity: 1;
+      display: grid;
       span {
         visibility: visible;
       }
@@ -83,54 +123,90 @@ const Slider = styled.div`
 
 
 const ImageSlider = ({images, singleImg, open, setOpen}) => {
-  const [index, setIndex] = useState(singleImg);
+  const [index, setIndex] = useState([]);
+  const [indexCard, setIndexCard] = useState(0);
+  const [touchStartPoint, setTouchStartPoint] = useState(0);
+  const [moveDirection, setMoveDirection] = useState(true);
 
-  const slideRight = () => {
-    document.getElementById('imageToShow').style.opacity='0';
-    setTimeout(() => {
-      setIndex((index + 1) % images.length);
-      document.getElementById('imageToShow').style.opacity='1';
-    }, 200);
-  };
+  /* Touch */
+  function touchStart(e) {
+    setTouchStartPoint(e.changedTouches[0].clientX);
+  }
+  function touchMove(e) {
+    setMoveDirection(e.changedTouches[0].clientX < touchStartPoint);
+  }
+  function touchEnd() {
+    let lastCard = indexCard + 1;
+    setTimeout(()=> {
+      if (moveDirection) {
+        if (lastCard < index.length) {
+          setIndexCard(indexCard +1);
+        }
+        if (lastCard === index.length) {
+          setIndexCard(0);
+        }
+      } else if(!moveDirection && indexCard > 0) {
+        setIndexCard(indexCard -1);
+      }
+    }, 250);
+  }
 
-  const slideLeft = () => {
-    const nextIndex = index - 1;
-    document.getElementById('imageToShow').style.opacity='0';
-    if (nextIndex < 0) {
-      setTimeout(() => {
-        setIndex(images.length - 1);
-        document.getElementById('imageToShow').style.opacity='1';
-      }, 200);
-    } else {
-      setTimeout(() => {
-        setIndex(nextIndex);
-        document.getElementById('imageToShow').style.opacity='1';
-      }, 200);
+  /* Buttons */
+  function buttonLeft() {
+    if (indexCard > 0) {
+      setIndexCard(indexCard -1);
     }
-  };
+  }
+
+  function buttonRight() {
+    let lastCard = indexCard + 1;
+    if (lastCard < index.length) {
+      setIndexCard(indexCard +1);
+    }
+    if (lastCard === index.length) {
+      setIndexCard(0);
+    }
+  }
 
   useEffect(() => {
+    setIndex(images);
+    setIndexCard(singleImg);
     if (open) {
-      setIndex(singleImg);
-      document.getElementById('imageToShow').style.opacity='1';
       document.getElementById('imageSlider').style.display='flex';
     } else {
       document.getElementById('imageSlider').style.display='none';
     }
-  }, [open, singleImg]);
+  }, [open, images, singleImg]);
 
   return (
-    <Slider id='imageSlider'>
+    <Slider 
+      id='imageSlider'
+      onTouchStart={touchStart}
+      onTouchEnd={touchEnd}
+      onTouchMove={touchMove}
+    >
       <button className='close'>
         <span className='material-icons' onClick={() => setOpen(false)}>close</span>
       </button>
-      <button className='slide slide__left' onClick={slideLeft}>
+      <button className='slide slide__left' onClick={buttonLeft}>
         <span className='material-icons'>chevron_left</span>
       </button>
-      <img id='imageToShow' src={images[index].url} alt={index} />
-      <button className='slide slide__right' onClick={slideRight}>
+      <div className='imgContainer'>
+        {index.map((img, i) => 
+          <div className={`slider  ${indexCard === i ? 'slider__show' : null}`}>
+          <img src={img.url} alt='folder'></img>
+          </div>
+        )}
+      </div>
+      {/* <img id='imageToShow' src={images[index].url} alt={index} /> */}
+      <button className='slide slide__right' onClick={buttonRight}>
         <span className='material-icons'>chevron_right</span>
       </button>
+      <div className='list'>
+        {index.map((item, i) => 
+          <div className={`listItem ${indexCard === i ? 'listItem__active' : null}`}></div>
+        )}
+      </div>
     </Slider>
   );
 }

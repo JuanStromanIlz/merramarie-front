@@ -38,11 +38,11 @@ function App() {
             <Route exact path='/about_me' component={AboutMe} />
             <Route exact path='/contact' component={Contact} />
             <Route exact path='/error' component={ErrorView} />
-            <Route exact path='/:name' component={PublicFolder}/>
-              <Route exact path='/panel/log_in' component={AdminLog} />
-              <PrivateRoute exact path='/panel/log_out' component={AdminLogOut}/>
-              <PrivateRoute exact path='/panel/new' component={AdminNewEntry}/>
-              <PrivateRoute exact path='/panel/folder/:name' component={AdminFolder}/>
+            <Route path='/folder/:label/:title' component={PublicFolder}/>
+            <Route exact path='/panel' component={AdminLog} />
+            <PrivateRoute path='/panel/log_out' component={AdminLogOut} />
+            <PrivateRoute path='/panel/new' component={AdminNewEntry} />
+            <PrivateRoute path='/panel/folder/:label/:title' component={AdminFolder} />
           </Switch>
         </Router>
       </AdminContext>

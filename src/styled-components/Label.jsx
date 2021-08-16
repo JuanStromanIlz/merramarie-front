@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom';
 
 const Card = styled.div`
   cursor: pointer;
+  overflow: hidden;
   display: inline-block;
   margin-top: 1.3rem;
   margin-bottom: 1.3rem;
   transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-  background: ${props => props.theme.colors.red};
   aspect-ratio: 7 / 4;
+  backdrop-filter: invert(5%);
   .mediaContainer {
     aspect-ratio: 7 / 4;
     position: relative;
@@ -43,15 +44,21 @@ const Card = styled.div`
     left: 0;
     right: 0;
     padding: 1.3rem;
+    padding-top: .3rem;
     transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    backdrop-filter: blur(1px);
-    h2 {
+    box-shadow: 0 -1rem 15px 5px ${props => props.theme.colors.red};
+    background: ${props => props.theme.colors.red};
+    .title {
+      color: white;
       font-weight: 200;
+      font-size: 1.8rem;
     }
-    h3 {
+    .tags {
+      font-size: 1.6rem;
       text-transform: lowercase;
       font-weight: 100;
-      color: ${props => props.theme.colors.green};
+      font-style: italic;
+      color: ${props => props.theme.colors.pink};
     }
   }
   .lazyload-wrapper {
@@ -82,11 +89,11 @@ const Card = styled.div`
   }
   @media (min-width: 920px) {
     .cardInfo {
-      h2 {
-        font-size: 4rem;
+      .title {
+        font-size: 2.8rem;
       }
-      h3 {
-        font-size: 2.1rem; 
+      .tags {
+        font-size: 2.4rem; 
       }
     }
   }
@@ -106,7 +113,7 @@ const Label = styled.div`
 
 const LabelCard = ({item, adminRoutes}) => {
   return (
-    <Link to={adminRoutes ? '/panel/folder/' + item.route_title : '/' + item.route_title} className='link'>
+    <Link to={adminRoutes ? `/panel/folder/${item.label}/${item.route_title}` : `/folder/${item.label}/${item.route_title}`} className='link'>
       <Card className='card__item'>
         {item.label === 'films' ? 
           <div className='mediaContainer'>
@@ -140,9 +147,9 @@ const LabelCard = ({item, adminRoutes}) => {
           </>
         }
         <div className='cardInfo'>
-          <h2>{item.title}</h2>
+          <h3 className='title'>{item.title}</h3>
           {item.category ?
-            <h3>#{item.category}</h3>
+            <h4 className='tags'>#{item.category}</h4>
           : null}
         </div>
       </Card>

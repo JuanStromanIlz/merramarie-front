@@ -105,7 +105,7 @@ function NewDoc({setLoading}) {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.push(`/panel/folder/${title}`);
+          history.push(`/panel/folder/${values.label}/${title}`);
         }
       } catch(err) {
         history.push('/error');
@@ -125,7 +125,7 @@ function NewDoc({setLoading}) {
           let title = values.title.trim();
           title = title.toLowerCase();
           title = title.replace(/ /g, '_');
-          history.push(`/panel/folder/${title}`);
+          history.push(`/panel/folder/${values.label}/${title}`);
         }
       } catch(err) {
         history.push('/error');

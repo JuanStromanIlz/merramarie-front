@@ -7,6 +7,7 @@ import LazyLoad from 'react-lazyload';
 
 const Folder = styled.div`
   article {
+    min-height: calc(100vh - 140px);
     .content {
       > div {
         margin-bottom: 2rem;
@@ -122,7 +123,7 @@ const FolderView = ({folder}) => {
         <StickyTitle 
           isFolder={true} 
           share={pageBottom} 
-          folder={{title: folder.title, route: folder.route_title}}
+          folder={{title: folder.title, label: folder.label, route: folder.route_title}}
         >
           {folder.title}
         </StickyTitle>

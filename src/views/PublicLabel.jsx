@@ -14,12 +14,13 @@ function PublicLabel({labelName}) {
   const label = window.location.pathname;
 
   useEffect(() => {
+    setLoading(true);
     window.document.title= labelName + ' | Merra Marie';
     let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
     if (admin) {
       setAdminRoutes(true);
     }
-    axios.get(process.env.REACT_APP_APIHOST + 'public/label' + label, {
+    axios.get(`${process.env.REACT_APP_APIHOST}public/${label}`, {
       cancelToken: newCancelToken()
     }).then((res) => {
       setLabelInfo(res.data);

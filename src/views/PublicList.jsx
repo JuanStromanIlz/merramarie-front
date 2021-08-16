@@ -18,7 +18,7 @@ function PublicList() {
     if (admin) {
       setAdminRoutes(true);
     }
-    axios.get(process.env.REACT_APP_APIHOST + 'public/label/publications', {
+    axios.get(`${process.env.REACT_APP_APIHOST}public/publications`, {
       cancelToken: newCancelToken()
     }).then((res) => {
       setLabelInfo(res.data);

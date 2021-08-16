@@ -114,11 +114,11 @@ const BannerContainer = () => {
     async function getInfo() {
       let promises = [];
       let urls = [];
-      let labels = await axios.get(process.env.REACT_APP_APIHOST + 'public/all');
+      let labels = await axios.get(`${process.env.REACT_APP_APIHOST}public/all`);
       if (labels) {
         let list = labels.data;
         list.map(label => {
-          let promise = axios.get(process.env.REACT_APP_APIHOST + 'public/label/' + label);
+          let promise = axios.get(`${process.env.REACT_APP_APIHOST}public/${label}`);
           promises.push(promise);
         });
         let promisesList = await Promise.all(promises);

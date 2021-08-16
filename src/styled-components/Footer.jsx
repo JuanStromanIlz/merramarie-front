@@ -7,7 +7,7 @@ const Footer = styled.footer`
     padding-left: 2.6rem;
     padding-right: 2.6rem;
     > div {
-      border-top: 1px solid ${props => props.theme.colors.pink};
+      border-top: 1px solid ${props => props.theme.colors.red};
       padding-top: 2.6rem;
       h3 {
         font-size: 20px;
@@ -24,12 +24,16 @@ const Footer = styled.footer`
         flex-direction: row;
         justify-content: space-between;
         li {
+          background: ${props => props.theme.colors.red};
+          padding: .3rem 1rem;
+          border-radius: 25px;
+          box-shadow: 0 0 1px 1px ${props => props.theme.colors.pink};
+          transition: .1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           a {
-            color: ${props => props.theme.colors.pink};
             text-decoration: none;
             text-transform: uppercase;
             display: block;
-            font-weight: 200;
+            color: ${props => props.theme.colors.pink};
           }
         }
       }
@@ -42,13 +46,16 @@ const Footer = styled.footer`
     box-shadow: 0 -10px 10rem 6rem rgba(189, 41, 41, .7);
   }
   @media (hover: hover) {
-    a:hover {
-      color: black !important;
+    li:hover {
+      transform: scale(.9);
     }
   }
   @media (min-width: 920px) {
     h3 {
       font-size: 1.4rem !important;
+    }
+    li {
+      box-shadow: 0 0 1px 1px transparent;
     }
     .footerEnd {
       box-shadow: 0 0 0 0 transparent;
@@ -67,8 +74,18 @@ const FooterComp = ({label, nextFolder}) => {
     }
     if (footer) {
       document.getElementsByClassName('footerEnd')[0].style.boxShadow='0 -10px 10rem 6rem rgba(189, 41, 41, .7)';
+      let buttons = document.getElementById('footer').getElementsByTagName('li');
+      for (let i = 0; i < buttons.length; i++) {
+        const element = buttons[i];
+        element.style.boxShadow='0 0 1px 1px #f2d5d5';
+      }
     } else {
       document.getElementsByClassName('footerEnd')[0].style.boxShadow='';
+      let buttons = document.getElementById('footer').getElementsByTagName('li');
+      for (let i = 0; i < buttons.length; i++) {
+        const element = buttons[i];
+        element.removeAttribute('style');
+      }
     }
     const onScroll = () => {
       setFooter((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
@@ -89,7 +106,7 @@ const FooterComp = ({label, nextFolder}) => {
             </li>
             {nextFolder ? 
               <li className='last'>
-                <Link to={`${adminRoutes ? '/panel/folder/' + nextFolder : '/' + nextFolder }`} className='link'>
+                <Link to={adminRoutes ? `/panel/folder/${label}/${nextFolder.route_title}` : `/folder/${label}/${nextFolder.route_title}`} className='link'>
                   <h3>Siguiente</h3>  
                 </Link>
               </li>

@@ -11,8 +11,8 @@ function PrivateRoute({component: Component, path, exact}) {
       exact={exact}
       render={() =>
         token ? 
-        (<Component />) : 
-        (<Redirect to='/' />)
+        <Component /> : 
+        <Redirect to='/' />
       }
     />
   );

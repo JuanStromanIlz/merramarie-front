@@ -17,9 +17,9 @@ const Title = styled.div`
   z-index: 1;
   transition: .8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   .header__title {
-    font-size: 3.6rem;
+    font-size: 3rem;
     font-weight: 400;
-    line-height: 3.6rem;
+    line-height: 3rem;
     -webkit-text-stroke: 2px ${props => props.theme.colors.red};
     color: transparent;
     overflow-wrap: break-word;
@@ -48,11 +48,8 @@ const Title = styled.div`
     top: 2.6rem;
     transform: translateX(0) !important;
     .header__title {
-      font-size: 7rem;
-      line-height: 7rem;
-    }
-    #mediaShare button svg {
-      width: 50px;
+      font-size: 6rem;
+      line-height: 6rem;
     }
   }
 `;
@@ -76,7 +73,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
           <div id='mediaShare'>
             <div>
               <FacebookShareButton
-                url={`${process.env.PUBLIC_URL}/${folder.route}`}
+                url={`${process.env.PUBLIC_URL}/${folder.label}/${folder.route}`}
                 quote={folder.title}
               >
                 <FacebookIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
@@ -84,7 +81,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             </div>
             <div>
               <TwitterShareButton
-                url={`${process.env.REACT_APP_FRONTEND}/${folder.route}`}
+                url={`${process.env.REACT_APP_FRONTEND}/${folder.label}/${folder.route}`}
                 title={folder.title}
               >
                 <TwitterIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
@@ -92,7 +89,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             </div>
             <div>
               <TumblrShareButton
-                url={`${process.env.REACT_APP_FRONTEND}/${folder.route}`}
+                url={`${process.env.REACT_APP_FRONTEND}/${folder.label}/${folder.route}`}
                 title={folder.title}
               >
                 <TumblrIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
@@ -100,7 +97,7 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
             </div>
             <div>
               <WhatsappShareButton
-                url={`${process.env.REACT_APP_FRONTEND}/${folder.route}`}
+                url={`${process.env.REACT_APP_FRONTEND}/${folder.label}/${folder.route}`}
                 title={folder.title}
               >
                 <WhatsappIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />

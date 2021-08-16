@@ -54,7 +54,7 @@ const Item = styled.section`
 const LinkItem = ({item, adminRoutes}) => {
   return (
     adminRoutes ? 
-    <Link to={`/panel/folder/${item.route_title}`} className='link'>
+    <Link to={`/panel/folder/${item.label}/${item.route_title}`} className='link'>
       <Item>
         <div className='itemWrapper'>
           <div className='icon'>
