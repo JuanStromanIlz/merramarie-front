@@ -157,10 +157,11 @@ function AdminFolder() {
       window.document.querySelector('meta[property="og:type"]').setAttribute("content", "article");
       /*og:title */
       window.document.querySelector('meta[property="og:title"]').setAttribute("content", `${folder.title} por Merra Marie`);
+      window.document.querySelector('meta[name="twitter:title"]').setAttribute("content", `${folder.title} por Merra Marie`);
       window.document.title= `${folder.title} por Merra Marie`;
       /* og:description default */
-      window.document.querySelector('meta[name="description"]').setAttribute("content",'Ver este y otros trabajos en mi web.');
-      window.document.querySelector('meta[name="twitter:description"]').setAttribute("content",'Ver este y otros trabajos en mi web.');
+      window.document.querySelector('meta[name="description"]').setAttribute("content", 'Ver este y otros trabajos en mi web.');
+      window.document.querySelector('meta[name="twitter:description"]').setAttribute("content", 'Ver este y otros trabajos en mi web.');
       /* og:url */
       window.document.querySelector('meta[property="og:url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/folder/${folder.label}/${folder.route_title}`);
       /* og:image default */
