@@ -9,9 +9,6 @@ const Footer = styled.footer`
     > div {
       border-top: 1px solid ${props => props.theme.colors.red};
       padding-top: 2.6rem;
-      h3 {
-        font-size: 20px;
-      }
       ul {
         flex-basis: 100%;
         list-style-type:none;
@@ -33,7 +30,11 @@ const Footer = styled.footer`
             text-decoration: none;
             text-transform: uppercase;
             display: block;
+            font-size: 1.6rem;
             color: ${props => props.theme.colors.pink};
+            h3 {
+              font-size: 1.6rem;
+            }
           }
         }
       }
@@ -51,9 +52,6 @@ const Footer = styled.footer`
     }
   }
   @media (min-width: 920px) {
-    h3 {
-      font-size: 1.4rem !important;
-    }
     li {
       box-shadow: 0 0 1px 1px transparent;
     }

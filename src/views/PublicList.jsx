@@ -13,7 +13,22 @@ function PublicList() {
   const { newCancelToken, isCancel } = useCancelToken();
 
   useEffect(() => {
+    /* og:type */
+    window.document.querySelector('meta[property="og:type"]').setAttribute("content", "website");
+    /* og:title */
+    window.document.querySelector('meta[property="og:title"]').setAttribute("content", 'Publicaciones | Merra Marie');
+    window.document.querySelector('meta[name="twitter:title"]').setAttribute("content", 'Publicaciones | Merra Marie');
     window.document.title= 'Publicaciones | Merra Marie';
+    /* og:description */
+    window.document.querySelector('meta[name="description"]').setAttribute("content", 'Publicaciones destacadas.');
+    window.document.querySelector('meta[name="twitter:description"]').setAttribute("content", 'Publicaciones destacadas.');
+    /* og:url */
+    window.document.querySelector('meta[property="og:url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/publications`);
+    /* og:images default */
+    window.document.querySelector('meta[property="og:image"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+    window.document.querySelector('meta[property="og:image:secure_url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+    window.document.querySelector('meta[name="twitter:image"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+    window.document.querySelector('meta[name="twitter:image:secure_url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
     let admin = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_NAME);
     if (admin) {
       setAdminRoutes(true);

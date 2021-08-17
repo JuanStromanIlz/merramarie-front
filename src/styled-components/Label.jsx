@@ -46,17 +46,17 @@ const Card = styled.div`
     padding: 1.3rem;
     padding-top: .3rem;
     transition: .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 -1rem 15px 5px ${props => props.theme.colors.red};
-    background: ${props => props.theme.colors.red};
+    box-shadow: 0 -1rem 15px 5px rgba(189, 41, 41, .7);
+    background: rgba(189, 41, 41, .7);
     .title {
-      color: white;
-      font-weight: 200;
+      color: ${props => props.theme.colors.pink};
+      font-weight: 300;
       font-size: 1.8rem;
     }
     .tags {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       text-transform: lowercase;
-      font-weight: 100;
+      font-weight: 200;
       font-style: italic;
       color: ${props => props.theme.colors.pink};
     }
@@ -93,7 +93,7 @@ const Card = styled.div`
         font-size: 2.8rem;
       }
       .tags {
-        font-size: 2.4rem; 
+        font-size: 2.2rem; 
       }
     }
   }

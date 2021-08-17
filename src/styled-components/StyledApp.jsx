@@ -28,7 +28,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: black;
-  color: white;
+  color: ${props => props.theme.colors.pink};
 }
 *,
 :after,

@@ -16,12 +16,20 @@ const Nav = styled.nav`
         li {
           margin-right: 3rem;
           button {
-            background: transparent;
             border: none;
-            padding: 0;
-            color: ${props => props.theme.colors.pink};
-            text-decoration: none;
-            text-transform: uppercase;
+            cursor: pointer;
+            background: ${props => props.theme.colors.red};
+            padding: .3rem 1rem;
+            border-radius: 25px;
+            box-shadow: 0 0 1px 1px ${props => props.theme.colors.pink};
+            transition: .1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            span {
+              text-decoration: none;
+              text-transform: uppercase;
+              display: block;
+              font-size: 1.6rem;
+              color: ${props => props.theme.colors.pink};
+            }
           }
         }
         li:last-child {
@@ -36,7 +44,7 @@ const Nav = styled.nav`
   }
   @media (hover: hover) {
     button:hover {
-      color: ${props => props.theme.colors.red} !important;
+      transform: scale(.9) !important;
     }
   }
   @media (min-width: 920px) {
@@ -52,8 +60,16 @@ const AdminNav = ({edit, setEdit, deleteItem}) => {
       <div className='navWrapper'>
         <div className='list'>
           <ul>
-            <li><button className='navOption' onClick={() => setEdit(!edit)}>{edit ? 'Volver' : 'Editar'}</button></li>
-            <li><button className='navOption' onClick={() => deleteItem()}>Eliminar</button></li>
+            <li>
+              <button className='navOption' onClick={() => setEdit(!edit)}>
+                <span>{edit ? 'Volver' : 'Editar'}</span>
+              </button>
+            </li>
+            <li>
+              <button className='navOption' onClick={() => deleteItem()}>
+                <span>Eliminar</span>
+              </button>
+            </li>
           </ul>
         </div>
       </div>

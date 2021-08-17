@@ -152,6 +152,36 @@ function AdminFolder() {
   }
 
   useEffect(() => {
+    function metaFolder(folder) {
+      /* og:type */
+      window.document.querySelector('meta[property="og:type"]').setAttribute("content", "article");
+      /*og:title */
+      window.document.querySelector('meta[property="og:title"]').setAttribute("content", `${folder.title} por Merra Marie`);
+      window.document.title= `${folder.title} por Merra Marie`;
+      /* og:description default */
+      window.document.querySelector('meta[name="description"]').setAttribute("content",'Ver este y otros trabajos en mi web.');
+      window.document.querySelector('meta[name="twitter:description"]').setAttribute("content",'Ver este y otros trabajos en mi web.');
+      /* og:url */
+      window.document.querySelector('meta[property="og:url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/folder/${folder.label}/${folder.route_title}`);
+      /* og:image default */
+      window.document.querySelector('meta[property="og:image"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+      window.document.querySelector('meta[property="og:image:secure_url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+      window.document.querySelector('meta[name="twitter:image"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+      window.document.querySelector('meta[name="twitter:image:secure_url"]').setAttribute("content", `${process.env.REACT_APP_FRONTEND}/heart.png`);
+      if ('images' in folder) {
+        let metaImg = folder.images[0].url;
+        window.document.querySelector('meta[property="og:image"]').setAttribute("content", metaImg);
+        window.document.querySelector('meta[property="og:image:secure_url"]').setAttribute("content", metaImg);
+        window.document.querySelector('meta[name="twitter:image:secure_url"]').setAttribute("content", metaImg);
+        window.document.querySelector('meta[name="twitter:image"]').setAttribute("content", metaImg);
+        window.document.querySelector('meta[property="og:image:width"]').setAttribute("content", 871);
+        window.document.querySelector('meta[property="og:image:height"]').setAttribute("content", 564);
+      }
+      if ('description' in folder) {
+        window.document.querySelector('meta[name="description"]').setAttribute("content", folder.description);
+        window.document.querySelector('meta[name="twitter:description"]').setAttribute("content", folder.description);
+      }
+    }
     setLoading(true);
     axios.get(`${process.env.REACT_APP_APIHOST}panel/${label}/${title}`, {
       cancelToken: newCancelToken(),
@@ -161,12 +191,12 @@ function AdminFolder() {
       }
     }).then((res) => {
       setFolder(res.data);
-      window.document.title= res.data.title + ' | Merra Marie';
+      metaFolder(res.data);
       setLoading(false);
     }).catch((error) => {
       if (isCancel(error)) return;
     });
-  }, [label, title]);
+  }, [label, title, edit]);
 
   return (
     loading ?

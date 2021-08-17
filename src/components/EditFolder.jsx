@@ -158,23 +158,28 @@ function EditFolder({folder, sendEdit}) {
                     </div>
                   </div>
                 </div>
-                <div className='formInput'>
-                  <label>Eliminar imagenes</label>
-                </div>
-                <div className='imagesEdit'>
-                {folder.images ?
-                  imagesArray.map(img => 
-                  <div className='imageSelect' key={img.path}>
-                    <label>
-                      <Field type='checkbox' name='deleteImgs' value={img.path}/>
-                    </label>
-                    <img src={img.url} alt='some-img'/>
-                  </div>
-                ) : null}
-                </div>
+                {folder.images ? 
+                  <>
+                    <div className='formInput'>
+                      <label>Eliminar imagenes</label>
+                    </div>
+                    <div className='imagesEdit'>
+                      {imagesArray.map(img => 
+                      <div className='imageSelect' key={img.path}>
+                        <label>
+                          <Field type='checkbox' name='deleteImgs' value={img.path}/>
+                        </label>
+                        <img src={img.url} alt='some-img'/>
+                      </div>
+                      )}
+                    </div>
+                  </>
+                : null}
               </>
             : null}
-            <button type='submit'>Guardar</button>
+            <button type='submit'>
+              <span>Guardar</span>
+            </button>
           </Form>
         )}
       </Formik>

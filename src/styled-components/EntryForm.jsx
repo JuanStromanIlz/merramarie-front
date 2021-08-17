@@ -9,7 +9,6 @@ const Form = styled.form`
   .formInput {
     display: flex;
     flex-flow: column nowrap;
-    max-width: 400px;
     input, select, button, textarea {
       appeareance: none; 
       resize: none;
@@ -70,12 +69,13 @@ const Form = styled.form`
       visibility: visible;
       content: 'Subir imagenes';
       display: inline-block;
-      padding: 1rem;
+      padding: .3rem 1rem;
+      border-radius: 25px;
       color: ${props => props.theme.colors.pink};
+      text-transform: uppercase;
+      font-weight: 400;
       border: 1px solid rgba(255, 255, 255, .2);
-    }
-    input:hover:before {
-      border-color: ${props => props.theme.colors.pink};
+      cursor: pointer;
     }
   }
   /* Styles for validation */
@@ -120,21 +120,31 @@ const Form = styled.form`
     }
   }
   button {
+    border: none;
     width: fit-content;
-    text-transform: uppercase;
-    font-weight: 700;
-    border: 2px solid ${props => props.theme.colors.pink};
-    box-shadow: 3px 3px 0 0 ${props => props.theme.colors.red};
-    padding: 1rem;
-    color: ${props => props.theme.colors.pink};
-    background-color: transparent;
+    background: ${props => props.theme.colors.red};
+    padding: .3rem 1rem;
+    border-radius: 25px;
+    box-shadow: 0 0 1px 1px ${props => props.theme.colors.pink};
+    transition: .1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    span {
+      text-transform: uppercase;
+      font-weight: 400;
+      color: ${props => props.theme.colors.pink};
+    }
   }
-  button:hover {
-    color: #64b450;
-    box-shadow: 3px 3px 0 0 #64b450;
-    transform: translateY(-5px);
+  @media (hover: hover) {
+    button:hover {
+      transform: scale(.9);
+    }
+    input:hover:before {
+      border-color: ${props => props.theme.colors.pink};
+    }
   }
   @media (min-width: 920px) {
+    .formInput {
+      max-width: 60% !important;
+    }
     .imagesEdit {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
     }

@@ -198,7 +198,9 @@ function NewDoc({setLoading}) {
                 </div>
               </>
             : null}
-            <button type='submit'>Crear</button>
+            <button type='submit'>
+              <span>Crear</span>
+            </button>
           </Form>
         )}
       </Formik>

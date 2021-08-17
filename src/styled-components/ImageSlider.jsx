@@ -10,6 +10,7 @@ const Slider = styled.div`
   background: rgba(0,0,0, .8);
   justify-content: space-around;
   align-items: center;
+  outline: none;
   .imgContainer {
     position: relative;
     width: 100%;
@@ -70,8 +71,8 @@ const Slider = styled.div`
     top: 1rem;
     right: 1rem;
     span {
-      font-size: 4rem;
-      color: ${props => props.theme.colors.red};
+      font-size: 3rem;
+      color: ${props => props.theme.colors.pink};
     }
   }
   .list {
@@ -86,10 +87,10 @@ const Slider = styled.div`
     .listItem {
       cursor: pointer;
       border-radius: 25px;
-      padding: .8rem;
+      padding: .4rem;
       background: transparent;
       border: 1px solid ${props => props.theme.colors.pink};
-      margin: 0 .8rem;
+      margin: 0 .3rem;
       transition: .5s;
     }
     .listItem__active {
@@ -106,7 +107,7 @@ const Slider = styled.div`
     .close:hover {
       opacity: 1;
       span {
-        color: ${props => props.theme.colors.pink};
+        color: ${props => props.theme.colors.red};
       }
     }
   }
@@ -117,6 +118,9 @@ const Slider = styled.div`
       span {
         visibility: visible;
       }
+    }
+    .listItem {
+      padding: .6rem !important;
     }
   }
 `;
@@ -151,6 +155,16 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
     }, 250);
   }
 
+  /* Keys */
+  function keyPress(e) {
+    if (e.keyCode === 39 || e.keyCode === 40) {
+      buttonRight();
+    }
+    if (e.keyCode === 37 || e.keyCode === 38) {
+      buttonLeft();
+    }
+  }
+
   /* Buttons */
   function buttonLeft() {
     if (indexCard > 0) {
@@ -173,8 +187,11 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
     setIndexCard(singleImg);
     if (open) {
       document.getElementById('imageSlider').style.display='flex';
+      document.getElementById('imageSlider').focus();
+      document.body.style.overflow='hidden';
     } else {
       document.getElementById('imageSlider').style.display='none';
+      document.body.removeAttribute('style');
     }
   }, [open, images, singleImg]);
 
@@ -184,6 +201,8 @@ const ImageSlider = ({images, singleImg, open, setOpen}) => {
       onTouchStart={touchStart}
       onTouchEnd={touchEnd}
       onTouchMove={touchMove}
+      onKeyDown={keyPress}
+      tabIndex={0}
     >
       <button className='close'>
         <span className='material-icons' onClick={() => setOpen(false)}>close</span>

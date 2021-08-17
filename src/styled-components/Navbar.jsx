@@ -107,7 +107,7 @@ const Navbar = styled.nav`
     }
     .navOption {
       font-size: 2rem;
-      font-weight: 200;
+      font-weight: 400;
     }
     .homeTag {
       font-size: 2.2rem !important;
@@ -264,7 +264,7 @@ const Nav = () => {
             <li><Link className='navOption link' to='/artwork'>artwork</Link></li>
             <li><Link className='navOption link' to='/commercial'>comercial</Link></li>
             <li><Link className='navOption link' to='/films'>films</Link></li>
-            <li><Link className='navOption link' to='blog'>blog</Link></li>
+            <li><Link className='navOption link' to='/blog'>blog</Link></li>
             <li><Link className='navOption link' to='/publications'>publicaciones</Link></li>
             <li><Link className='navOption link' to='/about_me'>sobre mi</Link></li>
             <li><Link className='navOption link' to='/contact'>contacto</Link></li>
@@ -285,7 +285,7 @@ const Nav = () => {
                 <li><Link to='/artwork' className='link'>artwork</Link></li>
                 <li><Link to='/commercial' className='link'>comercial</Link></li>
                 <li><Link to='/films' className='link'>films</Link></li>
-                <li><Link to='blog' className='link'>blog</Link></li>
+                <li><Link to='/blog' className='link'>blog</Link></li>
                 <li><Link to='/publications' className='link'>publicaciones</Link></li>
                 <li><Link to='/about_me' className='link'>sobre mi</Link></li>
                 <li><Link to='/contact' className='link'>contacto</Link></li>

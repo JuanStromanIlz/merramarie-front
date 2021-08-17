@@ -73,32 +73,28 @@ const StickyTitle = ({isFolder, share, folder, children}) => {
           <div id='mediaShare'>
             <div>
               <FacebookShareButton
-                url={`${process.env.PUBLIC_URL}/${folder.label}/${folder.route}`}
-                quote={folder.title}
+                url={`${process.env.PUBLIC_URL}/folder/${folder.label}/${folder.route}`}
               >
                 <FacebookIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </FacebookShareButton>
             </div>
             <div>
               <TwitterShareButton
-                url={`${process.env.REACT_APP_FRONTEND}/${folder.label}/${folder.route}`}
-                title={folder.title}
+                url={`${process.env.REACT_APP_FRONTEND}/folder/${folder.label}/${folder.route}`}
               >
                 <TwitterIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </TwitterShareButton>
             </div>
             <div>
               <TumblrShareButton
-                url={`${process.env.REACT_APP_FRONTEND}/${folder.label}/${folder.route}`}
-                title={folder.title}
+                url={`${process.env.REACT_APP_FRONTEND}/folder/${folder.label}/${folder.route}`}
               >
                 <TumblrIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </TumblrShareButton>
             </div>
             <div>
               <WhatsappShareButton
-                url={`${process.env.REACT_APP_FRONTEND}/${folder.label}/${folder.route}`}
-                title={folder.title}
+                url={`${process.env.REACT_APP_FRONTEND}/folder/${folder.label}/${folder.route}`}
               >
                 <WhatsappIcon iconFillColor='#f2d5d5' bgStyle={{fill: 'transparent'}} />
               </WhatsappShareButton>

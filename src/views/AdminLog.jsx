@@ -74,7 +74,9 @@ function LogInView() {
                 <label for='password'>Contraseña</label>
                 <Field name='password' type='password' autoComplete='off' />
               </div>
-              <button type='submit'>Ingresar</button>
+              <button type='submit'>
+                <span>Ingresar</span>
+              </button>
             </Form>
           )}
         </Formik>

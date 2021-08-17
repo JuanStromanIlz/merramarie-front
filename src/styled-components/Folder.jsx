@@ -147,7 +147,7 @@ const FolderView = ({folder}) => {
                   <div className='content__images'>
                     {folder.images.map((img, index) => 
                       <div className='image'>
-                        <LazyLoad once offset={400} resize={true}>
+                        <LazyLoad once height={'100%'} offset={400} resize={true}>
                           <img onClick={() => openSlider(index)} width='100%' height='100%' src={img.url} alt={folder.title}/>
                         </LazyLoad>
                       </div>
