@@ -1,6 +1,8 @@
 # 📹 Merra Marie Portfolio (FRONTEND)
 Desarrollo del frontend para la app web de la artista Merra Marie\
-La misma cuenta con un acceso comun para que los visitantes naveguen el contenido, asi como una seccion de administración para poder editar las entradas de la pagina.
+La misma cuenta con un acceso comun para que los visitantes naveguen el contenido, asi como una seccion de administración para poder editar las entradas de la pagina.\
+\
+[![Ver online](https://img.shields.io/badge/-Ver%20Online-red?style=for-the-badge&logo=googlechrome&logoColor=white)](https://merramarie.vercel.app)
 ## 📖 En este proyecto:
 * ✨ react hooks.
 * 🚄 react-router-dom.
@@ -8,7 +10,7 @@ La misma cuenta con un acceso comun para que los visitantes naveguen el contenid
 * 💅 styled-components.
 * 🖨️ react-lazyload.
 * 📚 axios.
-## 📷 Caputras
+## 📷 Capturas:
 <img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446576/Proyectos/Merramarie/merramarie5_de8ujd.png'></img>
 <img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446573/Proyectos/Merramarie/merramarie3_umkpsg.png'></img>
 <img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446567/Proyectos/Merramarie/merramarie1_q5nbm0.png'></img>
