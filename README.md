@@ -11,10 +11,10 @@ La misma cuenta con un acceso comun para que los visitantes naveguen el contenid
 * 🖨️ react-lazyload.
 * 📚 axios.
 ## 📷 Capturas:
-<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446576/Proyectos/Merramarie/merramarie5_de8ujd.png'></img>
-<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446573/Proyectos/Merramarie/merramarie3_umkpsg.png'></img>
-<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446567/Proyectos/Merramarie/merramarie1_q5nbm0.png'></img>
-<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446569/Proyectos/Merramarie/merramarie2_yse3yl.png'></img>
-<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1626446566/Proyectos/Merramarie/merramarie4_zbu7bh.png'></img>
+<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1630437758/Proyectos/Merramarie/merramarie2_r8pat6.png'></img>
+<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1630437747/Proyectos/Merramarie/merramarie1_jyfakt.png'></img>
+<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1630437751/Proyectos/Merramarie/merramarie3_qa7pdd.png'></img>
+<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1630437751/Proyectos/Merramarie/merramarie4_sgcciz.png'></img>
+<img src='https://res.cloudinary.com/juanstromanilz/image/upload/v1630437750/Proyectos/Merramarie/merramarie5_cehxgu.png'></img>
 ***
 [![Ver otros repos](https://img.shields.io/badge/-Ver%20otros%20repos-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JuanStromanIlz)
